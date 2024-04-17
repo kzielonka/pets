@@ -1,3 +1,8 @@
+PATH
+  remote: announcements
+  specs:
+    announcements (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -255,6 +260,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  announcements!
   bootsnap
   capybara
   debug
