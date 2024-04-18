@@ -66,7 +66,7 @@ class CreateNewAnnouncementTest < IntegrationTest
 
   test "responds with 404 trying to edit someone else order" do
     signed_in_user = sign_in_random_user
-    other_signed_in_user = sign_in("other@example.com", "PAssword1234$")
+    other_signed_in_user = sign_in_random_user
     signed_in_user.post "/users/me/announcements"
     id = JSON.parse(response.body)["id"]
     other_signed_in_user.get "/users/me/announcements/#{id}"

@@ -3,6 +3,11 @@ PATH
   specs:
     announcements (0.1.0)
 
+PATH
+  remote: auth
+  specs:
+    auth (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -261,6 +266,7 @@ PLATFORMS
 
 DEPENDENCIES
   announcements!
+  auth!
   bootsnap
   capybara
   debug
