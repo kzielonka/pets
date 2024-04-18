@@ -9,7 +9,7 @@ class Announcements
     end
 
     def save(announcement)
-      @announcements.reject! { |a| a.has_id(id) }
+      @announcements.reject! { |a| a.has_id(announcement.id) }
       @announcements << announcement
     end
   end
