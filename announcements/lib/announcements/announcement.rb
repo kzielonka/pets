@@ -59,10 +59,15 @@ class Announcements
       can_be_managed_by?(user)
     end
 
+    def belongs_to?(user)
+      user = Users.build(user)
+      @owner_id == user.id
+    end
+
     private
 
     def can_be_managed_by?(user)
-      user.system? || user.id == @owner_id
+      user.system? || belongs_to?(user)
     end
   end
   private_constant :Announcement

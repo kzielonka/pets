@@ -120,4 +120,21 @@ class TestAnnouncements < Minitest::Test
       @announcements.publish(other_user, id) 
     end
   end
+
+  def test_finding_user_announcements
+    user1 = Announcements::Users::RegularUser.new("user-1")
+    user2 = Announcements::Users::RegularUser.new("user-2")
+    user1announcement1 = @announcements.add_new_draft(user1)
+    @announcements.update_title(:system, user1announcement1.id, "title1")
+    user1announcement2 = @announcements.add_new_draft(user1)
+    @announcements.update_title(:system, user1announcement2.id, "title2")
+    user2announcement1 = @announcements.add_new_draft(user2)
+    @announcements.update_title(:system, user2announcement1.id, "title3")
+
+    result = @announcements.fetch_all_for(user1)
+    assert_equal ["title1", "title2"], result.map(&:title).sort
+
+    result = @announcements.fetch_all_for(user2)
+    assert_equal ["title3"].sort, result.map(&:title).sort
+  end
 end

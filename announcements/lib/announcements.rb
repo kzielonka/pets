@@ -51,9 +51,19 @@ class Announcements
     end
   end
 
+  def fetch_all_for(user)
+    user = Users.build(user)
+    @repo.find_by_user(user).map do |announcement|
+      AnnouncementData.new(announcement.draft?, announcement.title, announcement.content)
+    end
+  end
+
   NewDraft = Struct.new(:id)
   private_constant :NewDraft
 
   FetchResult = Struct.new(:not_found?, :draft?, :title, :content)
   private_constant :FetchResult
+
+  AnnouncementData = Struct.new(:draft?, :title, :content)
+  private_constant :AnnouncementData
 end
