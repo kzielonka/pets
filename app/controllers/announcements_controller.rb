@@ -24,6 +24,18 @@ class AnnouncementsController < ApplicationController
     }
   end
 
+  def index
+    list = announcements.fetch_all_for(user_id)
+    render json: list.sort_by { |a, b| a.title }.map { |a|
+      {
+        "id" => a.id,
+        "draft" => a.draft?,
+        "title" => a.title,
+        "content" => a.content,
+      }
+    }
+  end
+
   def publish
     announcements.publish(user_id, id)
     head :ok

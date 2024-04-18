@@ -38,5 +38,16 @@ class IntegrationTest < ActionDispatch::IntegrationTest
       @test.patch(path, **new_args)
       @test.response
     end
+
+    def publish_announcement(title, content)
+      response = post "/users/me/announcements"
+      id = JSON.parse(response.body)["id"]
+      
+      patch "/users/me/announcements/#{id}", params: { title: title, content: content }
+
+      post "/users/me/announcements/#{id}/publish"
+
+      id
+    end
   end
 end

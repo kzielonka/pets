@@ -3,10 +3,7 @@ require "integration_test"
 
 class CreateNewAnnouncementTest < IntegrationTest
   test "user creates, updates and publishes announcement" do
-    post "/sign_in", params: { email: "test@example.com", password: "PAssword1234$" }
-    access_token = JSON.parse(response.body)["accessToken"]
-
-    signed_in_user = user(access_token)
+    signed_in_user = sign_in("test@example.com", "PAssword1234$")
 
     signed_in_user.post "/users/me/announcements"
     announcements_public_id = JSON.parse(response.body)["id"]
@@ -74,5 +71,41 @@ class CreateNewAnnouncementTest < IntegrationTest
     id = JSON.parse(response.body)["id"]
     other_signed_in_user.get "/users/me/announcements/#{id}"
     assert_equal 404, response.status
+  end
+
+  test "responds with user all announcements" do
+    signed_in_user1 = sign_in("test#{Random.new.rand}@example.com", "PAssword1234$")
+    signed_in_user2 = sign_in("test#{Random.new.rand}@example.com", "PAssword1234$")
+
+    id1 = signed_in_user1.publish_announcement("title1", "content1")
+    id2 = signed_in_user1.publish_announcement("title2", "content2")
+    id3 = signed_in_user2.publish_announcement("title3", "content3")
+
+    signed_in_user1.get "/users/me/announcements"
+    assert_equal 200, response.status
+    assert_equal [
+      {
+        "id" => id1,
+        "draft" => false,
+        "title" => "title1",
+        "content" => "content1"
+      }, {
+        "id" => id2,
+        "draft" => false,
+        "title" => "title2",
+        "content" => "content2"
+      }
+    ], JSON.parse(response.body)
+
+    signed_in_user2.get "/users/me/announcements"
+    assert_equal 200, response.status
+    assert_equal [
+      {
+        "id" => id3,
+        "draft" => false,
+        "title" => "title3",
+        "content" => "content3"
+      }
+    ], JSON.parse(response.body)
   end
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "/users/:user_id/announcements" => "announcements#create"
   post "/users/:user_id/announcements/:id/publish" => "announcements#publish"
   patch "/users/:user_id/announcements/:id" => "announcements#update"
+  get "/users/:user_id/announcements" => "announcements#index"
   get "/users/:user_id/announcements/:id" => "announcements#show"
 
   # Defines the root path route ("/")
