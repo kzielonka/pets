@@ -18,8 +18,12 @@ class Announcements
       @id == id
     end
 
-    def self.draft
-      new(SecureRandom.uuid, "", true, "", "")
+    def self.draft(id)
+      new(id, "", true, "", "")
+    end
+
+    def self.draft_with_random_id
+      draft(SecureRandom.uuid)
     end
 
     def assign_owner(owner_id)

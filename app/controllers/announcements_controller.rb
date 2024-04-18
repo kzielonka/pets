@@ -1,7 +1,7 @@
 class AnnouncementsController < ApplicationController
 
   def create
-    result = announcements.add_new_draft("me")
+    result = announcements.add_new_draft(user_id)
     render json: { id: result.id }
   end
 
@@ -13,6 +13,10 @@ class AnnouncementsController < ApplicationController
 
   def show
     result = announcements.fetch_private(user_id, id)
+    if result.not_found?
+      head 404
+      return
+    end
     render json: {
       draft: result.draft?,
       title: result.title,
@@ -32,7 +36,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def user_id
-    String(params[:user_id])
+    String(request.headers["HTTP_AUTHORIZATION"])
   end
 
   def announcements
