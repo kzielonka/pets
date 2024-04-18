@@ -1,6 +1,17 @@
 require "test_helper"
 
 class IntegrationTest < ActionDispatch::IntegrationTest
+
+  def sign_in_random_user
+    email = "test#{Random.new.rand}@example.com" 
+    password = "PAssword1234$"
+    sign_up(email, password)
+    sign_in(email, password)
+  end
+
+  def sign_up(email, password)
+    post "/sign_up", params: { email: email, password: password }
+  end
   
   def sign_in(email, password)
     post "/sign_in", params: { email: email, password: password }

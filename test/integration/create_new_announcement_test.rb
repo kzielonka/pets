@@ -3,7 +3,7 @@ require "integration_test"
 
 class CreateNewAnnouncementTest < IntegrationTest
   test "user creates, updates and publishes announcement" do
-    signed_in_user = sign_in("test@example.com", "PAssword1234$")
+    signed_in_user = sign_in_random_user
 
     signed_in_user.post "/users/me/announcements"
     announcements_public_id = JSON.parse(response.body)["id"]
@@ -65,7 +65,7 @@ class CreateNewAnnouncementTest < IntegrationTest
   end
 
   test "responds with 404 trying to edit someone else order" do
-    signed_in_user = sign_in("test@example.com", "PAssword1234$")
+    signed_in_user = sign_in_random_user
     other_signed_in_user = sign_in("other@example.com", "PAssword1234$")
     signed_in_user.post "/users/me/announcements"
     id = JSON.parse(response.body)["id"]
@@ -74,8 +74,8 @@ class CreateNewAnnouncementTest < IntegrationTest
   end
 
   test "responds with user all announcements" do
-    signed_in_user1 = sign_in("test#{Random.new.rand}@example.com", "PAssword1234$")
-    signed_in_user2 = sign_in("test#{Random.new.rand}@example.com", "PAssword1234$")
+    signed_in_user1 = sign_in_random_user
+    signed_in_user2 = sign_in_random_user
 
     id1 = signed_in_user1.publish_announcement("title1", "content1")
     id2 = signed_in_user1.publish_announcement("title2", "content2")
