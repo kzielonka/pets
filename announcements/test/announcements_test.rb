@@ -83,11 +83,10 @@ class TestAnnouncements < Minitest::Test
   def test_title_update_authorization
     creator = Announcements::Users::RegularUser.new("creator_id")
     other_user = Announcements::Users::RegularUser.new("other_user_id")
-    system_user = Announcements::Users::SYSTEM_USER
     announcement = @announcements.add_new_draft(creator)
     id = announcement.id
 
-    @announcements.update_title(Announcements::Users::SYSTEM_USER, id, "title1")
+    @announcements.update_title(:system, id, "title1")
     @announcements.update_title(creator, id, "title2")
     assert_raises(Announcements::Errors::AuthorizationError) do 
       @announcements.update_title(other_user, id, "title3") 
@@ -97,11 +96,10 @@ class TestAnnouncements < Minitest::Test
   def test_content_update_authorization
     creator = Announcements::Users::RegularUser.new("creator_id")
     other_user = Announcements::Users::RegularUser.new("other_user_id")
-    system_user = Announcements::Users::SYSTEM_USER
     announcement = @announcements.add_new_draft(creator)
     id = announcement.id
 
-    @announcements.update_content(Announcements::Users::SYSTEM_USER, id, "content1")
+    @announcements.update_content(:system, id, "content1")
     @announcements.update_content(creator, id, "content2")
     assert_raises(Announcements::Errors::AuthorizationError) do 
       @announcements.update_content(other_user, id, "content3") 
@@ -111,13 +109,12 @@ class TestAnnouncements < Minitest::Test
   def test_publication_authorization
     creator = Announcements::Users::RegularUser.new("creator_id")
     other_user = Announcements::Users::RegularUser.new("other_user_id")
-    system_user = Announcements::Users::SYSTEM_USER
     announcement = @announcements.add_new_draft(creator)
     id = announcement.id
     @announcements.update_title(creator, id, "title")
     @announcements.update_content(creator, id, "content")
 
-    @announcements.publish(Announcements::Users::SYSTEM_USER, id)
+    @announcements.publish(:system, id)
     @announcements.publish(creator, id)
     assert_raises(Announcements::Errors::AuthorizationError) do 
       @announcements.publish(other_user, id) 

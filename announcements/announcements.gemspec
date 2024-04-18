@@ -9,4 +9,5 @@ Gem::Specification.new do |s|
   s.files       = ["lib/announcements"]
 
   s.add_development_dependency "minitest", ">= 5"
+  s.add_development_dependency "rake", ">= 13"
 end
