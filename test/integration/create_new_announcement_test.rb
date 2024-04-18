@@ -64,13 +64,50 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal 404, response.status
   end
 
-  test "responds with 404 trying to edit someone else order" do
+  test "responds with 404 trying to get someone else announcement" do
     signed_in_user = sign_in_random_user
     other_signed_in_user = sign_in_random_user
     signed_in_user.post "/users/me/announcements"
     id = JSON.parse(response.body)["id"]
     other_signed_in_user.get "/users/me/announcements/#{id}"
     assert_equal 404, response.status
+  end
+
+  test "responds with 403 trying to edit title of someone else announcement" do
+    signed_in_user = sign_in_random_user
+    other_signed_in_user = sign_in_random_user
+    signed_in_user.post "/users/me/announcements"
+    id = JSON.parse(response.body)["id"]
+    other_signed_in_user.patch "/users/me/announcements/#{id}", params: { title: "title" }
+    assert_equal 403, response.status
+  end
+
+  test "responds with 403 trying to edit content of someone else announcement" do
+    signed_in_user = sign_in_random_user
+    other_signed_in_user = sign_in_random_user
+    signed_in_user.post "/users/me/announcements"
+    id = JSON.parse(response.body)["id"]
+    other_signed_in_user.patch "/users/me/announcements/#{id}", params: { content: "content" }
+    assert_equal 403, response.status
+  end
+
+  test "responds with 403 trying to publish someone else announcement" do
+    signed_in_user = sign_in_random_user
+    other_signed_in_user = sign_in_random_user
+    signed_in_user.post "/users/me/announcements"
+    id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{id}", params: { title: "title", content: "content" }
+    other_signed_in_user.post "/users/me/announcements/#{id}/publish"
+    assert_equal 403, response.status
+  end
+
+  test "responds with 400 trying to publish unready announcement" do
+    signed_in_user = sign_in_random_user
+    signed_in_user.post "/users/me/announcements"
+    id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{id}", params: { title: "title" }
+    signed_in_user.post "/users/me/announcements/#{id}/publish"
+    assert_equal 400, response.status
   end
 
   test "responds with user all announcements" do

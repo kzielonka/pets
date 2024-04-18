@@ -9,6 +9,8 @@ class AnnouncementsController < ApplicationController
     announcements.update_title(user_id, id, params[:title]) if params[:title]
     announcements.update_content(user_id, id, params[:content]) if params[:content]
     head :ok
+  rescue Announcements::Errors::AuthorizationError
+    head 403
   end
 
   def show
@@ -39,6 +41,10 @@ class AnnouncementsController < ApplicationController
   def publish
     announcements.publish(user_id, id)
     head :ok
+  rescue Announcements::Errors::AuthorizationError
+    head 403
+  rescue  Announcements::Errors::UnfinishedDraftError
+    head 400
   end
 
   private
