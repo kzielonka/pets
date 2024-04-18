@@ -17,14 +17,17 @@ class Announcements
   end
 
   def update_title(user, id, title)
+    user = Users.build(user)
     @repo.find(id).change_title(user, title)
   end
 
   def update_content(user, id, content)
-     @repo.find(id).change_content(user, content)
+    user = Users.build(user)
+    @repo.find(id).change_content(user, content)
   end
 
   def publish(user, id)
+    user = Users.build(user)
     @repo.find(id).publish(user)
   end
 

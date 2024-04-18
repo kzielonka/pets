@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require "announcements"
 
-class TestMeme < Minitest::Test
+class TestAnnouncements < Minitest::Test
   def setup
     @announcements = Announcements.new
   end
@@ -17,9 +17,9 @@ class TestMeme < Minitest::Test
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)
     id = announcement.id
-    @announcements.update_title(Announcements::Users::SYSTEM_USER, id, "title") 
-    @announcements.update_content(Announcements::Users::SYSTEM_USER, id, "content") 
-    @announcements.publish(Announcements::Users::SYSTEM_USER, id)
+    @announcements.update_title(:system, id, "title") 
+    @announcements.update_content(:system, id, "content") 
+    @announcements.publish(:system, id)
 
     result = @announcements.fetch_public(announcement.id)
     assert !result.not_found?
@@ -31,10 +31,10 @@ class TestMeme < Minitest::Test
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)
     id = announcement.id
-    @announcements.update_content(Announcements::Users::SYSTEM_USER, id, "content") 
+    @announcements.update_content(:system, id, "content") 
 
     assert_raises(Announcements::Errors::UnfinishedDraftError) do 
-      @announcements.publish(Announcements::Users::SYSTEM_USER, id)
+      @announcements.publish(:system, id)
     end
   end
 
@@ -42,10 +42,10 @@ class TestMeme < Minitest::Test
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)
     id = announcement.id
-    @announcements.update_title(Announcements::Users::SYSTEM_USER, id, "title") 
+    @announcements.update_title(:system, id, "title") 
 
     assert_raises(Announcements::Errors::UnfinishedDraftError) do 
-      @announcements.publish(Announcements::Users::SYSTEM_USER, id)
+      @announcements.publish(:system, id)
     end
   end
 
