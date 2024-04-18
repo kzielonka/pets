@@ -11,6 +11,7 @@ class Announcements
   end
 
   def add_new_draft(user)
+    user = Users.build(user)
     announcement = Announcement.draft.assign_owner(user.id)
     @repo.save(announcement)
     NewDraft.new(announcement.id)
