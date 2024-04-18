@@ -24,20 +24,33 @@ class Announcements
     end
 
     def change_title(user, title)
+      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       @title = title
       self
     end
 
     def change_content(user, content)
+      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       @content = content
+      self
     end
 
-    def publish
+    def publish(user)
+      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      raise Errors::UnfinishedDraftError.new if @title == ""
+      raise Errors::UnfinishedDraftError.new if @content == ""
       @draft = false
+      self
     end
 
     def public?
       !@draft
+    end
+
+    private
+
+    def can_be_managed_by?(user)
+      user.system? || user.id == @owner_id
     end
   end
   private_constant :Announcement

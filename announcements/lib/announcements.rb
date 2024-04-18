@@ -1,5 +1,7 @@
 require "securerandom" 
 
+require "announcements/errors"
+require "announcements/users"
 require "announcements/repo"
 require "announcements/announcement"
 
@@ -8,14 +10,14 @@ class Announcements
     @repo = Repo.new
   end
 
-  def add_new_draft(creator_id)
-    announcement = Announcement.draft.assign_owner(creator_id)
+  def add_new_draft(user)
+    announcement = Announcement.draft.assign_owner(user.id)
     @repo.save(announcement)
     NewDraft.new(announcement.id)
   end
 
   def update_title(user, id, title)
-     @repo.find(id).change_title(user, title)
+    @repo.find(id).change_title(user, title)
   end
 
   def update_content(user, id, content)
@@ -23,7 +25,7 @@ class Announcements
   end
 
   def publish(user, id)
-    @repo.find(id).publish
+    @repo.find(id).publish(user)
   end
 
   def fetch_public(id)
@@ -43,20 +45,4 @@ class Announcements
 
   PublicAnnouncement = Struct.new(:public_id, :title, :content)
   private_constant :PublicAnnouncement
-
-  SYSTEM_USER = Object.new.tap do |o|
-    def system?
-      true
-    end
-  end
-
-  class RegularUser
-    def initialize(user_id)
-      @user_id = String(user_id).dup.freeze
-    end
-
-    def system?
-      false
-    end
-  end
 end
