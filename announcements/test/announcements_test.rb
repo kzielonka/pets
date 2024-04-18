@@ -13,6 +13,37 @@ class TestAnnouncements < Minitest::Test
     assert result.not_found?
   end
 
+  def test_edditing
+    user = Announcements::Users::RegularUser.new("creator_id")
+    announcement = @announcements.add_new_draft(user)
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.not_found?
+    assert result.draft?
+    assert_equal "", result.title
+    assert_equal "", result.content
+
+    @announcements.update_title(:system, announcement.id, "title")
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.not_found?
+    assert result.draft?
+    assert_equal "title", result.title
+    assert_equal "", result.content
+
+    @announcements.update_content(:system, announcement.id, "content")
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.not_found?
+    assert result.draft?
+    assert_equal "title", result.title
+    assert_equal "content", result.content
+
+    @announcements.publish(:system, announcement.id)
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.not_found?
+    assert !result.draft?
+    assert_equal "title", result.title
+    assert_equal "content", result.content
+  end
+
   def test_publishing_with_title_and_content
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)

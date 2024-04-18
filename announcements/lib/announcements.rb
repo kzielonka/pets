@@ -33,19 +33,26 @@ class Announcements
 
   def fetch_public(id)
     announcement = @repo.find(id)
-    if announcement && announcement.public?
-      FetchResult.new(false, announcement.title, announcement.content)
+    if announcement.public?
+      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content)
     else 
-      FetchResult.new(true, "", "")
+      FetchResult.new(true, false, "", "")
+    end
+  end
+
+  def fetch_private(user, id)
+    user = Users.build(user)
+    announcement = @repo.find(id)
+    if announcement.can_be_viewed_by?(user)
+      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content)
+    else
+      FetchResult.new(true, false, "", "")
     end
   end
 
   NewDraft = Struct.new(:id)
   private_constant :NewDraft
 
-  FetchResult = Struct.new(:not_found?, :title, :content)
+  FetchResult = Struct.new(:not_found?, :draft?, :title, :content)
   private_constant :FetchResult
-
-  PublicAnnouncement = Struct.new(:public_id, :title, :content)
-  private_constant :PublicAnnouncement
 end

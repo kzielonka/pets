@@ -10,6 +10,10 @@ class Announcements
 
     attr_reader :id, :title, :content
 
+    def draft?
+      @draft
+    end
+
     def has_id(id)
       @id == id
     end
@@ -45,6 +49,10 @@ class Announcements
 
     def public?
       !@draft
+    end
+
+    def can_be_viewed_by?(user)
+      can_be_managed_by?(user)
     end
 
     private
