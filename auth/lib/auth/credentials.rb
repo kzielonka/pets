@@ -21,6 +21,10 @@ class Auth
       Email.from(email) == @email
     end
 
+    def for_user?(user_id)
+      UserId.from(user_id) == @user_id
+    end
+
     def matches_password?(password)
       Password.from(password).secure_equals?(@password)
     end

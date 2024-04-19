@@ -4,7 +4,7 @@ require "auth"
 class TestAuth < Minitest::Test
   
   def setup
-    @auth = Auth.new
+    @auth = Auth.new("hmac-secret")
   end
 
   def test_sign_in

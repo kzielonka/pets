@@ -1,4 +1,5 @@
 require "minitest/test_task"
+require "jwt"
 
 Minitest::TestTask.create # named test, sensible defaults
 
@@ -12,3 +13,17 @@ Minitest::TestTask.create(:test) do |t|
 end
 
 task :default => :test
+
+task :generate_jwk_set do |t|
+  # Import an OpenSSL key
+  # You can optionally add descriptive parameters to the JWK
+  desc_params = { kid: 'my-kid', use: 'sig' }
+  jwk = JWT::JWK.new(OpenSSL::PKey::RSA.new(2048), desc_params)
+  jwk_set = JWT::JWK::Set.new(jwk)
+  p "-" * 40 
+  p jwk.export(include_private: true)
+  p "-" * 40
+  p jwk.export
+  p "=" * 40
+  #p jwk_set.export(include_private: true)
+end
