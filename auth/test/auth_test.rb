@@ -1,10 +1,12 @@
 require "minitest/autorun"
 require "auth"
+require "fake_time"
 
 class TestAuth < Minitest::Test
   
   def setup
-    @auth = Auth.new("hmac-secret")
+    @fake_time = FakeTime.new
+    @auth = Auth.new("hmac-secret", @fake_time)
   end
 
   def test_sign_in
@@ -36,5 +38,26 @@ class TestAuth < Minitest::Test
     assert @auth.authenticate(user_1_access_token_1).user_id != @auth.authenticate(user_2_access_token_1).user_id 
     assert @auth.authenticate(user_1_access_token_2).user_id != @auth.authenticate(user_2_access_token_2).user_id 
     assert @auth.authenticate(user_2_access_token_1).user_id == @auth.authenticate(user_2_access_token_2).user_id 
+  end
+
+  def test_token_expiration
+    email = "test@example.com"
+    password = "password"
+    @auth.sign_up(email, password)
+    access_token = @auth.sign_in(email, password).access_token
+    assert @auth.authenticate(access_token).success?
+
+    @fake_time.change(Time.new(2010, 1, 1, 0, 0, 0, 0))
+    assert !@auth.authenticate(access_token).success?
+  end
+
+  def test_token_with_invalid_secret
+    email = "test@example.com"
+    password = "password"
+    @auth.sign_up(email, password)
+    access_token = @auth.sign_in(email, password).access_token
+    assert @auth.authenticate(access_token).success?
+    other_auth = Auth.new("hmac-secret-2", @fake_time)
+    assert !other_auth.authenticate(access_token).success?
   end
 end

@@ -9,8 +9,9 @@ require "auth/jwk_set"
 require "jwt"
 
 class Auth 
-  def initialize(hmac_secret)
+  def initialize(hmac_secret, time_now_proc = proc { Time.now })
     @secret = String(hmac_secret).dup.freeze
+    @time_now_proc = time_now_proc
     @repo = Repo.new
   end
 
@@ -30,20 +31,22 @@ class Auth
     jwt = AccessToken
       .blank
       .for_user(credentials.user_id)
-      .issued_at(Time.now.utc)
+      .issued_at(@time_now_proc.call)
       .jwt(@secret)
     SignInResult.new(credentials.matches_password?(password), jwt.to_s)
   end
 
   def authenticate(access_token)
     access_token = JwtAccessToken.new(access_token)
-    credentials = @repo.find_by_user_id(access_token.user_id)
-    AuthenticationResult.new(credentials.user_id)
+    unless access_token.valid?(@secret, @time_now_proc.call)
+      return AuthenticationResult.new(false, UserId.from(""))
+    end
+    AuthenticationResult.new(true, access_token.user_id)
   end
 
   SignInResult = Struct.new(:authenticated?, :access_token)
   private_constant :SignInResult
 
-  AuthenticationResult = Struct.new(:user_id)
+  AuthenticationResult = Struct.new(:success?, :user_id)
   private_constant :AuthenticationResult
 end
