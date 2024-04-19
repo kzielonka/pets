@@ -1,3 +1,4 @@
+require "auth/errors"
 require "auth/repo"
 require "auth/credentials"
 require "auth/user_id"
@@ -19,6 +20,9 @@ class Auth
     email = Email.from(email)
     password = Password.from(password)
     credentials = Credentials.random_user_id(email, password)
+    if @repo.exists_email?(email)
+      raise Errors::DuplicatedEmailError.new
+    end
     @repo.save(credentials)
     nil
   end
@@ -44,8 +48,27 @@ class Auth
     AuthenticationResult.new(true, access_token.user_id)
   end
 
+  def reset!
+    @repo.reset!
+  end
+
   SignInResult = Struct.new(:authenticated?, :access_token)
   private_constant :SignInResult
+
+  SignUpResult = Struct.new(:signed_up?, :errors) do
+    def self.success
+      new(true, [])
+    end
+
+    def self.error(*errors)
+      new(false, Array(errors))
+    end
+
+    def duplicated_error?
+      @errors.include(:duplciated_email)
+    end
+  end
+  private_constant :SignUpResult
 
   AuthenticationResult = Struct.new(:success?, :user_id)
   private_constant :AuthenticationResult

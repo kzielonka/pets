@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   def sign_up
     auth.sign_up(email, password)
     head 200
+  rescue Auth::Errors::DuplicatedEmailError
+    render status: 400, json: { error: "duplicated-email" }
   end
 
   def sign_in
