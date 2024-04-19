@@ -1,7 +1,7 @@
 class Auth 
   class UserId
-    def initialize(email)
-      @email = String(email).dup.freeze
+    def initialize(id)
+      @id = String(id).dup.freeze
     end
 
     def self.from(user_id)
@@ -17,7 +17,17 @@ class Auth
     end
 
     def to_s
-      @email
+      @id
+    end
+
+    def ==(other)
+      UserId.from(other).id == @id
+    end
+
+    protected
+
+    def id
+      @id
     end
   end
   private_constant :UserId

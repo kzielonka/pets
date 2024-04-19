@@ -6,6 +6,8 @@ class Auth
       @password = Password.from(password)
     end
 
+    attr_reader :user_id
+
     def self.random(email)
       random_user_id(email, Password.random)
     end
