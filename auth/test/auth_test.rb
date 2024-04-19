@@ -60,4 +60,18 @@ class TestAuth < Minitest::Test
     other_auth = Auth.new("hmac-secret-2", @fake_time)
     assert !other_auth.authenticate(access_token).success?
   end
+
+  def test_sign_in_with_invalid_not_matching_validation_criteria
+    email = "test@example.com" * 1000
+    password = "password"
+    result = @auth.sign_in(email, password)
+    assert !result.authenticated?
+  end
+
+  def test_sign_in_with_password_not_matching_validation_criteria
+    email = "test@example.com"
+    password = "password" * 1000
+    result = @auth.sign_in(email, password)
+    assert !result.authenticated?
+  end
 end

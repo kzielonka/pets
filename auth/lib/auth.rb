@@ -25,6 +25,11 @@ class Auth
     end
     @repo.save(credentials)
     nil
+    # TODO: add retry on index error from DB 
+  rescue Email::ValidationError => err
+    raise Errors::ValidationError.new(err.message)
+  rescue Password::ValidationError => err
+    raise Errors::ValidationError.new(err.message)
   end
 
   def sign_in(email, password)
@@ -38,6 +43,10 @@ class Auth
       .issued_at(@time_now_proc.call)
       .jwt(@secret)
     SignInResult.new(credentials.matches_password?(password), jwt.to_s)
+  rescue Email::ValidationError => err
+    SignInResult.new(false, "")
+  rescue Password::ValidationError => err
+    SignInResult.new(false, "")
   end
 
   def authenticate(access_token)

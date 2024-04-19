@@ -46,4 +46,36 @@ class SigningInTest < IntegrationTest
     assert_equal 400, response.status
     assert_equal({ "error" => "duplicated-email" }, JSON.parse(response.body))
   end
+
+  test "user got error trying to sign up with too long email" do
+    email = "e"*1000 + "@example.com"
+    password = "password"
+
+    post "/sign_up", params: { email: email, password: password } 
+    assert_equal 400, response.status
+    assert_equal({
+      "error" => "validation-error",
+      "debugMessage" => "email is too long"
+    }, JSON.parse(response.body))
+  end
+
+  test "user got error trying to sign up with too long password" do
+    email = "test@example.com"
+    password = "PAssword1234$" * 1000
+
+    post "/sign_up", params: { email: email, password: password } 
+    assert_equal 400, response.status
+    assert_equal({
+      "error" => "validation-error",
+      "debugMessage" => "password is too long"
+    }, JSON.parse(response.body))
+  end
+
+  test "user got error trying to sign in with too long password" do
+    email = "test@example.com"
+    password = "PAssword1234$" * 1000
+
+    post "/sign_in", params: { email: email, password: password } 
+    assert_equal 401, response.status
+  end
 end

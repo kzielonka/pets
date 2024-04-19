@@ -1,7 +1,11 @@
 class Auth 
   class Email
+    ValidationError = Class.new(RuntimeError)
+
     def initialize(email)
-      @email = String(email).dup.freeze
+      @email = String(email).strip.freeze
+      raise ValidationError.new("email is too long") if @email.size > 1000
+      raise ValidationError.new("email is too short") if @email.size < 4
     end
 
     def self.from(email)

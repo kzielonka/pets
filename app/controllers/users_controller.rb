@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     head 200
   rescue Auth::Errors::DuplicatedEmailError
     render status: 400, json: { error: "duplicated-email" }
+  rescue Auth::Errors::ValidationError => err
+    render status: 400, json: { error: "validation-error", debugMessage: err.message }
   end
 
   def sign_in

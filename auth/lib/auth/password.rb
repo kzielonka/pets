@@ -1,7 +1,10 @@
 class Auth
   class Password
+    ValidationError = Class.new(RuntimeError)
+
     def initialize(password)
       @password = String(password).dup.freeze
+      raise ValidationError.new("password is too long") if @password.size > 1000
     end
 
     def self.from(password)
