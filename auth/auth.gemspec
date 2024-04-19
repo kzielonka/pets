@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.files       = ["lib/auth"]
 
   s.add_dependency "jwt", "~>2.8"
+  s.add_dependency "bcrypt", "~>3.1"
   s.add_development_dependency "minitest", ">= 5"
   s.add_development_dependency "rake", ">= 13"
 end

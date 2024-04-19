@@ -4,6 +4,7 @@ require "auth/credentials"
 require "auth/user_id"
 require "auth/email"
 require "auth/password"
+require "auth/encrypted_password"
 require "auth/access_token"
 require "auth/jwt_access_token"
 require "auth/jwk_set"
@@ -18,7 +19,7 @@ class Auth
 
   def sign_up(email, password)
     email = Email.from(email)
-    password = Password.from(password)
+    password = Password.from(password).encrypted
     credentials = Credentials.random_user_id(email, password)
     if @repo.exists_email?(email)
       raise Errors::DuplicatedEmailError.new

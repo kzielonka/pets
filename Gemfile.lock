@@ -7,6 +7,7 @@ PATH
   remote: auth
   specs:
     auth (0.1.0)
+      bcrypt (~> 3.1)
       jwt (~> 2.8)
 
 GEM
@@ -89,6 +90,7 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.7)
     bindex (0.8.1)
     bootsnap (1.18.3)

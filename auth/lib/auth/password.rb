@@ -3,8 +3,8 @@ class Auth
     ValidationError = Class.new(RuntimeError)
 
     def initialize(password)
+      raise ValidationError.new("password is too long") if password.size > 1000
       @password = String(password).dup.freeze
-      raise ValidationError.new("password is too long") if @password.size > 1000
     end
 
     def self.from(password)
@@ -19,13 +19,12 @@ class Auth
       from(SecureRandom.uuid)
     end
 
-    def to_s
-      @password
+    def encrypted
+      EncryptedPassword.new(BCrypt::Password.create(@password))
     end
 
-    def secure_equals?(other)
-      # TODO: add BCrypt
-      Password.from(other).to_s == @password
+    def to_s
+      @password
     end
   end
   private_constant :Password

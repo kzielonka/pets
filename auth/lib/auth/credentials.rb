@@ -3,7 +3,7 @@ class Auth
     def initialize(user_id, email, password)
       @user_id = UserId.from(user_id)
       @email = Email.from(email)
-      @password = Password.from(password)
+      @password = EncryptedPassword.from(password)
     end
 
     attr_reader :user_id
@@ -26,7 +26,7 @@ class Auth
     end
 
     def matches_password?(password)
-      Password.from(password).secure_equals?(@password)
+      @password.same?(password)
     end
   end
   private_constant :Credentials
