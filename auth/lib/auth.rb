@@ -1,6 +1,7 @@
 require "auth/errors"
 require "auth/repos"
 require "auth/credentials"
+require "auth/serialized_credentials"
 require "auth/user_id"
 require "auth/email"
 require "auth/password"

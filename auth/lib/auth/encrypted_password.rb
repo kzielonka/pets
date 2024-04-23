@@ -23,6 +23,10 @@ class Auth
       self
     end
 
+    def to_s
+      @password_hash.to_s
+    end
+
     protected
     
     def password_hash

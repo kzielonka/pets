@@ -25,4 +25,4 @@ FROM base as workspace
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 
-CMD ["./bin/bash"]
+CMD ["rails", "server"]

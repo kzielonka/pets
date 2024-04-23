@@ -8,6 +8,7 @@ PATH
   remote: auth
   specs:
     auth (0.1.0)
+      activerecord (>= 7)
       bcrypt (~> 3.1)
       jwt (~> 2.8)
 
