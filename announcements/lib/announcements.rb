@@ -2,7 +2,7 @@ require "securerandom"
 
 require "announcements/errors"
 require "announcements/users"
-require "announcements/repo"
+require "announcements/repos"
 require "announcements/announcement"
 require "announcements/serialized_announcement"
 

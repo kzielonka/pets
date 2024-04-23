@@ -6,7 +6,7 @@ class TestAuth < Minitest::Test
   
   def setup
     @fake_time = FakeTime.new
-    @auth = Auth.new("hmac-secret", @fake_time)
+    @auth = Auth.new("hmac-secret", :in_memory, @fake_time)
   end
 
   def test_sign_in
@@ -52,13 +52,17 @@ class TestAuth < Minitest::Test
   end
 
   def test_token_with_invalid_secret
+    other_auth = Auth.new("hmac-secret-2", :in_memory, @fake_time)
     email = "test@example.com"
     password = "password"
     @auth.sign_up(email, password)
+    other_auth.sign_up(email, password)
     access_token = @auth.sign_in(email, password).access_token
+    other_access_token = other_auth.sign_in(email, password).access_token
     assert @auth.authenticate(access_token).success?
-    other_auth = Auth.new("hmac-secret-2", @fake_time)
     assert !other_auth.authenticate(access_token).success?
+    assert !@auth.authenticate(other_access_token).success?
+    assert other_auth.authenticate(other_access_token).success?
   end
 
   def test_sign_in_with_invalid_not_matching_validation_criteria

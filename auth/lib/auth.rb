@@ -1,5 +1,5 @@
 require "auth/errors"
-require "auth/repo"
+require "auth/repos"
 require "auth/credentials"
 require "auth/user_id"
 require "auth/email"
@@ -11,10 +11,10 @@ require "auth/jwk_set"
 require "jwt"
 
 class Auth 
-  def initialize(hmac_secret, time_now_proc = proc { Time.now })
+  def initialize(hmac_secret, repo = :in_memory, time_now_proc = proc { Time.now })
     @secret = String(hmac_secret).dup.freeze
     @time_now_proc = time_now_proc
-    @repo = Repo.new
+    @repo = Repos.build(repo)
   end
 
   def sign_up(email, password)
@@ -37,7 +37,6 @@ class Auth
     email = Email.from(email)
     password = Password.from(password)
     credentials = @repo.find_by_email(email)
-    payload = { sub: credentials.user_id.to_s }
     jwt = AccessToken
       .blank
       .for_user(credentials.user_id)
