@@ -72,11 +72,12 @@ class Announcements
       include ContractTests
       
       def setup
-        # test_db_url = String(ENV["TEST_DATABASE_URL"])
-        # raise "Please set TEST_DATABASE_URL env" if test_db_url == ""
-        # ActiveRecord::Base.establish_connection(test_db_url) # adapter: "sqlite3", database: "../storage/development.sqlite3")
-        ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: "../storage/development.sqlite3")
-
+        test_db_url = String(ENV["TEST_DATABASE_URL"])
+        raise "Please set TEST_DATABASE_URL env" if test_db_url == ""
+        ActiveRecord::Base.establish_connection(
+          adapter: "postgresql",
+          url: test_db_url
+        ) 
         ActiveRecord::Base.connection.execute("DELETE FROM announcements;")
         @repo = Repos.build(:active_record)
       end

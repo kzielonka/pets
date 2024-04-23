@@ -150,6 +150,6 @@ class TestAnnouncements < Minitest::Test
     err = assert_raises(NameError) do
       yield
     end
-    assert_match /private constant/, err.message
+    assert_match "private constant", err.message
   end
 end
