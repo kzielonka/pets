@@ -10,6 +10,10 @@ class Announcements
 
     attr_reader :id, :title, :content
 
+    def serialize
+      SerializedAnnouncement.new(@id, @owner_id, @draft, @title, @content)
+    end
+
     def draft?
       @draft
     end
@@ -27,23 +31,26 @@ class Announcements
     end
 
     def assign_owner(owner_id)
-      @owner_id = owner_id
+      @owner_id = String(owner_id).dup.freeze
       self
     end
 
     def change_title(user, title)
+      user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       @title = title
       self
     end
 
     def change_content(user, content)
+      user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       @content = content
       self
     end
 
     def publish(user)
+      user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       raise Errors::UnfinishedDraftError.new if @title == ""
       raise Errors::UnfinishedDraftError.new if @content == ""

@@ -2,6 +2,7 @@ PATH
   remote: announcements
   specs:
     announcements (0.1.0)
+      activerecord (>= 7)
 
 PATH
   remote: auth

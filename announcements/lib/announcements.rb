@@ -4,10 +4,11 @@ require "announcements/errors"
 require "announcements/users"
 require "announcements/repo"
 require "announcements/announcement"
+require "announcements/serialized_announcement"
 
 class Announcements
-  def initialize
-    @repo = Repo.new
+  def initialize(repo = :in_memory)
+    @repo = Repos.build(repo)
   end
 
   def add_new_draft(user)
