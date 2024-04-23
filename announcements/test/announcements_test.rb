@@ -137,4 +137,19 @@ class TestAnnouncements < Minitest::Test
     result = @announcements.fetch_all_for(user2)
     assert_equal ["title3"].sort, result.map(&:title).sort
   end
+
+  def test_private_constants
+    assert_is_private_constant { Announcements::Announcement }
+    assert_is_private_constant { Announcements::SerializedAnnouncement }
+    assert_is_private_constant { Announcements::Repos }
+  end
+
+  private
+
+  def assert_is_private_constant
+    err = assert_raises(NameError) do
+      yield
+    end
+    assert_match /private constant/, err.message
+  end
 end

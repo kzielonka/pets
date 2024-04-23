@@ -15,4 +15,5 @@ class Announcements
       Announcement.new(@id, @owner_id, @draft, @title, @content)
     end
   end
+  private_constant :SerializedAnnouncement
 end
