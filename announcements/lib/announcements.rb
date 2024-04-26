@@ -3,6 +3,7 @@ require "securerandom"
 require "announcements/errors"
 require "announcements/users"
 require "announcements/repos"
+require "announcements/location"
 require "announcements/announcement"
 require "announcements/serialized_announcement"
 
@@ -28,6 +29,12 @@ class Announcements
     @repo.find(id).change_content(user, content)
   end
 
+  def update_location(user, id, location)
+    user = Users.build(user)
+    location = Location.build(location)
+    @repo.find(id).change_location(user, location)
+  end
+
   def publish(user, id)
     user = Users.build(user)
     @repo.find(id).publish(user)
@@ -36,9 +43,9 @@ class Announcements
   def fetch_public(id)
     announcement = @repo.find(id)
     if announcement.public?
-      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content)
+      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content, announcement.location)
     else 
-      FetchResult.new(true, false, "", "")
+      FetchResult.new(true, false, "", "", Location.zero)
     end
   end
 
@@ -46,9 +53,9 @@ class Announcements
     user = Users.build(user)
     announcement = @repo.find(id)
     if announcement.can_be_viewed_by?(user)
-      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content)
+      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content, announcement.location)
     else
-      FetchResult.new(true, false, "", "")
+      FetchResult.new(true, false, "", "", Location.zero)
     end
   end
 
@@ -62,7 +69,7 @@ class Announcements
   NewDraft = Struct.new(:id)
   private_constant :NewDraft
 
-  FetchResult = Struct.new(:not_found?, :draft?, :title, :content)
+  FetchResult = Struct.new(:not_found?, :draft?, :title, :content, :location)
   private_constant :FetchResult
 
   AnnouncementData = Struct.new(:id, :draft?, :title, :content)

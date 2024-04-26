@@ -1,17 +1,18 @@
 class Announcements
   class Announcement
-    def initialize(id, owner_id, draft, title, content)
+    def initialize(id, owner_id, draft, title, content, location)
       @id = String(id).dup.freeze
       @owner_id = String(owner_id).dup.freeze
       @draft = !!draft 
       @title = String(title).dup.freeze
       @content = String(content).dup.freeze
+      @location = location
     end
 
-    attr_reader :id, :title, :content
+    attr_reader :id, :title, :content, :location
 
     def serialize
-      SerializedAnnouncement.new(@id, @owner_id, @draft, @title, @content)
+      SerializedAnnouncement.new(@id, @owner_id, @draft, @title, @content, @location)
     end
 
     def draft?
@@ -23,7 +24,7 @@ class Announcements
     end
 
     def self.draft(id)
-      new(id, "", true, "", "")
+      new(id, "", true, "", "", Location.zero)
     end
 
     def self.draft_with_random_id
@@ -46,6 +47,14 @@ class Announcements
       user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       @content = content
+      self
+    end
+
+    def change_location(user, location)
+      user = Users.build(user)
+      location = Location.build(location)
+      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      @location = location
       self
     end
 

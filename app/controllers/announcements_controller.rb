@@ -8,6 +8,7 @@ class AnnouncementsController < ApplicationController
   def update
     announcements.update_title(user_id, id, params[:title]) if params[:title]
     announcements.update_content(user_id, id, params[:content]) if params[:content]
+    announcements.update_location(user_id, id, location) if params[:location]
     head :ok
   rescue Announcements::Errors::AuthorizationError
     head 403
@@ -22,7 +23,11 @@ class AnnouncementsController < ApplicationController
     render json: {
       draft: result.draft?,
       title: result.title,
-      content: result.content
+      content: result.content,
+      location: {
+        latitude: result.location.latitude,
+        longitude: result.location.longitude
+      }
     }
   end
 
@@ -55,6 +60,13 @@ class AnnouncementsController < ApplicationController
 
   def user_id
     String(request.headers["HTTP_AUTHORIZATION"])
+  end
+
+  def location
+    {
+      latitude: params[:location][:latitude].to_f,
+      longitude: params[:location][:longitude].to_f
+    }
   end
 
   def announcements

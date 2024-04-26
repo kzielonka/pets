@@ -31,7 +31,6 @@ class Announcements
     private_constant :InMemoryRepo
 
     class ActiveRecordRepo
-
       def save(announcement)
         serialized_announcement = announcement.serialize
         Record.create(
@@ -39,7 +38,9 @@ class Announcements
           owner_id: serialized_announcement.owner_id,
           draft: serialized_announcement.draft,
           title: serialized_announcement.title,
-          content: serialized_announcement.content
+          content: serialized_announcement.content,
+          latitude: serialized_announcement.location.latitude,
+          longitude: serialized_announcement.location.longitude
         )
       rescue ActiveRecord::RecordNotUnique
         Record
@@ -48,20 +49,35 @@ class Announcements
             owner_id: serialized_announcement.owner_id,
             draft: serialized_announcement.draft,
             title: serialized_announcement.title,
-            content: serialized_announcement.content
+            content: serialized_announcement.content,
+            latitude: serialized_announcement.location.latitude,
+            longitude: serialized_announcement.location.longitude
           )
       end
 
       def find(id)
         record = Record.where(id: String(id)).first
-        SerializedAnnouncement.new(record.id, record.owner_id, record.draft, record.title, record.content).deserialize
+        SerializedAnnouncement.new(
+          record.id,
+          record.owner_id,
+          record.draft,
+          record.title,
+          record.content,
+          Location.new(record.latitude, record.longitude)
+        ).deserialize
       end
 
       def find_by_user(user)
         user = Users.build(user)
         Record.where(owner_id: user.id).map do |record|
-          SerializedAnnouncement.new(record.id, record.owner_id, record.draft, record.title, record.content)
-            .deserialize
+          SerializedAnnouncement.new(
+            record.id,
+            record.owner_id,
+            record.draft,
+            record.title,
+            record.content,
+            Location.new(record.latitude, record.longitude),
+          ).deserialize
         end
       end
 

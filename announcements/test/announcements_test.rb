@@ -36,6 +36,14 @@ class TestAnnouncements < Minitest::Test
     assert_equal "title", result.title
     assert_equal "content", result.content
 
+    @announcements.update_location(:system, announcement.id, { latitude: -5.23, longitude: 10.23 })
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.not_found?
+    assert result.draft?
+    assert_equal "title", result.title
+    assert_equal "content", result.content
+    assert_equal Announcements::Location.new(-5.23, 10.23), result.location
+
     @announcements.publish(:system, announcement.id)
     result = @announcements.fetch_private(:system, announcement.id)
     assert !result.not_found?

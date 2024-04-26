@@ -13,6 +13,7 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal true, parsed_body["draft"] 
     assert_equal "", parsed_body["title"] 
     assert_equal "", parsed_body["content"] 
+    assert_equal({ "latitude" => 0, "longitude" => 0 }, parsed_body["location"])
 
     signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
       title: "title",
@@ -22,6 +23,7 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal true, parsed_body["draft"] 
     assert_equal "title", parsed_body["title"] 
     assert_equal "", parsed_body["content"] 
+    assert_equal({ "latitude" => 0, "longitude" => 0 }, parsed_body["location"])
     
     signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
       content: "content"
@@ -32,6 +34,18 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal true, parsed_body["draft"] 
     assert_equal "title", parsed_body["title"] 
     assert_equal "content", parsed_body["content"] 
+    assert_equal({ "latitude" => 0, "longitude" => 0 }, parsed_body["location"])
+
+    signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
+      location: { latitude: 12.34, longitude: -43.21 }
+    }
+
+    signed_in_user.get "/users/me/announcements/#{announcements_public_id}"
+    parsed_body = JSON.parse(response.body)
+    assert_equal true, parsed_body["draft"] 
+    assert_equal "title", parsed_body["title"] 
+    assert_equal "content", parsed_body["content"] 
+    assert_equal({ "latitude" => 12.34, "longitude" => -43.21 }, parsed_body["location"])
 
     signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
       title: "title2",
@@ -41,6 +55,7 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal true, parsed_body["draft"] 
     assert_equal "title2", parsed_body["title"] 
     assert_equal "content", parsed_body["content"] 
+    assert_equal({ "latitude" => 12.34, "longitude" => -43.21 }, parsed_body["location"])
 
     signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
       content: "content2",
@@ -50,6 +65,7 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal true, parsed_body["draft"] 
     assert_equal "title2", parsed_body["title"] 
     assert_equal "content2", parsed_body["content"] 
+    assert_equal({ "latitude" => 12.34, "longitude" => -43.21 }, parsed_body["location"])
 
     signed_in_user.post "/users/me/announcements/#{announcements_public_id}/publish"
     signed_in_user.get "/users/me/announcements/#{announcements_public_id}"
@@ -57,6 +73,7 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal false, parsed_body["draft"] 
     assert_equal "title2", parsed_body["title"] 
     assert_equal "content2", parsed_body["content"] 
+    assert_equal({ "latitude" => 12.34, "longitude" => -43.21 }, parsed_body["location"])
   end
 
   test "responds with 404 trying to get not existing announcement" do

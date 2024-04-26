@@ -8,10 +8,12 @@ class Announcements
         announcement = Announcement.draft_with_random_id
           .change_title(:system, "title")
           .change_content(:system, "content")
+          .change_location(:system, Location.new(1, 2))
         @repo.save(announcement)
         found_announcement = @repo.find(announcement.id)
         assert_equal "title", found_announcement.title
         assert_equal "content", found_announcement.content
+        assert_equal Location.new(1, 2), found_announcement.location
       end
 
       def test_finds_announcement_by_user
@@ -45,18 +47,24 @@ class Announcements
         announcement = Announcement.draft_with_random_id
           .change_title(:system, "title1")
           .change_content(:system, "content1")
+          .change_location(:system, Location.new(1, 2))
 
         @repo.save(announcement)
         found_announcement = @repo.find(announcement.id)
         assert_equal "title1", found_announcement.title
         assert_equal "content1", found_announcement.content
+        assert_equal Location.new(1, 2), found_announcement.location
 
-        announcement.change_title(:system, "title2").change_content(:system, "content2")
+        announcement
+          .change_title(:system, "title2")
+          .change_content(:system, "content2")
+          .change_location(:system, Location.new(3, 4))
 
         @repo.save(announcement)
         found_announcement = @repo.find(announcement.id)
         assert_equal "title2", found_announcement.title
         assert_equal "content2", found_announcement.content
+        assert_equal Location.new(3, 4), found_announcement.location
       end
     end
 
