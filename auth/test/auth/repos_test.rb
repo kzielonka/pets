@@ -1,9 +1,13 @@
+require "minitest/autorun"
+require "auth"
+require "active_record"
+
 class Auth
   module RepoContractTests
     def test_saves_credentials
       user_id = UserId.random
       email = Email.from("test@example.com")
-      password = Password.random 
+      password = PasswordFactory.build(:fake).random
       credentials = Credentials.new(user_id, email, password)
       @repo.save(credentials)
       found_credentials = @repo.find_by_user_id(user_id)
@@ -15,12 +19,12 @@ class Auth
     def test_finds_credentials_by_email
       user_1_id = UserId.random
       email_1 = Email.random
-      password_1 = Password.random 
+      password_1 = PasswordFactory.build(:fake).random
       credentials_1 = Credentials.new(user_1_id, email_1, password_1)
 
       user_2_id = UserId.random
       email_2 = Email.random
-      password_2 = Password.random 
+      password_2 = PasswordFactory.build(:fake).random
       credentials_2 = Credentials.new(user_2_id, email_2, password_2)
 
       @repo.save(credentials_1)
@@ -40,12 +44,12 @@ class Auth
     def test_checking_email_existance
       user_1_id = UserId.random
       email_1 = Email.random
-      password_1 = Password.random 
+      password_1 = PasswordFactory.build(:fake).random
       credentials_1 = Credentials.new(user_1_id, email_1, password_1)
 
       user_2_id = UserId.random
       email_2 = Email.random
-      password_2 = Password.random 
+      password_2 = PasswordFactory.build(:fake).random
       credentials_2 = Credentials.new(user_2_id, email_2, password_2)
 
       @repo.save(credentials_1)
@@ -72,11 +76,11 @@ class Auth
       email = Email.random
 
       user_1_id = UserId.random
-      password_1 = Password.random 
+      password_1 = PasswordFactory.build(:fake).random
       credentials_1 = Credentials.new(user_1_id, email, password_1)
 
       user_2_id = UserId.random
-      password_2 = Password.random 
+      password_2 = PasswordFactory.build(:fake).random
       credentials_2 = Credentials.new(user_2_id, email, password_2)
 
       @repo.save(credentials_1)
@@ -87,11 +91,11 @@ class Auth
       user_id = UserId.random
 
       email_1 = Email.random
-      password_1 = Password.random 
+      password_1 = PasswordFactory.build(:fake).random
       credentials_1 = Credentials.new(user_id, email_1, password_1)
 
       email_2 = Email.random
-      password_2 = Password.random 
+      password_2 = PasswordFactory.build(:fake).random
       credentials_2 = Credentials.new(user_id, email_2, password_2)
 
       @repo.save(credentials_1)
@@ -101,7 +105,8 @@ class Auth
 
   class TestInMemoryRepo < Minitest::Test
     def setup
-      @repo = Repos.build(:in_memory)
+      password_factory = PasswordFactory.build(:fake)
+      @repo = Repos.build(:in_memory, password_factory)
     end
 
     include RepoContractTests
@@ -116,7 +121,8 @@ class Auth
         url: test_db_url
       ) 
       ActiveRecord::Base.connection.execute("DELETE FROM credentials;")
-      @repo = Repos.build(:active_record)
+      password_factory = PasswordFactory.build(:fake)
+      @repo = Repos.build(:active_record, password_factory)
     end
 
     include RepoContractTests

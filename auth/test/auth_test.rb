@@ -6,7 +6,7 @@ class TestAuth < Minitest::Test
   
   def setup
     @fake_time = FakeTime.new
-    @auth = Auth.new("hmac-secret", :in_memory, @fake_time)
+    @auth = Auth.new("hmac-secret", :in_memory, @fake_time, :fake)
   end
 
   def test_sign_in

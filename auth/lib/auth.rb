@@ -6,22 +6,26 @@ require "auth/user_id"
 require "auth/email"
 require "auth/password"
 require "auth/encrypted_password"
+require "auth/password_factory"
 require "auth/access_token"
 require "auth/jwt_access_token"
 require "auth/jwk_set"
 require "jwt"
 
 class Auth 
-  def initialize(hmac_secret, repo = :in_memory, time_now_proc = proc { Time.now })
+  def initialize(hmac_secret, repo = :in_memory, time_now_proc = proc { Time.now }, password_encryption = :bcrypt)
     @secret = String(hmac_secret).dup.freeze
     @time_now_proc = time_now_proc
-    @repo = Repos.build(repo)
+    @password_factory = PasswordFactory.build(password_encryption)
+    @repo = Repos.build(repo, @password_factory)
   end
 
   def sign_up(email, password)
     email = Email.from(email)
-    password = Password.from(password).encrypted
-    credentials = Credentials.random_user_id(email, password)
+    password = @password_factory.raw_password(password).encrypted 
+    credentials = Credentials.random(@password_factory)
+      .for_email(email)
+      .with_password(password)
     if @repo.exists_email?(email)
       raise Errors::DuplicatedEmailError.new
     end
@@ -36,7 +40,7 @@ class Auth
 
   def sign_in(email, password)
     email = Email.from(email)
-    password = Password.from(password)
+    password = @password_factory.raw_password(password)
     credentials = @repo.find_by_email(email)
     jwt = AccessToken
       .blank

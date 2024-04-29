@@ -12,8 +12,8 @@ class Auth
       SerializedCredentials.new(@user_id, @email, @password)
     end
 
-    def self.random
-      new(UserId.random, Email.random, Password.random)
+    def self.random(password_factory)
+      new(UserId.random, Email.random, password_factory.random)
     end
 
     def self.random_user_id(email, password)

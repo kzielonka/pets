@@ -2,21 +2,21 @@ require "bcrypt"
 
 class Auth
   class EncryptedPassword
-    def initialize(password_hash)
-      @password_hash = BCrypt::Password.new(password_hash)
+    def initialize(password_hash, bcrypt)
+      @password_hash = String(password_hash).dup.freeze
+      @bcrypt = bcrypt
     end
 
     def self.from(obj)
       case obj
       when EncryptedPassword then obj
       when Password then obj.encrypted
-      when String then new(obj)
       else raise RuntimeError.new("can not build encrypted password")
       end
     end
 
     def same?(password)
-      @password_hash == String(password)
+      @bcrypt.new_password(@password_hash) == String(password)
     end
 
     def encrypted
