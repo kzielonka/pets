@@ -32,9 +32,11 @@ jobs:
         docker compose run web rails db:migrate RAILS_ENV=development
         docker compose run web rails db:migrate RAILS_ENV=test
     - name: Run auth test
-      run: docker compose run web /bin/bash -c "cd ./auth; rake test"
+      run: docker compose run web /bin/bash -c "cd ./auth; bundle exec rake test"
     - name: Run announcements test
-      run: docker compose run web /bin/bash -c "cd ./announcements; rake test"
+      run: docker compose run web /bin/bash -c "cd ./announcements; bundle exec rake test"
+    - name: Run announcements search test
+      run: docker compose run web /bin/bash -c "cd ./announcements_search; bundle exec rake test"
     - name: Run tests
       run:  docker compose run web rails test 
 
