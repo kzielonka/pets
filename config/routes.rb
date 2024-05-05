@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "/users/:user_id/announcements" => "announcements#index"
   get "/users/:user_id/announcements/:id" => "announcements#show"
 
+  get "/announcements" => "public_announcements#index"
+
   # Defines the root path route ("/")
   # root "posts#index"
 end

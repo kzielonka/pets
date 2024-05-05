@@ -1,5 +1,6 @@
 require "auth"
 require "announcements"
+require "announcements_search"
 require "events_bus"
 
 events_bus = EventsBus.new
@@ -15,3 +16,6 @@ if Rails.env.test?
 else 
   Rails.application.config.announcements = Announcements.new(events_bus, :active_record)
 end
+
+Rails.application.config.announcements_search = AnnouncementsSearch.new
+Rails.application.config.announcements_search.subscribe(events_bus)

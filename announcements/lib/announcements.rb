@@ -104,6 +104,7 @@ class Announcements
           "id" => @id,
           "title" => @title,
           "content" => @content,
+          "location" => { "latitude" => 0, "longitude" => 0 },
         }
       end
     end

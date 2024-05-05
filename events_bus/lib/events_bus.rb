@@ -25,6 +25,7 @@ class EventsBus
     def serialize
       return @event.serialize if @event.respond_to?(:serialize)
       return serialize_from_type_and_payload if event_has_type_and_payload_methods
+      return SerializedEvent.new(@event[:type], JSON.dump(@event[:payload])) if @event.is_a?(Hash)
       raise RuntimeError.new("can not serialize event #{event.inspect}")
     end
 

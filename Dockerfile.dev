@@ -16,6 +16,8 @@ RUN apt-get install --no-install-recommends -y build-essential git libvips pkg-c
 COPY Gemfile Gemfile.lock ./
 COPY auth ./auth
 COPY announcements ./announcements
+COPY announcements_search ./announcements_search
+COPY events_bus ./events_bus
 RUN ls ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \

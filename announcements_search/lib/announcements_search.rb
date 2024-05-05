@@ -9,18 +9,35 @@ class AnnouncementsSearch
     @repo.search
   end
 
-  def handle_new_published_announcement(id:, title:, content:, location:)
-    announcement = Announcement.blank(id)
-      .with_title(title)
-      .with_content(content)
-      .with_location(location)
-    @repo.save(announcement)
+  def subscribe(events_bus)
+    events_bus.register_subscriber(AnnouncementPublishedSubscriber.new(@repo))
+  end
+
+  def reset!
+    @repo.reset!
+  end
+
+  private
+
+  class AnnouncementPublishedSubscriber
+    def initialize(repo)
+      @repo = repo
+    end
+
+    def handle(event)
+      return unless event.type == "AnnouncementPublished"
+      announcement = Announcement.blank(event.payload["id"])
+        .with_title(event.payload["title"])
+        .with_content(event.payload["content"])
+        .with_location(Announcements::Location.new(event.payload["location"]["latitude"], event.payload["location"]["longitude"]))
+      @repo.save(announcement)
+    end
   end
 
   module Repos
     class InMemoryRepo
       def initialize
-        @announcements = []
+        reset!
       end
 
       def save(announcement)
@@ -29,6 +46,10 @@ class AnnouncementsSearch
 
       def search
         @announcements
+      end
+
+      def reset!
+        @announcements = []
       end
     end
   end

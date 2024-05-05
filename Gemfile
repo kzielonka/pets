@@ -48,6 +48,7 @@ gem "pg"
 
 gem "auth", path: "auth"
 gem "announcements", path: "announcements"
+gem "announcements_search", path: "announcements_search"
 gem "events_bus", path: "events_bus"
 
 group :development, :test do

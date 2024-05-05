@@ -99,7 +99,15 @@ class TestAnnouncements < Minitest::Test
     assert_equal 1, @events_bus.number_of_events
     assert_equal "AnnouncementPublished", @events_bus.last_event.type
     assert_equal(
-      { "id" => id, "title" => title, "content" => content },
+      {
+        "id" => id,
+        "title" => title,
+        "content" => content,
+        "location" => {
+          "latitude" => 0,
+          "longitude" => 0,
+        },
+      },
       @events_bus.last_event.payload,
     )
   end

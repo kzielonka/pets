@@ -1,4 +1,11 @@
 PATH
+  remote: announcements_search
+  specs:
+    announcements_search (0.1.0)
+      activerecord (>= 7)
+      announcements
+
+PATH
   remote: announcements
   specs:
     announcements (0.1.0)
@@ -280,6 +287,7 @@ PLATFORMS
 
 DEPENDENCIES
   announcements!
+  announcements_search!
   auth!
   bootsnap
   capybara
