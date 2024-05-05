@@ -2,8 +2,27 @@ require "minitest/autorun"
 require "announcements"
 
 class TestAnnouncements < Minitest::Test
+  class SimpleSubscriber
+    def initialize
+      @events = []
+    end
+
+    def publish(event)
+      @events << event
+    end
+
+    def number_of_events
+      @events.size
+    end
+
+    def last_event
+      @events.last
+    end
+  end
+
   def setup
-    @announcements = Announcements.new
+    @events_bus = SimpleSubscriber.new
+    @announcements = Announcements.new(@events_bus)
   end
 
   def test_draft_is_not_public
@@ -66,6 +85,45 @@ class TestAnnouncements < Minitest::Test
     assert_equal "content", result.content
   end
 
+  def test_publishing_event_on_publication
+    user = Announcements::Users::RegularUser.new("creator_id")
+    announcement = @announcements.add_new_draft(user)
+    title = "title-#{Random.rand(1000)}"
+    content = "content-#{Random.rand(1000)}"
+    id = announcement.id
+    @announcements.update_title(:system, id, title) 
+    @announcements.update_content(:system, id, content) 
+
+    assert_equal 0, @events_bus.number_of_events
+    @announcements.publish(:system, id)
+    assert_equal 1, @events_bus.number_of_events
+    assert_equal "AnnouncementPublished", @events_bus.last_event.type
+    assert_equal(
+      { "id" => id, "title" => title, "content" => content },
+      @events_bus.last_event.payload,
+    )
+  end
+
+  def test_publishing_event_on_unpublishing
+    user = Announcements::Users::RegularUser.new("creator_id")
+    announcement = @announcements.add_new_draft(user)
+    title = "title-#{Random.rand(1000)}"
+    content = "content-#{Random.rand(1000)}"
+    id = announcement.id
+    @announcements.update_title(:system, id, title) 
+    @announcements.update_content(:system, id, content) 
+    @announcements.publish(:system, id)
+
+    assert_equal 1, @events_bus.number_of_events
+    @announcements.unpublish(:system, id)
+    assert_equal 2, @events_bus.number_of_events
+    assert_equal "AnnouncementUnpublished", @events_bus.last_event.type
+    assert_equal(
+      { "id" => id },
+      @events_bus.last_event.payload,
+    )
+  end
+
   def test_publishing_without_title_raises_error
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)
@@ -123,9 +181,15 @@ class TestAnnouncements < Minitest::Test
     @announcements.update_content(creator, id, "content")
 
     @announcements.publish(:system, id)
+    @announcements.unpublish(:system, id)
     @announcements.publish(creator, id)
+    @announcements.unpublish(creator, id)
     assert_raises(Announcements::Errors::AuthorizationError) do 
       @announcements.publish(other_user, id) 
+    end
+    @announcements.publish(:system, id)
+    assert_raises(Announcements::Errors::AuthorizationError) do 
+      @announcements.unpublish(other_user, id) 
     end
   end
 

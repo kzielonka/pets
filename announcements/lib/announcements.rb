@@ -8,8 +8,9 @@ require "announcements/announcement"
 require "announcements/serialized_announcement"
 
 class Announcements
-  def initialize(repo = :in_memory)
+  def initialize(events_bus, repo = :in_memory)
     @repo = Repos.build(repo)
+    @events_bus = events_bus
   end
 
   def add_new_draft(user)
@@ -37,7 +38,18 @@ class Announcements
 
   def publish(user, id)
     user = Users.build(user)
-    @repo.find(id).publish(user)
+    announcement = @repo.find(id)
+    announcement.publish(user)
+    @repo.save(announcement)
+    @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content))
+  end
+
+  def unpublish(user, id)
+    user = Users.build(user)
+    announcement = @repo.find(id)
+    announcement.unpublish(user)
+    @repo.save(announcement)
+    @events_bus.publish(Events::AnnouncementUnpublished.new(id))
   end
 
   def fetch_public(id)
@@ -74,4 +86,43 @@ class Announcements
 
   AnnouncementData = Struct.new(:id, :draft?, :title, :content)
   private_constant :AnnouncementData
+
+  module Events
+    class AnnouncementPublished
+      def initialize(id, title, content)
+        @id = String(id).dup.freeze
+        @title = String(title).dup.freeze
+        @content = String(content).dup.freeze
+      end
+      
+      def type
+        "AnnouncementPublished"
+      end
+
+      def payload
+        {
+          "id" => @id,
+          "title" => @title,
+          "content" => @content,
+        }
+      end
+    end
+
+    class AnnouncementUnpublished
+      def initialize(id)
+        @id = String(id).dup.freeze
+      end
+
+      def type
+        "AnnouncementUnpublished"
+      end
+
+      def payload
+        {
+          "id" => @id
+        }
+      end
+    end
+  end
+  private_constant :Events
 end

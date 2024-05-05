@@ -36,6 +36,10 @@ class Announcements
       self
     end
 
+    def subscribers(subscriber)
+      @subscribers << subscriber
+    end
+
     def change_title(user, title)
       user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
@@ -63,7 +67,16 @@ class Announcements
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       raise Errors::UnfinishedDraftError.new if @title == ""
       raise Errors::UnfinishedDraftError.new if @content == ""
+      raise RuntimeError.new unless @draft
       @draft = false
+      self
+    end
+
+    def unpublish(user)
+      user = Users.build(user)
+      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      raise RuntimeError.new if @draft
+      @draft = true
       self
     end
 

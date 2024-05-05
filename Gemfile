@@ -48,6 +48,7 @@ gem "pg"
 
 gem "auth", path: "auth"
 gem "announcements", path: "announcements"
+gem "events_bus", path: "events_bus"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

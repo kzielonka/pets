@@ -12,6 +12,12 @@ PATH
       bcrypt (~> 3.1)
       jwt (~> 2.8)
 
+PATH
+  remote: events_bus
+  specs:
+    events_bus (0.1.0)
+      announcements
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -278,6 +284,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  events_bus!
   importmap-rails
   jbuilder
   pg
