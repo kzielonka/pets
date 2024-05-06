@@ -13,15 +13,17 @@ FROM base as build
 RUN apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
 # Install application gems
-COPY Gemfile Gemfile.lock ./
-COPY auth ./auth
-COPY announcements ./announcements
-COPY announcements_search ./announcements_search
-COPY events_bus ./events_bus
+COPY rails/Gemfile ./rails/Gemfile
+COPY rails/Gemfile.lock ./rails/Gemfile.lock
+COPY modules ./modules
 RUN ls ./
-RUN bundle install && \
+RUN cd ./rails && bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
+RUN cd ./modules/auth && bundle install
+RUN cd ./modules/announcements && bundle install
+RUN cd ./modules/announcements_search && bundle install
+RUN cd ./modules/events_bus && bundle install
 
 FROM base as workspace
 

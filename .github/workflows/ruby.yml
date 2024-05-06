@@ -27,16 +27,16 @@ jobs:
       run:  docker compose build
     - name: Set up DB
       run:  |
-        docker compose run web rails db:create RAILS_ENV=development
-        docker compose run web rails db:create RAILS_ENV=test
-        docker compose run web rails db:migrate RAILS_ENV=development
-        docker compose run web rails db:migrate RAILS_ENV=test
+        docker compose run web /bin/bash -c "cd ./rails; bundle exec rails db:create"
+        docker compose run web /bin/bash -c "cd ./rails; bundle exec rails db:migrate RAILS_ENV=development"
+        docker compose run web /bin/bash -c "cd ./rails; bundle exec rails db:migrate RAILS_ENV=test"
     - name: Run auth test
-      run: docker compose run web /bin/bash -c "cd ./auth; bundle exec rake test"
+      run: docker compose run web /bin/bash -c "cd ./modules/auth; bundle exec rake test"
     - name: Run announcements test
-      run: docker compose run web /bin/bash -c "cd ./announcements; bundle exec rake test"
+      run: docker compose run web /bin/bash -c "cd ./modules/announcements; bundle exec rake test"
     - name: Run announcements search test
-      run: docker compose run web /bin/bash -c "cd ./announcements_search; bundle exec rake test"
-    - name: Run tests
-      run:  docker compose run web rails test 
-
+      run: docker compose run web /bin/bash -c "cd ./modules/announcements_search; bundle exec rake test"
+    - name: Run events bus test
+      run: docker compose run web /bin/bash -c "cd ./modules/events_bus; bundle exec rake test"
+    - name: Run Rails tests
+      run: docker compose run web /bin/bash -c "cd ./rails; bundle exec rails test"

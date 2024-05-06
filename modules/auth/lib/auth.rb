@@ -48,9 +48,9 @@ class Auth
       .issued_at(@time_now_proc.call)
       .jwt(@secret)
     SignInResult.new(credentials.matches_password?(password), jwt.to_s)
-  rescue Email::ValidationError => err
+  rescue Email::ValidationError
     SignInResult.new(false, "")
-  rescue Password::ValidationError => err
+  rescue Password::ValidationError
     SignInResult.new(false, "")
   end
 
