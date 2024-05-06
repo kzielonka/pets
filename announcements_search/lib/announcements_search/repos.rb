@@ -16,12 +16,16 @@ class AnnouncementsSearch
       end
 
       def save(announcement)
-        @announcements.reject! { |a| a.id == announcement.id }
+        delete(announcement.id)
         @announcements << announcement
       end
 
       def search(location = Announcements::Location.zero)
         @announcements.sort_by { |a| a.approximate_distance_to(location) }
+      end
+
+      def delete(id)
+        @announcements.reject! { |a| a.id == id }
       end
 
       def reset!
@@ -45,6 +49,10 @@ class AnnouncementsSearch
           content: announcement.content,
           location: Location.new(announcement.location).point
         )
+      end
+
+      def delete(id)
+        Record.where(id: id).delete_all
       end
 
       def search(location = Announcements::Location.zero)

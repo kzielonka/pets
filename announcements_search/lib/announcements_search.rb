@@ -13,6 +13,7 @@ class AnnouncementsSearch
 
   def subscribe(events_bus)
     events_bus.register_subscriber(AnnouncementPublishedSubscriber.new(@repo))
+    events_bus.register_subscriber(AnnouncementUnpublishedSubscriber.new(@repo))
   end
 
   def reset!
@@ -36,4 +37,17 @@ class AnnouncementsSearch
     end
   end
   private_constant :AnnouncementPublishedSubscriber
+
+  class AnnouncementUnpublishedSubscriber
+    def initialize(repo)
+      @repo = repo
+    end
+
+    def handle(event)
+      return unless event.type == "AnnouncementUnpublished"
+      id = event.payload["id"]
+       @repo.delete(id)
+    end
+  end
+  private_constant :AnnouncementUnpublishedSubscriber
 end

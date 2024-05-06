@@ -33,5 +33,33 @@ class TestAnnouncementsSearch < Minitest::Test
     assert_equal "content", announcements[0].content
     assert_equal Announcements::Location.new(4, 3), announcements[0].location
   end
+
+  def test_publishing_and_unpublishing_announcement
+    announcements = @announcements_search.search
+    assert_equal 0, announcements.size
+
+    @events_bus.publish({
+      type: "AnnouncementPublished",
+      payload: {
+        "id" => "id-1234",
+        "title" => "title",
+        "content" => "content",
+        "location" => { "latitude" => 4, "longitude" => 3 },
+      }
+    })
+
+    announcements = @announcements_search.search
+    assert_equal 1, announcements.size
+
+    @events_bus.publish({
+      type: "AnnouncementUnpublished",
+      payload: {
+        "id" => "id-1234",
+      }
+    })
+
+    announcements = @announcements_search.search
+    assert_equal 0, announcements.size
+  end
 end
 

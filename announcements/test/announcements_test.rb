@@ -28,8 +28,8 @@ class TestAnnouncements < Minitest::Test
   def test_draft_is_not_public
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)
-    result = @announcements.fetch_public(announcement.id)
-    assert result.not_found?
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert result.draft?
   end
 
   def test_edditing
@@ -79,10 +79,8 @@ class TestAnnouncements < Minitest::Test
     @announcements.update_content(:system, id, "content") 
     @announcements.publish(:system, id)
 
-    result = @announcements.fetch_public(announcement.id)
-    assert !result.not_found?
-    assert_equal "title", result.title
-    assert_equal "content", result.content
+    result = @announcements.fetch_private(:system, announcement.id)
+    assert !result.draft?
   end
 
   def test_publishing_event_on_publication

@@ -2,7 +2,7 @@ require "test_helper"
 require "integration_test"
 
 class SearchAnnouncementsTest < IntegrationTest
-  test "announcement search returns one published announcement" do
+  test "announcement search returns one announcement when it is published" do
     Rails.application.config.announcements_search.reset!
 
     title = "title-#{Random.rand(1000)}"
@@ -32,6 +32,12 @@ class SearchAnnouncementsTest < IntegrationTest
     assert_equal 1, parsed_body["announcements"].size
     assert_equal title, parsed_body["announcements"][0]["title"]
     assert_equal content, parsed_body["announcements"][0]["content"]
+
+    signed_in_user.post "/users/me/announcements/#{announcements_public_id}/unpublish"
+    get "/announcements", params: { latitude: 0, longitude: 0 }
+    assert_equal 200, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal 0, parsed_body["announcements"].size
   end
 
   test "announcement search returns announcement sorted by distance to provided location" do

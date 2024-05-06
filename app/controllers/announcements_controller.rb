@@ -52,6 +52,15 @@ class AnnouncementsController < ApplicationController
     head 400
   end
 
+  def unpublish
+    announcements.unpublish(user_id, id)
+    head :ok
+  rescue Announcements::Errors::AuthorizationError
+    head 403
+  rescue  Announcements::Errors::UnfinishedDraftError
+    head 400
+  end
+
   private
 
   def id

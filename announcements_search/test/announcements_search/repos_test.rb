@@ -37,6 +37,35 @@ class AnnouncementsSearch
         assert_equal Announcements::Location.new(32.12, 43.21), announcements[0].location
       end
 
+      def test_deletes_announcement
+        announcement1 = Announcement.random_id
+          .with_title("title1")
+          .with_content("content1") 
+          .with_location(Announcements::Location.new(43.21, -87.432))
+        @repo.save(announcement1)
+
+        announcement2 = Announcement.random_id
+          .with_title("title2")
+          .with_content("content2")
+          .with_location(Announcements::Location.new(32.12, 43.21))
+        @repo.save(announcement2)
+
+        announcements = @repo.search
+        assert_equal 2, announcements.size
+
+        @repo.delete(announcement2.id)
+        announcements = @repo.search
+        assert_equal 1, announcements.size
+
+        @repo.delete(announcement2.id)
+        announcements = @repo.search
+        assert_equal 1, announcements.size
+
+        @repo.delete(announcement1.id)
+        announcements = @repo.search
+        assert_equal 0, announcements.size
+      end
+
       def test_orders_announcements_by_nearest_location
         announcement1 = Announcement.random_id
           .with_title("title1")

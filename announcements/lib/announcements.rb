@@ -56,15 +56,6 @@ class Announcements
     @events_bus.publish(Events::AnnouncementUnpublished.new(id))
   end
 
-  def fetch_public(id)
-    announcement = @repo.find(id)
-    if announcement.public?
-      FetchResult.new(false, announcement.draft?, announcement.title, announcement.content, announcement.location)
-    else 
-      FetchResult.new(true, false, "", "", Location.zero)
-    end
-  end
-
   def fetch_private(user, id)
     user = Users.build(user)
     announcement = @repo.find(id)
