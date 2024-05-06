@@ -127,6 +127,36 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal 400, response.status
   end
 
+  test "responds with 400 trying to edit published announcement" do
+    signed_in_user = sign_in_random_user
+    signed_in_user.post "/users/me/announcements"
+    id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{id}", params: {
+      title: "title",
+      content: "content",
+      location: { latitude: 1, longitude: 2 },
+    }
+    signed_in_user.post "/users/me/announcements/#{id}/publish"
+
+    signed_in_user.patch "/users/me/announcements/#{id}", params: {
+      title: "title2",
+    }
+    assert_equal 400, response.status
+    assert_equal({ "error" => "can-not-edit-published-announcement" }, JSON.parse(response.body))
+
+    signed_in_user.patch "/users/me/announcements/#{id}", params: {
+      content: "content2",
+    }
+    assert_equal 400, response.status
+    assert_equal({ "error" => "can-not-edit-published-announcement" }, JSON.parse(response.body))
+
+    signed_in_user.patch "/users/me/announcements/#{id}", params: {
+      location: { latitude: 3, longitude: 4 },
+    }
+    assert_equal 400, response.status
+    assert_equal({ "error" => "can-not-edit-published-announcement" }, JSON.parse(response.body))
+  end
+
   test "responds with user all announcements" do
     signed_in_user1 = sign_in_random_user
     signed_in_user2 = sign_in_random_user

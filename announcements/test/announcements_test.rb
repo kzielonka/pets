@@ -71,6 +71,26 @@ class TestAnnouncements < Minitest::Test
     assert_equal "content", result.content
   end
 
+  def test_edditing_published_annoucement_is_forbidden
+    user = Announcements::Users::RegularUser.new("creator_id")
+    announcement = @announcements.add_new_draft(user)
+    @announcements.update_title(:system, announcement.id, "title")
+    @announcements.update_content(:system, announcement.id, "content")
+    @announcements.update_location(:system, announcement.id, { latitude: -5.23, longitude: 10.23 })
+
+    @announcements.publish(:system, announcement.id)
+
+    assert_raises(Announcements::Errors::CanNotEditPublishedAnnouncementError) do
+      @announcements.update_title(:system, announcement.id, "title")
+    end
+    assert_raises(Announcements::Errors::CanNotEditPublishedAnnouncementError) do
+      @announcements.update_content(:system, announcement.id, "content")
+    end
+    assert_raises(Announcements::Errors::CanNotEditPublishedAnnouncementError) do
+      @announcements.update_location(:system, announcement.id, { latitude: -5.23, longitude: 10.23 })
+    end
+  end
+
   def test_publishing_with_title_and_content
     user = Announcements::Users::RegularUser.new("creator_id")
     announcement = @announcements.add_new_draft(user)

@@ -43,6 +43,7 @@ class Announcements
     def change_title(user, title)
       user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
       @title = title
       self
     end
@@ -50,6 +51,7 @@ class Announcements
     def change_content(user, content)
       user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
       @content = content
       self
     end
@@ -58,6 +60,7 @@ class Announcements
       user = Users.build(user)
       location = Location.build(location)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
       @location = location
       self
     end

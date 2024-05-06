@@ -12,6 +12,8 @@ class AnnouncementsController < ApplicationController
     head :ok
   rescue Announcements::Errors::AuthorizationError
     head 403
+  rescue Announcements::Errors::CanNotEditPublishedAnnouncementError 
+    render status: 400, json: { error: "can-not-edit-published-announcement" }
   end
 
   def show
