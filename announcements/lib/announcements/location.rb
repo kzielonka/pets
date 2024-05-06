@@ -22,5 +22,9 @@ class Announcements
     def ==(other)
       other.is_a?(Location) && @latitude == other.latitude && @longitude == other.longitude
     end
+
+    def approximate_distance_to(location)
+      Math.sqrt((location.latitude - @latitude)**2 + (location.longitude - @longitude)**2)
+    end
   end
 end

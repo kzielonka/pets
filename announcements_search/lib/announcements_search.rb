@@ -1,12 +1,14 @@
 require "announcements"
+require "announcements_search/announcement"
+require "announcements_search/repos"
 
 class AnnouncementsSearch
   def initialize
-    @repo = Repos::InMemoryRepo.new
+    @repo = Repos.build(:in_memory)
   end
 
-  def search
-    @repo.search
+  def search(location = Announcements::Location.zero)
+    @repo.search(location)
   end
 
   def subscribe(events_bus)
@@ -33,52 +35,5 @@ class AnnouncementsSearch
       @repo.save(announcement)
     end
   end
-
-  module Repos
-    class InMemoryRepo
-      def initialize
-        reset!
-      end
-
-      def save(announcement)
-        @announcements << announcement
-      end
-
-      def search
-        @announcements
-      end
-
-      def reset!
-        @announcements = []
-      end
-    end
-  end
-  private_constant :Repos
-
-  class Announcement
-    def initialize(id, title, content, location)
-      @id = id
-      @title = title
-      @content = content
-      @location = Announcements::Location.build(location)
-    end
-
-    attr_reader :id, :title, :content, :location
-
-    def self.blank(id)
-      new(id, "", "", Announcements::Location.zero)
-    end
-
-    def with_title(title)
-      self.class.new(@id, title, @content, @location)
-    end
-
-    def with_content(content)
-      self.class.new(@id, @title, content, @location)
-    end
-
-    def with_location(location)
-      self.class.new(@id, @title, @content, location)
-    end
-  end
+  private_constant :AnnouncementPublishedSubscriber
 end

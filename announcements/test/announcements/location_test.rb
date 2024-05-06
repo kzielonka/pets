@@ -29,5 +29,16 @@ class Announcements
       assert location1 == location2
       assert location1 != location3
     end
+
+    def test_approximate_distance
+      location1 = Location.new(1, 1)
+      location2 = Location.new(2, 2)
+      assert_in_delta 1.414, location1.approximate_distance_to(location2), 0.001
+      assert_in_delta 1.414, location2.approximate_distance_to(location1), 0.001
+
+      location3 = Location.new(-4, 10)
+      location4 = Location.new(15, 21)
+      assert_in_delta 21.954, location3.approximate_distance_to(location4), 0.001
+    end
   end
 end
