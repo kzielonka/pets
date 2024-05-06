@@ -45,7 +45,6 @@ class Auth
 
       def encrypt_raw(password) 
         random_hex = SecureRandom.hex(10)
-        "#{password}#{random_hex}"
         digest = Digest::MD5.hexdigest "#{password}#{random_hex}"
         "#{digest}:#{random_hex}"
       end

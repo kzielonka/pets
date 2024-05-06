@@ -46,10 +46,10 @@ gem "bootsnap", require: false
 
 gem "pg"
 
-gem "auth", path: "auth"
-gem "announcements", path: "announcements"
-gem "announcements_search", path: "announcements_search"
-gem "events_bus", path: "events_bus"
+gem "auth", path: "../modules/auth"
+gem "announcements", path: "../modules/announcements"
+gem "announcements_search", path: "../modules/announcements_search"
+gem "events_bus", path: "../modules/events_bus"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
