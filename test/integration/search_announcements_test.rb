@@ -1,0 +1,85 @@
+require "test_helper"
+require "integration_test"
+
+class SearchAnnouncementsTest < IntegrationTest
+  test "announcement search returns one published announcement" do
+    Rails.application.config.announcements_search.reset!
+
+    title = "title-#{Random.rand(1000)}"
+    content = "content-#{Random.rand(1000)}"
+
+    signed_in_user = sign_in_random_user
+
+    signed_in_user.post "/users/me/announcements"
+    announcements_public_id = JSON.parse(response.body)["id"]
+
+    signed_in_user.patch "/users/me/announcements/#{announcements_public_id}", params: {
+      title: title,
+      content: content,
+      location: { latitude: 12.34, longitude: -43.21 }
+    }
+
+    get "/announcements"
+    assert_equal 200, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal 0, parsed_body["announcements"].size
+
+    signed_in_user.post "/users/me/announcements/#{announcements_public_id}/publish"
+
+    get "/announcements"
+    assert_equal 200, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal 1, parsed_body["announcements"].size
+    assert_equal title, parsed_body["announcements"][0]["title"]
+    assert_equal content, parsed_body["announcements"][0]["content"]
+  end
+
+  test "announcement search returns announcement sorted by distance to provided location" do
+    Rails.application.config.announcements_search.reset!
+
+    signed_in_user = sign_in_random_user
+
+    signed_in_user.post "/users/me/announcements"
+    announcement_1_id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{announcement_1_id}", params: {
+      title: "announcement on 10",
+      content: "content",
+      location: { latitude: 0, longitude: 10 }
+    }
+    signed_in_user.post "/users/me/announcements/#{announcement_1_id}/publish"
+
+    signed_in_user.post "/users/me/announcements"
+    announcement_2_id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{announcement_2_id}", params: {
+      title: "announcement on 25",
+      content: "content",
+      location: { latitude: 0, longitude: 25 }
+    }
+    signed_in_user.post "/users/me/announcements/#{announcement_2_id}/publish"
+
+    signed_in_user.post "/users/me/announcements"
+    announcement_3_id = JSON.parse(response.body)["id"]
+    signed_in_user.patch "/users/me/announcements/#{announcement_3_id}", params: {
+      title: "announcement on 30",
+      content: "content",
+      location: { latitude: 0, longitude: 30 }
+    }
+    signed_in_user.post "/users/me/announcements/#{announcement_3_id}/publish"
+
+    get "/announcements", params: { latitude: 0, longitude: 11 }
+    assert_equal 200, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal 3, parsed_body["announcements"].size
+    assert_equal "announcement on 10", parsed_body["announcements"][0]["title"]
+    assert_equal "announcement on 25", parsed_body["announcements"][1]["title"]
+    assert_equal "announcement on 30", parsed_body["announcements"][2]["title"]
+
+    get "/announcements", params: { latitude: 0, longitude: 27 }
+    assert_equal 200, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal 3, parsed_body["announcements"].size
+    assert_equal "announcement on 25", parsed_body["announcements"][0]["title"]
+    assert_equal "announcement on 30", parsed_body["announcements"][1]["title"]
+    assert_equal "announcement on 10", parsed_body["announcements"][2]["title"]
+  end
+end

@@ -1,11 +1,15 @@
 class PublicAnnouncementsController < ApplicationController
 
   def index
-    announcements = announcements_search.search.map { |a| AnnouncementJson.new(a) }
+    announcements = announcements_search.search(location).map { |a| AnnouncementJson.new(a) }
     render status: 200, json: { announcements: announcements.map { |a| a.json } }
   end
 
   private
+
+  def location
+    Announcements::Location.new(params[:latitude], params[:longitude])
+  end
 
   def announcements_search
     Rails.application.config.announcements_search

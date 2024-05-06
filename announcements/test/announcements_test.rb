@@ -93,6 +93,7 @@ class TestAnnouncements < Minitest::Test
     id = announcement.id
     @announcements.update_title(:system, id, title) 
     @announcements.update_content(:system, id, content) 
+    @announcements.update_location(:system, id, Announcements::Location.new(-10.2, -53.3)) 
 
     assert_equal 0, @events_bus.number_of_events
     @announcements.publish(:system, id)
@@ -104,8 +105,8 @@ class TestAnnouncements < Minitest::Test
         "title" => title,
         "content" => content,
         "location" => {
-          "latitude" => 0,
-          "longitude" => 0,
+          "latitude" => -10.2,
+          "longitude" => -53.3,
         },
       },
       @events_bus.last_event.payload,

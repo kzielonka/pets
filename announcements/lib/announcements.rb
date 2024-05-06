@@ -27,13 +27,17 @@ class Announcements
 
   def update_content(user, id, content)
     user = Users.build(user)
-    @repo.find(id).change_content(user, content)
+    announcement = @repo.find(id)
+    announcement.change_content(user, content)
+    @repo.save(announcement)
   end
 
   def update_location(user, id, location)
     user = Users.build(user)
     location = Location.build(location)
-    @repo.find(id).change_location(user, location)
+    announcement = @repo.find(id)
+    announcement.change_location(user, location)
+    @repo.save(announcement)
   end
 
   def publish(user, id)
@@ -41,7 +45,7 @@ class Announcements
     announcement = @repo.find(id)
     announcement.publish(user)
     @repo.save(announcement)
-    @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content))
+    @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content, announcement.location))
   end
 
   def unpublish(user, id)
@@ -89,10 +93,11 @@ class Announcements
 
   module Events
     class AnnouncementPublished
-      def initialize(id, title, content)
+      def initialize(id, title, content, location)
         @id = String(id).dup.freeze
         @title = String(title).dup.freeze
         @content = String(content).dup.freeze
+        @location = Location.build(location)
       end
       
       def type
@@ -104,7 +109,10 @@ class Announcements
           "id" => @id,
           "title" => @title,
           "content" => @content,
-          "location" => { "latitude" => 0, "longitude" => 0 },
+          "location" => {
+            "latitude" => @location.latitude,
+            "longitude" => @location.longitude,
+          },
         }
       end
     end

@@ -3,6 +3,7 @@ class Announcements
     def initialize(latitude, longitude)
       @latitude = latitude.to_f
       @longitude = longitude.to_f
+      freeze
     end
 
     def self.build(obj)
