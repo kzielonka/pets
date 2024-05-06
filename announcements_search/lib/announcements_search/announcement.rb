@@ -13,6 +13,10 @@ class AnnouncementsSearch
       new(id, "", "", Announcements::Location.zero)
     end
 
+    def self.random_id
+      blank(SecureRandom.uuid)
+    end
+
     def with_title(title)
       self.class.new(@id, title, @content, @location)
     end

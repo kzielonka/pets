@@ -31,7 +31,9 @@ All "domain" code which consists any kind of business logic (not http one) is sp
 
 There are two modules currently:
 * [auth](./auth) - email, password authentication,
-* [announcements](./announcements) - managing user announcements.
+* [announcements](./announcements) - managing user announcements,
+* [announcements_search](./announcements_search) - allows searching for announcements by location,
+* [events_bus](./events_bus) - module which provides event communication between modules.
 
 
 Modules are done in to make it possible to extracted every single one of them to separate service (server instance) if needed.
