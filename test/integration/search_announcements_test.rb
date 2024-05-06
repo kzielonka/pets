@@ -19,14 +19,14 @@ class SearchAnnouncementsTest < IntegrationTest
       location: { latitude: 12.34, longitude: -43.21 }
     }
 
-    get "/announcements"
+    get "/announcements", params: { latitude: 0, longitude: 0 }
     assert_equal 200, response.status
     parsed_body = JSON.parse(response.body)
     assert_equal 0, parsed_body["announcements"].size
 
     signed_in_user.post "/users/me/announcements/#{announcements_public_id}/publish"
 
-    get "/announcements"
+    get "/announcements", params: { latitude: 0, longitude: 0 }
     assert_equal 200, response.status
     parsed_body = JSON.parse(response.body)
     assert_equal 1, parsed_body["announcements"].size
@@ -81,5 +81,32 @@ class SearchAnnouncementsTest < IntegrationTest
     assert_equal "announcement on 25", parsed_body["announcements"][0]["title"]
     assert_equal "announcement on 30", parsed_body["announcements"][1]["title"]
     assert_equal "announcement on 10", parsed_body["announcements"][2]["title"]
+  end
+
+  test "returns error searching with no location" do
+    Rails.application.config.announcements_search.reset!
+
+    get "/announcements"
+    assert_equal 400, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal({ "error" => "location-validation-error" }, parsed_body)
+  end
+
+  test "returns error searching with invalid latitude" do
+    Rails.application.config.announcements_search.reset!
+
+    get "/announcements", params: { latitude: "invalid", longitude: 0 }
+    assert_equal 400, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal({ "error" => "location-validation-error" }, parsed_body)
+  end
+
+  test "returns error searching with invalid longitude" do
+    Rails.application.config.announcements_search.reset!
+
+    get "/announcements", params: { latitude: 0, longitude: "invalid" }
+    assert_equal 400, response.status
+    parsed_body = JSON.parse(response.body)
+    assert_equal({ "error" => "location-validation-error" }, parsed_body)
   end
 end
