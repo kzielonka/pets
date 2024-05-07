@@ -1,12 +1,18 @@
-# Pets
+# Lost and found pets
 
 [![Ruby](https://github.com/kzielonka/pets/actions/workflows/ruby.yml/badge.svg)](https://github.com/kzielonka/pets/actions/workflows/ruby.yml)
 
+It is web app for pet owners to help them found theirs missing animals.
+It allows to publish found/lost pet announcement and browse already published ones.
+
+## How to run it locally?
 
 Start app:
 ```
 docker compose up
 ```
+
+### Set up DB
 
 Set up DB:
 ```
@@ -15,11 +21,18 @@ docker compose exec web rails db:migrate
 docker compose exec web rails db:migrate RAILS_ENV=test
 ```
 
-Run tests
+### Backend tests
 ```
 docker compose exec web rails test
 docker compose exec web /bin/bash -c "cd auth; rake test"
 docker compose exec web /bin/bash -c "cd announcements; rake test"
+```
+
+### Frontend tests
+```
+docker compose exec frontend npm run test:unit run
+docker compose exec frontend npm run lint
+docker compose exec frontend npm run type-check
 ```
 
 ## Architecture

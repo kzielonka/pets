@@ -4,12 +4,22 @@ services:
       context: .
       dockerfile: ./Dockerfile.dev 
     volumes:
-      - .:/rails
+      - ./rails:/rails/rails
+      - ./modules:/rails/modules
     depends_on:
       - db
     environment:
       - DEV_DATABASE_URL=postgresql://postgres:password@db/pets_dev
       - TEST_DATABASE_URL=postgresql://postgres:password@db/pets_test
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+    ports:
+      - 5173:5173
   db:
     image: postgres:16.2
     restart: always
@@ -17,3 +27,5 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: password
+volumes:
+  frontend-node-modules:

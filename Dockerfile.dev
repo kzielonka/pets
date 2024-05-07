@@ -27,6 +27,8 @@ RUN cd ./modules/events_bus && bundle install
 
 FROM base as workspace
 
+WORKDIR /rails/rails
+
 COPY --from=build /usr/local/bundle /usr/local/bundle
 
 CMD ["rails", "server"]
