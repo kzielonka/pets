@@ -31,4 +31,4 @@ WORKDIR /rails/rails
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 
-CMD ["rails", "server"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

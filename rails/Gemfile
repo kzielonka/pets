@@ -46,6 +46,8 @@ gem "bootsnap", require: false
 
 gem "pg"
 
+gem "rack-cors", "~> 2.0"
+
 gem "auth", path: "../modules/auth"
 gem "announcements", path: "../modules/announcements"
 gem "announcements_search", path: "../modules/announcements_search"

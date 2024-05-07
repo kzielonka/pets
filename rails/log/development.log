@@ -523,3 +523,895 @@ Migrating to AddGistIndexOnPublicAnnouncementsLocation (20240506100349)
   [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
   [1m[35m (57.3ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
   [1m[35m (12.9ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+Started GET "/" for 192.168.65.1 at 2024-05-07 12:50:29 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/" for 192.168.65.1 at 2024-05-07 12:50:29 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActiveRecord::NoDatabaseError (We could not find your database: pets_dev. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:74:in `rescue in new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:68:in `new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:980:in `connect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:992:in `reconnect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:685:in `block in reconnect!'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:684:in `reconnect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:788:in `verify!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:795:in `connect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1001:in `block in with_raw_connection'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1000:in `with_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1113:in `valid_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:616:in `get_database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:374:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:70:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:200:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:871:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:644:in `check_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:678:in `new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:723:in `checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:702:in `try_to_checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:654:in `acquire_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:353:in `checkout'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:182:in `connection'
+activerecord (7.1.3.2) lib/active_record/migration/pending_migration_connection.rb:8:in `establish_temporary_connection'
+activerecord (7.1.3.2) lib/active_record/migration.rb:774:in `block in pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `each'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:752:in `check_pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3.2) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3.2) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+  
+ActiveRecord::NoDatabaseError (We could not find your database: pets_dev. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:74:in `rescue in new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:68:in `new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:980:in `connect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:992:in `reconnect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:685:in `block in reconnect!'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:684:in `reconnect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:788:in `verify!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:795:in `connect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1001:in `block in with_raw_connection'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1000:in `with_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1113:in `valid_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:616:in `get_database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:374:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:70:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:200:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:871:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:644:in `check_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:678:in `new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:723:in `checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:702:in `try_to_checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:654:in `acquire_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:353:in `checkout'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:182:in `connection'
+activerecord (7.1.3.2) lib/active_record/migration/pending_migration_connection.rb:8:in `establish_temporary_connection'
+activerecord (7.1.3.2) lib/active_record/migration.rb:774:in `block in pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `each'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:752:in `check_pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3.2) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3.2) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-05-07 12:53:23.006658', '2024-05-07 12:53:23.006660') RETURNING "key"[0m
+Migrating to AddAnnouncements (20240423085448)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "draft" boolean NOT NULL, "owner_id" character varying NOT NULL, "title" character varying, "content" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_announcements_on_owner_id" ON "announcements" ("owner_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423085448') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCredentials (20240423121101)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "credentials" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "user_id" uuid NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_user_id" ON "credentials" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_email" ON "credentials" ("email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423121101') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddLocationToAnnouncements (20240425142030)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "announcements" ADD "latitude" decimal[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "announcements" ADD "longitude" decimal[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240425142030') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPublicAnnouncements (20240506091826)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "public_announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "content" character varying NOT NULL, "location" point NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506091826') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCubeAndEarthdistanceExtension (20240506095916)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE EXTENSION cube;[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE EXTENSION earthdistance;[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506095916') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGistIndexOnPublicAnnouncementsLocation (20240506100349)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_public_announcements_on_location" ON "public_announcements" USING gist ("location")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506100349') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 192.168.65.1 at 2024-05-07 12:53:25 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 373)
+Completed 200 OK in 14ms (Views: 3.0ms | ActiveRecord: 0.0ms | Allocations: 4901)
+
+
+Started GET "/" for 192.168.65.1 at 2024-05-07 12:53:33 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | Allocations: 13)
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.0ms | Allocations: 218)
+
+
+Started POST "/users" for 192.168.65.1 at 2024-05-07 12:53:49 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [POST] "/users"):
+  
+Started POST "/sigh_up" for 192.168.65.1 at 2024-05-07 12:55:25 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [POST] "/sigh_up"):
+  
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 12:55:44 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 422 Unprocessable Entity in 4ms (ActiveRecord: 0.0ms | Allocations: 617)
+
+
+  
+ActionController::InvalidAuthenticityToken (HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)):
+  
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:293:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:388:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:377:in `verify_authenticity_token'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:403:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:202:in `block (2 levels) in halting'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:203:in `block in halting'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.3.2) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.10) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.10) lib/rack/etag.rb:29:in `call'
+rack (3.0.10) lib/rack/conditional_get.rb:43:in `call'
+rack (3.0.10) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 12:56:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 422 Unprocessable Entity in 1ms (ActiveRecord: 0.0ms | Allocations: 506)
+
+
+  
+ActionController::InvalidAuthenticityToken (HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)):
+  
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:293:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:388:in `handle_unverified_request'
+actionpack (7.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:377:in `verify_authenticity_token'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:403:in `block in make_lambda'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:202:in `block (2 levels) in halting'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:203:in `block in halting'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.3.2) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.3.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.3.2) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.3.2) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.3.2) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.3.2) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.3.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.3.2) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.3.2) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.10) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.10) lib/rack/etag.rb:29:in `call'
+rack (3.0.10) lib/rack/conditional_get.rb:43:in `call'
+rack (3.0.10) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 12:58:34 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 941)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:00:10 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 850)
+
+
+Started OPTIONS "/sign_up" for 192.168.65.1 at 2024-05-07 13:01:21 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [OPTIONS] "/sign_up"):
+  
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:32:00 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActiveRecord::NoDatabaseError (We could not find your database: pets_dev. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:74:in `rescue in new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:68:in `new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:980:in `connect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:992:in `reconnect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:685:in `block in reconnect!'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:684:in `reconnect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:788:in `verify!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:795:in `connect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1001:in `block in with_raw_connection'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1000:in `with_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1113:in `valid_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:616:in `get_database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:374:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:70:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:200:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:871:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:644:in `check_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:678:in `new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:723:in `checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:702:in `try_to_checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:654:in `acquire_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:353:in `checkout'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:182:in `connection'
+activerecord (7.1.3.2) lib/active_record/migration/pending_migration_connection.rb:8:in `establish_temporary_connection'
+activerecord (7.1.3.2) lib/active_record/migration.rb:774:in `block in pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `each'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:752:in `check_pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3.2) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3.2) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+rack-cors (2.0.2) lib/rack/cors.rb:102:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2024-05-07 13:32:29.513833', '2024-05-07 13:32:29.513835') RETURNING "key"[0m
+Migrating to AddAnnouncements (20240423085448)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "draft" boolean NOT NULL, "owner_id" character varying NOT NULL, "title" character varying, "content" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_announcements_on_owner_id" ON "announcements" ("owner_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423085448') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCredentials (20240423121101)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "credentials" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "user_id" uuid NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_user_id" ON "credentials" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_email" ON "credentials" ("email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423121101') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddLocationToAnnouncements (20240425142030)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "announcements" ADD "latitude" decimal[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "announcements" ADD "longitude" decimal[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240425142030') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPublicAnnouncements (20240506091826)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "public_announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "content" character varying NOT NULL, "location" point NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506091826') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCubeAndEarthdistanceExtension (20240506095916)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE EXTENSION cube;[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE EXTENSION earthdistance;[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506095916') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGistIndexOnPublicAnnouncementsLocation (20240506100349)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_public_announcements_on_location" ON "public_announcements" USING gist ("location")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506100349') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:32:35 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"fds", "password"=>"[FILTERED]", "user"=>{"email"=>"fds", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 400 Bad Request in 6ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 2438)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:32:46 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"fds@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"fds@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "fds@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:5:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:5:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.0ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "6b558b2e-edd2-446a-a819-76bc0c89f9e4"], ["email", "fds@wp.pl"], ["password", "$2a$12$0v6kyFz23QPw9i3REp/p2.56KYGAngRKU8oAR71zgXb5YHvwwTS5W"], ["created_at", "2024-05-07 13:32:46.637278"], ["updated_at", "2024-05-07 13:32:46.637278"]]
+  ↳ app/controllers/users_controller.rb:5:in `sign_up'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:5:in `sign_up'
+Completed 200 OK in 435ms (ActiveRecord: 5.7ms | Allocations: 19538)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:32:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"fds@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"fds@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "fds@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:5:in `sign_up'
+Completed 400 Bad Request in 400ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 1050)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:35:02 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"fasdfsa", "password"=>"[FILTERED]", "user"=>{"email"=>"fasdfsa", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "fasdfsa"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (0.9ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "c7fce5a3-5fe1-4074-9b80-d1f20d92c2ec"], ["email", "fasdfsa"], ["password", "$2a$12$DWBKjuplLVu9HwyQ23s/nOh2WguepANzIMc2SQsuZjl0HO35U3oR."], ["created_at", "2024-05-07 13:35:03.197985"], ["updated_at", "2024-05-07 13:35:03.197985"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 386ms (ActiveRecord: 1.9ms | Allocations: 2242)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:38:45 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.2ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "38022aab-17cd-4abf-9b74-e64ddbde88f1"], ["email", "test@example.com"], ["password", "$2a$12$wyQUr.FGZrxmv2V.HHpYR.E.7QCd1KZY41fsgP8ehAgYA2vlNLLr2"], ["created_at", "2024-05-07 13:38:45.514017"], ["updated_at", "2024-05-07 13:38:45.514017"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 399ms (ActiveRecord: 2.8ms | Allocations: 2144)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:39:11 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 386ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 1048)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:39:49 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 399ms (Views: 0.1ms | ActiveRecord: 0.7ms | Allocations: 1023)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:40:30 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 372ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 1021)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:45:18 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 394ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 1023)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:46:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"user"=>{}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 789)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:47:06 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"user"=>{}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 400 Bad Request in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 786)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:48:53 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.7ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "c6d236c9-fd2b-440c-99da-23046420f991"], ["email", "test@wp.pl"], ["password", "$2a$12$Q5lZug38xR/5VTEiR4W8auo8qb5umD1LCscjfM4eEeaUvV/MiYeKa"], ["created_at", "2024-05-07 13:48:54.182261"], ["updated_at", "2024-05-07 13:48:54.182261"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 406ms (ActiveRecord: 2.7ms | Allocations: 2132)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:49:05 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 396ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 1020)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:49:09 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 403ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 1020)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:49:58 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 392ms (Views: 0.1ms | ActiveRecord: 0.7ms | Allocations: 1021)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:50:32 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 386ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 1022)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:50:46 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 398ms (Views: 0.6ms | ActiveRecord: 0.5ms | Allocations: 1021)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 13:59:15 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 399ms (Views: 0.1ms | ActiveRecord: 2.4ms | Allocations: 3769)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:02:27 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 394ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 1020)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:05:24 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 389ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 1022)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:06:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 389ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 1021)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:20:53 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (7.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 401ms (Views: 0.1ms | ActiveRecord: 9.5ms | Allocations: 3731)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:23:51 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"afds", "password"=>"[FILTERED]", "user"=>{"email"=>"afds", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "afds"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.2ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "c5b76397-c8e0-466a-a21e-9f793040e74f"], ["email", "afds"], ["password", "$2a$12$63zROJ575awVLc9ttaicKO22NcxIfkxj3AN/yZ3M1bWk1qlhkl8Hy"], ["created_at", "2024-05-07 14:23:51.500392"], ["updated_at", "2024-05-07 14:23:51.500392"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 400ms (ActiveRecord: 3.2ms | Allocations: 2149)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:29:14 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@e", "password"=>"[FILTERED]", "user"=>{"email"=>"test@e", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@e"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (0.9ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "31ceb83c-9b12-4cb1-a817-68e9e93f1511"], ["email", "test@e"], ["password", "$2a$12$yNhnIVHn9MEQzHxvI0/JXeCKhOZaIexmP6zXCh1SnyBZZ9jEu5hfO"], ["created_at", "2024-05-07 14:29:15.325240"], ["updated_at", "2024-05-07 14:29:15.325240"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 391ms (ActiveRecord: 2.2ms | Allocations: 2137)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:29:47 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@wp.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@wp.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@wp.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 387ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 1020)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:36:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@w.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@w.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (8.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@w.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (0.9ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "5daa2e8b-6253-47b9-aa6d-dd636b6aa9da"], ["email", "test@w.pl"], ["password", "$2a$12$D.F/c706QJUCwCWXo7N4WeOOqd1WNZ655f6SRVPVM/9XH8NS/lJim"], ["created_at", "2024-05-07 14:36:07.997326"], ["updated_at", "2024-05-07 14:36:07.997326"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 400ms (ActiveRecord: 11.4ms | Allocations: 4888)
+
+
+Started POST "/sign_up" for 192.168.65.1 at 2024-05-07 14:36:13 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@w.pl", "password"=>"[FILTERED]", "user"=>{"email"=>"test@w.pl", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@w.pl"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 397ms (Views: 0.2ms | ActiveRecord: 0.7ms | Allocations: 1020)
+
+
