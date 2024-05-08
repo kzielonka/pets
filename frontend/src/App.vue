@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import SignUp from './components/SignUp.vue'
 </script>
 
 <template>
@@ -9,12 +8,12 @@ import SignUp from './components/SignUp.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <SignUp />
       <HelloWorld msg="You did it!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/sign-up">Sign up</RouterLink>
       </nav>
     </div>
   </header>
