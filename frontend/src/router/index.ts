@@ -25,6 +25,12 @@ const router = createRouter({
       component: () => import('../views/MyAnnouncementsView.vue')
     },
     {
+      path: '/my-announcements/:id',
+      name: 'My announcement details',
+      component: () => import('../views/MyAnnouncementDetailsView.vue')
+    },
+
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

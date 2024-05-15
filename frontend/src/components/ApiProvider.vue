@@ -30,11 +30,14 @@
 
   export type LoadCurrentUserAnnouncementsApi = () => Promise<CurrentUserAnnouncement[]>;
 
+  export type NewAnnouncementApi = () => Promise<void>;
+
   export interface Api {
     callSignIn: SignInApi;
     callSignUp: SignUpApi;
     setAccessToken: SetAccessToken;
     loadCurrentUserAnnouncements: LoadCurrentUserAnnouncementsApi; 
+    callNewAnnouncement: NewAnnouncementApi;
   };
 
   const errorType = (parsedBody: unknown): string => {
@@ -138,11 +141,24 @@
     return parseCurrentUserAnnouncmentsJson(await response.json());
   }
 
+  const callNewAnnouncement = async (): Promise<void> => {
+    const response = await fetch('http://localhost:3000/users/me/announcements', {
+      method: 'POST',
+      headers: extendHeadersWithAccessToken({
+        'Content-Type': 'application/json',
+      }),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+  }
+
   const api: Api = {
     callSignIn,
     callSignUp,
     setAccessToken, 
     loadCurrentUserAnnouncements,
+    callNewAnnouncement,
   };
 
   provide('api', api);

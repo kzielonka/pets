@@ -6,26 +6,42 @@ import type { CurrentUserAnnouncement } from '../ApiProvider.vue';
 
 describe('MyAnnouncements', () => {
   const loadingSelector = '[data-testid=loading]';
+  const addNewSelector = '[data-testid=add-new]';
+
   let resolveLoadPromise: (announcements: CurrentUserAnnouncement[]) => void;
   let api: Api;
-
-  beforeEach(() => {
+  
+  const resetApi = () => {
     api = {
       loadCurrentUserAnnouncements: (): Promise<CurrentUserAnnouncement[]> => {
         return new Promise((resolve) => {
           resolveLoadPromise = resolve;
         });
-      }
+      },
+      callNewAnnouncement: () => Promise.resolve()
     };
+  };
+
+  beforeEach(() => {
+    resetApi();
   });
 
+  const mountComponent = () => {
+    return mount(MyAnnouncements, {
+      global: {
+        provide: { api },
+        stubs: ['router-link']
+      }
+    });
+  }
+
   it('renders properly', () => {
-    const wrapper = mount(MyAnnouncements, { global: { provide: { api }}});
+    const wrapper = mountComponent();
     expect(wrapper.text()).toContain('Announcements');
   });
 
   it('shows loading while request to fetch announcements is in progress', async () => {
-    const wrapper = mount(MyAnnouncements, { global: { provide: { api } }});
+    const wrapper = mountComponent();
     expect(wrapper.find(loadingSelector).exists()).toBe(true);
     resolveLoadPromise([]);
     await flushPromises();
@@ -33,10 +49,24 @@ describe('MyAnnouncements', () => {
   });
 
   it('shows loaded announcement', async () => {
+    const wrapper = mountComponent();
     const title = `title-${Math.random()}`;
-    const wrapper = mount(MyAnnouncements, { global: { provide: { api } }});
     resolveLoadPromise([{ id: '1234', title, published: true }]);
     await flushPromises();
     expect(wrapper.text()).toMatch(title);
+  });
+
+  it('shows loading back when new announcement is beeing added', async () => {
+    const wrapper = mountComponent();
+    expect(wrapper.find(loadingSelector).exists()).toBe(true);
+    resolveLoadPromise([]);
+    await flushPromises();
+    expect(wrapper.find(loadingSelector).exists()).toBe(false);
+    wrapper.find(loadingSelector).exists()
+    await wrapper.find(addNewSelector).trigger('click');
+    expect(wrapper.find(loadingSelector).exists()).toBe(true);
+    resolveLoadPromise([]);
+    await flushPromises();
+    expect(wrapper.find(loadingSelector).exists()).toBe(false);
   });
 });
