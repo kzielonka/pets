@@ -1,4 +1,3 @@
-ARG RUBY_VERSION=3.3.0
 FROM registry.docker.com/library/node:22-bookworm as base 
 
 WORKDIR /app

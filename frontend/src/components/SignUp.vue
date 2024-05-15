@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref, watch, inject } from 'vue';
 import type { Ref } from 'vue';
-import type { Api } from './ApiProvider.vue';
+import type { SignUpApi } from './ApiProvider.vue';
+
+interface Api {
+  callSignUp: SignUpApi;
+};
 
 const emit = defineEmits(['signedUp']);
 
@@ -9,7 +13,6 @@ const api = inject<Api>('api');
 if (!api) {
   throw new Error('Api must be provided');
 }
-const { callSignUp } = api;
 
 const email: Ref<string> = ref('');
 const emailDuplicated = ref(false); 
@@ -43,7 +46,7 @@ const submit = async () => {
   if (!isEmailAndPasswordValid()) {
     return;
   }
-  const result = await callSignUp(email.value, password.value);
+  const result = await api.callSignUp(email.value, password.value);
   if (result === 'success') {
     emit('signedUp');
   } else if (result === 'duplicated-email-error') {

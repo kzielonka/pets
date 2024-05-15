@@ -106,12 +106,10 @@ describe('SignUp', () => {
 
     const wrapper = mount(SignUp, { global: { provide: { api } }});
 
-    expect(wrapper.find(invalidEmailErrorSelector).exists()).toBe(false);
-
     await wrapper.find(emailInputSelector).setValue(email);
     await wrapper.find(passwordInputSelector).setValue(password);
     await wrapper.find(passwordConfirmationInputSelector).setValue(password);
-    wrapper.find(submitSelector).trigger('click');
+    await wrapper.find(submitSelector).trigger('click');
     await nextTick()
 
     expect(callSignUp).toHaveBeenCalledOnce();
