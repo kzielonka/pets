@@ -2,7 +2,8 @@ import { describe, it, expect, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import SignUp from '../SignUp.vue'
-import type { Api, SignUpApi } from '../ApiProvider.vue'
+import type { Api } from '../SignUp.vue'
+import type { SignUpApi } from '../ApiProvider.vue'
 
 describe('SignUp', () => {
   const emailInputSelector = '[data-testid=email-input]';

@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
-import MyAnnouncements, { Api } from '../MyAnnouncements.vue'
-import type { LoadCurrentUserAnnouncementsApi, CurrentUserAnnouncement } from '../ApiProvider';
+import MyAnnouncements from '../MyAnnouncements.vue'
+import type { Api } from '../MyAnnouncements.vue'
+import type { CurrentUserAnnouncement } from '../ApiProvider.vue';
 
 describe('MyAnnouncements', () => {
   const loadingSelector = '[data-testid=loading]';
@@ -10,7 +11,7 @@ describe('MyAnnouncements', () => {
 
   beforeEach(() => {
     api = {
-      loadCurrentUserAnnouncements: (email: string, password: string) => {
+      loadCurrentUserAnnouncements: (): Promise<CurrentUserAnnouncement[]> => {
         return new Promise((resolve) => {
           resolveLoadPromise = resolve;
         });
@@ -34,7 +35,7 @@ describe('MyAnnouncements', () => {
   it('shows loaded announcement', async () => {
     const title = `title-${Math.random()}`;
     const wrapper = mount(MyAnnouncements, { global: { provide: { api } }});
-    resolveLoadPromise([{ id: '1234', title, draft: false }]);
+    resolveLoadPromise([{ id: '1234', title, published: true }]);
     await flushPromises();
     expect(wrapper.text()).toMatch(title);
   });

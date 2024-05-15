@@ -3,7 +3,7 @@ import { ref, watch, inject } from 'vue';
 import type { Ref } from 'vue';
 import type { SignUpApi } from './ApiProvider.vue';
 
-interface Api {
+export interface Api {
   callSignUp: SignUpApi;
 };
 
