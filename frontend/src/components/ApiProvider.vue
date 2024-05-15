@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { provide, ref } from 'vue';
-  import { isObject, isString } from 'lodash';
+  import { isArray, isObject, isString } from 'lodash';
 
   const accessTokenSet = ref(false);
   const accessToken = ref('');
@@ -22,10 +22,19 @@
 
   export type SignUpApi = (email: string, password: string) => Promise<'success' | 'duplicated-email-error' | 'error'>;
 
+  export interface CurrentUserAnnouncement {
+    id: string;
+    title: string;
+    published: boolean;
+  };
+
+  export type LoadCurrentUserAnnouncementsApi = () => Promise<CurrentUserAnnouncement[]>;
+
   export interface Api {
-    setAccessToken: SetAccessToken;
     callSignIn: SignInApi;
     callSignUp: SignUpApi;
+    setAccessToken: SetAccessToken;
+    loadCurrentUserAnnouncements: LoadCurrentUserAnnouncementsApi; 
   };
 
   const errorType = (parsedBody: unknown): string => {
@@ -45,7 +54,7 @@
     if (!accessTokenSet.value) {
       return headers;
     }
-    return { ...headers, 'Authorization': accessToken.value };
+    return { ...headers, 'Authorization': 'Bearer ' + accessToken.value };
   }
   
   const callSignIn = async (email: string, password: string): Promise<SignInApiResult> => {
@@ -59,7 +68,8 @@
     if (response.status !== 200) {
       return { success: false };
     }
-    return { success: true, accessToken: '1234' };
+    const json = await response.json();
+    return { success: true, accessToken: String(json.accessToken) };
   }
 
   const callSignUp = async (email: string, password: string): Promise<'success' | 'duplicated-email-error' | 'error'> => {
@@ -88,10 +98,51 @@
     accessToken.value = newAccessToken;
   };
 
+  const normaliseCurrentUserAnnouncement = (announcement: unknown): CurrentUserAnnouncement => {
+    if (!isObject(announcement)) {
+      throw new Error('object expected');
+    }
+    if (!('id' in announcement)) {
+      throw new Error('id is missing');
+    }
+    if (!('title' in announcement)) {
+      throw new Error('title is missing');
+    }
+    if (!('draft' in announcement)) {
+      throw new Error('draft is missing');
+    }
+    return {
+      id: String(announcement.id),
+      title: String(announcement.title),
+      published: !announcement.draft
+    };
+  };
+
+  const parseCurrentUserAnnouncmentsJson = (json: unknown): CurrentUserAnnouncement[] => {
+    if (!isArray(json)) {
+      throw new Error('array expected');
+    }
+    return json.map(normaliseCurrentUserAnnouncement);
+  }
+
+  const loadCurrentUserAnnouncements = async (): Promise<CurrentUserAnnouncement[]> => {
+    const response = await fetch('http://localhost:3000/users/me/announcements', {
+      method: 'GET',
+      headers: extendHeadersWithAccessToken({
+        'Content-Type': 'application/json',
+      }),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+    return parseCurrentUserAnnouncmentsJson(await response.json());
+  }
+
   const api: Api = {
     callSignIn,
     callSignUp,
     setAccessToken, 
+    loadCurrentUserAnnouncements,
   };
 
   provide('api', api);

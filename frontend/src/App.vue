@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
+import HelloWorld from './components/HelloWorld.vue';
+import ApiProvider from './components/ApiProvider.vue';
 </script>
 
 <template>
@@ -13,13 +14,16 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/my-announcements">My announcements</RouterLink>
         <RouterLink to="/sign-up">Sign up</RouterLink>
         <RouterLink to="/sign-in">Sign in</RouterLink>
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <ApiProvider>
+    <RouterView />
+  </ApiProvider>
 </template>
 
 <style scoped>
