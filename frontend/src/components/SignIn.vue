@@ -2,6 +2,8 @@
 import { ref, watch, inject } from 'vue';
 import type { Ref } from 'vue';
 import type { SignInApi, SetAccessToken } from './ApiProvider.vue';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
 
 export interface Api {
   setAccessToken: SetAccessToken;
@@ -37,17 +39,24 @@ const submit = async () => {
     <div v-if="showError" data-testid="error">
       Email or password are incorrect
     </div>
-    <div>
-      <input v-model.trim="email" type="text" data-testid="email-input" />
+    <div class="form-input">
+      <label for="email">Email</label>
+      <InputText id="email" v-model.trim="email" data-testid="email-input" />
+    </div>
+    <div class="form-input">
+      <label for="password">Password</label>
+      <InputText id="password" v-model.trim="password" data-testid="password-input" />
     </div>
     <div>
-      <input v-model="password" type="password" data-testid="password-input" />
-    </div>
-    <div>
-      <button @click="submit" data-testid="submit">Submit</button>
+      <Button @click="submit" data-testid="submit">Submit</Button>
     </div>
   </div>
 </template>
 
 <style scoped>
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 </style>
