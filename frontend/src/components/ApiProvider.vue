@@ -28,7 +28,30 @@
     published: boolean;
   };
 
+  export interface CurrentUserAnnouncementDetails {
+    title: string;
+    content: string;
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+    published: boolean;
+  };
+
+  export interface AnnouncementPatchData {
+    title: string;
+    content: string;
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+  }
+
   export type LoadCurrentUserAnnouncementsApi = () => Promise<CurrentUserAnnouncement[]>;
+
+  export type LoadCurrentUserAnnouncementApi = (id: string) => Promise<CurrentUserAnnouncementDetails>;
+
+  export type PatchAnnouncementApi = (id: string, data: AnnouncementPatchData) => Promise<void>;
 
   export type NewAnnouncementApi = () => Promise<void>;
 
@@ -37,6 +60,8 @@
     callSignUp: SignUpApi;
     setAccessToken: SetAccessToken;
     loadCurrentUserAnnouncements: LoadCurrentUserAnnouncementsApi; 
+    loadCurrentUserAnnouncement: LoadCurrentUserAnnouncementApi;
+    patchAnnouncement: PatchAnnouncementApi;
     callNewAnnouncement: NewAnnouncementApi;
   };
 
@@ -101,6 +126,33 @@
     accessToken.value = newAccessToken;
   };
 
+  const normaliseCurrentUserAnnouncementDetails = (announcement: unknown): CurrentUserAnnouncementDetails => {
+    if (!isObject(announcement)) {
+      throw new Error('object expected');
+    }
+    if (!('title' in announcement)) {
+      throw new Error('title is missing');
+    }
+    if (!('draft' in announcement)) {
+      throw new Error('draft is missing');
+    }
+    if (!('content' in announcement)) {
+      throw new Error('content is missing');
+    }
+    if (!('location' in announcement)) {
+      throw new Error('location is missing');
+    }
+    return {
+      published: !announcement.draft,
+      title: String(announcement.title),
+      content: String(announcement.content),
+      location: {
+        latitude: 0,
+        longitude: 0,
+      }
+    };
+  };
+
   const normaliseCurrentUserAnnouncement = (announcement: unknown): CurrentUserAnnouncement => {
     if (!isObject(announcement)) {
       throw new Error('object expected');
@@ -127,6 +179,13 @@
     }
     return json.map(normaliseCurrentUserAnnouncement);
   }
+  
+  const parseCurrentUserAnnouncmentJson = (json: unknown): CurrentUserAnnouncement => {
+    if (!isObject(json)) {
+      throw new Error('object expected');
+    }
+    return normaliseCurrentUserAnnouncement(json);
+  }
 
   const loadCurrentUserAnnouncements = async (): Promise<CurrentUserAnnouncement[]> => {
     const response = await fetch('http://localhost:3000/users/me/announcements', {
@@ -141,6 +200,19 @@
     return parseCurrentUserAnnouncmentsJson(await response.json());
   }
 
+  const loadCurrentUserAnnouncement = async (id: string): Promise<CurrentUserAnnouncementDetails> => {
+    const response = await fetch(`http://localhost:3000/users/me/announcements/${id}`, {
+      method: 'GET',
+      headers: extendHeadersWithAccessToken({
+        'Content-Type': 'application/json',
+      }),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+    return normaliseCurrentUserAnnouncementDetails(await response.json());
+  }
+
   const callNewAnnouncement = async (): Promise<void> => {
     const response = await fetch('http://localhost:3000/users/me/announcements', {
       method: 'POST',
@@ -153,12 +225,31 @@
     }
   }
 
+  const patchAnnouncement = async (id: string, data: AnnouncementPatchData): Promise<void> => {
+    const response = await fetch('http://localhost:3000/users/me/announcements/' + id, {
+      method: 'PATCH',
+      headers: extendHeadersWithAccessToken({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        title: data.title,
+        content: data.content,
+        location: data.location,
+      }),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+  }
+
   const api: Api = {
     callSignIn,
     callSignUp,
     setAccessToken, 
     loadCurrentUserAnnouncements,
+    loadCurrentUserAnnouncement,
     callNewAnnouncement,
+    patchAnnouncement
   };
 
   provide('api', api);

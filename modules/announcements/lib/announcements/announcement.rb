@@ -12,6 +12,8 @@ class Announcements
     attr_reader :id, :title, :content, :location
 
     def serialize
+      p "="*40 
+      p @title
       SerializedAnnouncement.new(@id, @owner_id, @draft, @title, @content, @location)
     end
 
@@ -44,7 +46,7 @@ class Announcements
       user = Users.build(user)
       raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
       raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
-      @title = title
+      @title = String(title).dup.freeze
       self
     end
 

@@ -22,7 +22,9 @@ class Announcements
 
   def update_title(user, id, title)
     user = Users.build(user)
-    @repo.find(id).change_title(user, title)
+    announcement = @repo.find(id)
+    announcement.change_title(user, title)
+    @repo.save(announcement)
   end
 
   def update_content(user, id, content)

@@ -6,6 +6,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def update
+    p "="*40
+    p params
+    p params[:title]
     announcements.update_title(user_id, id, params[:title]) if params[:title]
     announcements.update_content(user_id, id, params[:content]) if params[:content]
     announcements.update_location(user_id, id, location) if params[:location]
