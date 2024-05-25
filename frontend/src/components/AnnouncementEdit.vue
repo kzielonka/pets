@@ -13,8 +13,6 @@ export interface Api {
   patchAnnouncement: PatchAnnouncementApi;
 };
 
-const emit = defineEmits(['signedUp']);
-
 const api = inject<Api>('api');
 if (!api) {
   throw new Error('Api must be provided');

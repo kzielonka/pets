@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, inject } from 'vue';
+import { ref, inject } from 'vue';
 import type { Ref } from 'vue';
 import type { SignInApi, SetAccessToken } from './ApiProvider.vue';
 import Button from 'primevue/button';

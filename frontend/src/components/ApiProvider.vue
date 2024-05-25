@@ -180,13 +180,6 @@
     return json.map(normaliseCurrentUserAnnouncement);
   }
   
-  const parseCurrentUserAnnouncmentJson = (json: unknown): CurrentUserAnnouncement => {
-    if (!isObject(json)) {
-      throw new Error('object expected');
-    }
-    return normaliseCurrentUserAnnouncement(json);
-  }
-
   const loadCurrentUserAnnouncements = async (): Promise<CurrentUserAnnouncement[]> => {
     const response = await fetch('http://localhost:3000/users/me/announcements', {
       method: 'GET',

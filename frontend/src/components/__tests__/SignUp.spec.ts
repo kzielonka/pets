@@ -15,7 +15,7 @@ describe('SignUp', () => {
   const invalidPasswordErrorSelector = '[data-testid=invalid-password-error]';
   const invalidPasswordConfirmationErrorSelector = '[data-testid=invalid-password-confirmation-error]';
 
-  const callSignUp: SignUpApi = (email: string, password: string) => Promise.resolve('success');
+  const callSignUp: SignUpApi = () => Promise.resolve('success');
   const api: Api = { callSignUp };
 
   it('renders properly', () => {
@@ -40,7 +40,7 @@ describe('SignUp', () => {
   });
 
   it('renders duplicated email error after submit', async () => {
-    const callSignUp: SignUpApi = (email: string, password: string) => Promise.resolve('duplicated-email-error');
+    const callSignUp: SignUpApi = () => Promise.resolve('duplicated-email-error');
     const api: Api = { callSignUp };
     const email = 'test@example.com';
     const password = 'PAssword1234$';
@@ -100,7 +100,7 @@ describe('SignUp', () => {
   });
 
   it('sends email and password to server', async () => {
-    const callSignUp: SignUpApi = vi.fn((email: string, password: string) => Promise.resolve('success'));
+    const callSignUp: SignUpApi = vi.fn(() => Promise.resolve('success'));
     const api: Api = { callSignUp };
     const email = 'test@example.com';
     const password = 'PAssword1234$';
@@ -118,7 +118,7 @@ describe('SignUp', () => {
   });
 
   it('emits user signed up event', async () => {
-    const callSignUp: SignUpApi = (email: string, password: string) => Promise.resolve('success');
+    const callSignUp: SignUpApi = () => Promise.resolve('success');
     const api: Api = { callSignUp };
     const email = 'test@example.com';
     const password = 'PAssword1234$';
