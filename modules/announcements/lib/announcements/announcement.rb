@@ -12,8 +12,6 @@ class Announcements
     attr_reader :id, :title, :content, :location
 
     def serialize
-      p "="*40 
-      p @title
       SerializedAnnouncement.new(@id, @owner_id, @draft, @title, @content, @location)
     end
 

@@ -6,9 +6,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def update
-    p "="*40
-    p params
-    p params[:title]
     announcements.update_title(user_id, id, params[:title]) if params[:title]
     announcements.update_content(user_id, id, params[:content]) if params[:content]
     announcements.update_location(user_id, id, location) if params[:location]
@@ -73,7 +70,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def user_id
-    String(request.headers["HTTP_AUTHORIZATION"])
+    auth.authenticate(String(request.headers["HTTP_AUTHORIZATION"]).split(" ").last).user_id.to_s
   end
 
   def location
@@ -86,4 +83,9 @@ class AnnouncementsController < ApplicationController
   def announcements
     Rails.application.config.announcements
   end
+
+  def auth
+    Rails.application.config.auth 
+  end
+
 end

@@ -16,6 +16,7 @@ const api = inject<Api>('api');
 if (!api) {
   throw new Error('Api must be provided');
 }
+
 const email: Ref<string> = ref('');
 const password = ref('');
 

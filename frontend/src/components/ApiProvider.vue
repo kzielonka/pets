@@ -59,6 +59,7 @@
     callSignIn: SignInApi;
     callSignUp: SignUpApi;
     setAccessToken: SetAccessToken;
+    resetAccessToken: VoidFunction;
     loadCurrentUserAnnouncements: LoadCurrentUserAnnouncementsApi; 
     loadCurrentUserAnnouncement: LoadCurrentUserAnnouncementApi;
     patchAnnouncement: PatchAnnouncementApi;
@@ -124,6 +125,11 @@
   const setAccessToken = (newAccessToken: string) => {
     accessTokenSet.value = true;
     accessToken.value = newAccessToken;
+  };
+
+  const resetAccessToken = () => {
+    accessTokenSet.value = false;
+    accessToken.value = '';
   };
 
   const normaliseCurrentUserAnnouncementDetails = (announcement: unknown): CurrentUserAnnouncementDetails => {
@@ -239,12 +245,14 @@
     callSignIn,
     callSignUp,
     setAccessToken, 
+    resetAccessToken,
     loadCurrentUserAnnouncements,
     loadCurrentUserAnnouncement,
     callNewAnnouncement,
     patchAnnouncement
   };
 
+  provide('accessTokenSet', accessTokenSet);
   provide('api', api);
 </script>
 
