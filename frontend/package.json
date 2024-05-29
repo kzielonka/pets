@@ -17,9 +17,13 @@
   "dependencies": {
     "@types/lodash": "^4.17.1",
     "lodash": "^4.17.21",
+    "ol": "^9.2.4",
+    "ol-contextmenu": "^5.4.0",
+    "ol-ext": "^4.0.18",
     "primevue": "^3.52.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-openlayers": "^10.0.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

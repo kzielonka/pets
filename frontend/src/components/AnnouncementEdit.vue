@@ -5,6 +5,7 @@ import type { LoadCurrentUserAnnouncementApi, PatchAnnouncementApi } from './Api
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
+import MapInput from './MapInput.vue';
 
 const props = defineProps(['id']);
 
@@ -38,10 +39,11 @@ const saving = ref(false);
 
 onMounted(async () => {
   const announcement = await api.loadCurrentUserAnnouncement(props.id);
+  console.log(announcement);
   title.value = announcement.title;
   content.value = announcement.content;
   latitude.value = String(announcement.location.latitude);
-  longitude.value = String(announcement.location.latitude);
+  longitude.value = String(announcement.location.longitude);
 });
 
 const submit = async () => {
@@ -75,6 +77,7 @@ watch(content, (value: string) => {
 });
 
 watch(latitude, (value: string) => {
+  console.log(Number(value));
   latitudeIsInvalid.value = !(isNumber(value) && Number(value) >= -90 && Number(value) <= 90);
 });
 
@@ -83,7 +86,7 @@ watch(longitude, (value: string) => {
 });
 
 const isNumber = (value: string): boolean => {
-  return /^([1-9]\d*|0)(\.\d+)?$/.test(value);
+  return /^-?([1-9]\d*|0)(\.\d+)?$/.test(value);
 }
 
 const shouldShowTitleIsTooLongError = () => {
@@ -160,6 +163,9 @@ const isDisabled = () => {
         <InputText id="longitude" v-model.trim="longitude" :invalid="isLongitudeInputInvalid()" :disabled="isDisabled()" aria-describedby="longitude-help" data-testid="longitude-input" />
         <div class="error" v-if="shouldShowLongitudeIsInvalidError()">invalid</div>
       </div>
+    </div>
+    <div>
+      <MapInput v-model:latitude="latitude" v-model:longitude="longitude" />
     </div>
     <div class="button-container">
       <Button @click="submit" :disabled="isDisabled()" data-testid="submit">Submit</Button>

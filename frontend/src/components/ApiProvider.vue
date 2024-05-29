@@ -132,6 +132,22 @@
     accessToken.value = '';
   };
 
+  const normaliseLocation = (location: unknown): { latitude: number, longitude: number } => {
+    if (!isObject(location)) {
+      throw new Error('object expected');
+    }
+    if (!('latitude' in location)) {
+      throw new Error('latitude is missing');
+    }
+    if (!('longitude' in location)) {
+      throw new Error('longitude is missing');
+    }
+    return {
+      latitude: Number(location.latitude),
+      longitude: Number(location.longitude),
+    };
+  }
+
   const normaliseCurrentUserAnnouncementDetails = (announcement: unknown): CurrentUserAnnouncementDetails => {
     if (!isObject(announcement)) {
       throw new Error('object expected');
@@ -152,10 +168,7 @@
       published: !announcement.draft,
       title: String(announcement.title),
       content: String(announcement.content),
-      location: {
-        latitude: 0,
-        longitude: 0,
-      }
+      location: normaliseLocation(announcement.location),
     };
   };
 
