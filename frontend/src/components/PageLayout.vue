@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import PageHeader from './PageHeader.vue';
+import PageFooter from './PageFooter.vue';
 </script>
 
 <template>
@@ -11,22 +12,36 @@ import PageHeader from './PageHeader.vue';
     <div class="content">
       <RouterView />
     </div>
+    <div class="footer">
+      <PageFooter />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .page {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 20px;
+  grid-template-areas:
+    "lside header rside"
+    "lside content rside"
+    "lside footer rside";
   width: 100%;
   height: 100%;
+  min-height: 100vh;
+  grid-template-rows: 150px 1fr 50px;
+  grid-template-columns: 1fr 1024px 1fr;
 }
 
 .header {
-  padding: 10px;
+  grid-area: header;
 }
 
 .content {
-  padding-top: 10px;
+  grid-area: content;
+}
+
+.footer {
+  grid-area: footer;
 }
 </style>

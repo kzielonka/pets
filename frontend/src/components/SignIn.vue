@@ -35,8 +35,8 @@ const submit = async () => {
 </script>
 
 <template>
-  <div>
-    Sign in 
+  <div class="main">
+    <h1 class="title">Sign in</h1>
     <div v-if="showError" data-testid="error">
       Email or password are incorrect
     </div>
@@ -46,18 +46,36 @@ const submit = async () => {
     </div>
     <div class="form-input">
       <label for="password">Password</label>
-      <InputText id="password" v-model.trim="password" data-testid="password-input" />
+      <InputText id="password" v-model.trim="password" data-testid="password-input" type="password" />
     </div>
-    <div>
-      <Button @click="submit" data-testid="submit">Submit</Button>
+    <div class="button">
+      <Button @click="submit" data-testid="submit">Sign in</Button>
     </div>
   </div>
 </template>
 
 <style scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+}
+
 .form-input {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 </style>

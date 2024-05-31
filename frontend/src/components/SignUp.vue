@@ -2,6 +2,8 @@
 import { ref, watch, inject } from 'vue';
 import type { Ref } from 'vue';
 import type { SignUpApi } from './ApiProvider.vue';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
 
 export interface Api {
   callSignUp: SignUpApi;
@@ -75,26 +77,52 @@ const showInvalidPasswordConfirmationError = () => {
 </script>
 
 <template>
-  <div>
-    Sign up
-    <div>
-      <input v-model.trim="email" type="text" data-testid="email-input" />
+  <div class="main">
+    <h1 class="title">Sign up</h1>
+    <div class="form-input">
+      <label for="email">Email</label>
+      <InputText id="email" v-model.trim="email" type="text" data-testid="email-input" />
       <div v-if="showDuplicatedEmailError()" data-testid="duplicated-email-error">Duplicated email</div>
       <div v-if="showInvalidEmailError()" data-testid="invalid-email-error">Invalid email</div>
     </div>
-    <div>
-      <input v-model="password" type="password" data-testid="password-input" />
+    <div class="form-input">
+      <label for="password">Password</label>
+      <InputText id="password" v-model="password" type="password" data-testid="password-input" />
       <div v-if="showInvalidPasswordError()" data-testid="invalid-password-error">Invalid password</div>
     </div>
-    <div>
-      <input v-model="passwordConfirmation" type="password" data-testid="password-confirmation-input" />
+    <div class="form-input">
+      <label for="password-confirmation">Password confirmation</label>
+      <InputText id="password-confirmation" v-model="passwordConfirmation" type="password" data-testid="password-confirmation-input" />
       <div v-if="showInvalidPasswordConfirmationError()" data-testid="invalid-password-confirmation-error">Invalid password confirmation</div>
     </div>
-    <div>
-      <button @click="submit" data-testid="submit">Submit</button>
+    <div class="button">
+      <Button @click="submit" data-testid="submit">Sign up</Button>
     </div>
   </div>
 </template>
 
 <style scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 </style>
