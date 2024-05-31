@@ -4,7 +4,8 @@ import { mount, flushPromises } from '@vue/test-utils';
 import SignIn from '../SignIn.vue';
 import PrimeVue from 'primevue/config';
 import type { Api } from '../SignIn.vue';
-import type { SignInApi, SetAccessToken } from '../ApiProvider.vue';
+import type { SignInApi } from '../ApiProvider.vue';
+import type { SessionSignIn } from '../SessionProvider.vue';
 
 describe('SignIn', () => {
   const emailInputSelector = '[data-testid=email-input]';
@@ -21,29 +22,29 @@ describe('SignIn', () => {
     }
     return Promise.resolve({ success: false });
   };
-  const setAccessToken: SetAccessToken = vi.fn(() => {});
-  const api: Api = { callSignIn, setAccessToken };
+  const sessionSignIn: SessionSignIn = vi.fn(() => {});
+  const api: Api = { callSignIn };
 
-  const mountSignIn = (api: Api) => {
+  const mountSignIn = (api: Api, sessionSignIn: SessionSignIn) => {
     return mount(SignIn, {
       global: {
-        provide: { api },
+        provide: { api, sessionSignIn },
         plugins: [PrimeVue],
       }
     });
   }
 
   it('renders properly', () => {
-    const wrapper = mountSignIn(api);
+    const wrapper = mountSignIn(api, sessionSignIn);
     expect(wrapper.text()).toContain('Sign in');
   });
 
   it('sends email and password to server and sets access token recieved in response', async () => {
     const accessToken = `access-token-${Math.random()}`;
     const callSignIn: SignInApi = vi.fn(() => Promise.resolve({ success: true, accessToken }));
-    const setAccessToken: SetAccessToken = vi.fn(() => {});
-    const api: Api = { callSignIn, setAccessToken  };
-    const wrapper = mountSignIn(api);
+    const sessionSignIn: SessionSignIn = vi.fn(() => {});
+    const api: Api = { callSignIn };
+    const wrapper = mountSignIn(api, sessionSignIn);
 
     await wrapper.find(emailInputSelector).setValue(validEmail);
     await wrapper.find(passwordInputSelector).setValue(validPassword);
@@ -53,12 +54,12 @@ describe('SignIn', () => {
     expect(callSignIn).toHaveBeenCalledOnce();
     expect(callSignIn).toHaveBeenCalledWith(validEmail, validPassword);
 
-    expect(setAccessToken).toHaveBeenCalledOnce();
-    expect(setAccessToken).toHaveBeenCalledWith(accessToken);
+    expect(sessionSignIn).toHaveBeenCalledOnce();
+    expect(sessionSignIn).toHaveBeenCalledWith(accessToken);
   });
 
   it('emits user signed in event', async () => {
-    const wrapper = mountSignIn(api);
+    const wrapper = mountSignIn(api, sessionSignIn);
     await wrapper.find(emailInputSelector).setValue(validEmail);
     await wrapper.find(passwordInputSelector).setValue(validPassword);
     await wrapper.find(submitSelector).trigger('click');
@@ -67,7 +68,7 @@ describe('SignIn', () => {
   });
 
   it('shows error if password is invalid', async () => {
-    const wrapper = mountSignIn(api);
+    const wrapper = mountSignIn(api, sessionSignIn);
     expect(wrapper.find(errorSelector).exists()).toBe(false);
     await wrapper.find(emailInputSelector).setValue(validEmail);
     await wrapper.find(passwordInputSelector).setValue('INVALID');

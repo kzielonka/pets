@@ -16,27 +16,33 @@ import { toLonLat, fromLonLat } from 'ol/proj';
 
 const latitude = defineModel('latitude', { required: true })
 const longitude = defineModel('longitude', { required: true })
-const point = ref(null);
-const view = ref(null);
+const map = ref<any>(null);
+const point = ref<any>(null);
+const view = ref<any>(null);
 const dragging = ref(false);
 const id = ref(`id-${Math.random()}`);
 
-watch(latitude, (newValue: string, oldValue: string) => {
-  point.value.setCoordinates(fromLonLat([longitude.value, newValue]));
+watch(latitude, (newValue: any) => {
+  point.value.setCoordinates(fromLonLat([Number(longitude.value), Number(newValue)]));
   if (!dragging.value) {
     //view.value.animate({center: fromLonLat(currentCoordinates())});
     view.value.setCenter(fromLonLat(currentCoordinates()));
   }
 });
 
-watch(longitude, (newValue: string, oldValue: string) => {
-  point.value.setCoordinates(fromLonLat([newValue, latitude.value]));
+watch(longitude, (newValue: any) => {
+  point.value.setCoordinates(fromLonLat([Number(newValue), Number(latitude.value)]));
   if (!dragging.value) {
     view.value.setCenter(fromLonLat(currentCoordinates()));
   }
 });
 
 class Drag extends PointerInteraction {
+  private coordinate_: any;
+  private cursor_: any;
+  private feature_: any;
+  private previousCursor_: any;
+
   constructor() {
     super({
       handleDownEvent: handleDownEvent,
@@ -52,7 +58,7 @@ class Drag extends PointerInteraction {
   }
 }
 
-function handleDownEvent(evt: any) {
+function handleDownEvent(this: any, evt: any) {
   const map = evt.map;
 
   const feature = map.forEachFeatureAtPixel(evt.pixel, (feature: unknown) => {
@@ -68,7 +74,7 @@ function handleDownEvent(evt: any) {
   return !!feature;
 }
 
-function handleDragEvent(evt: any) {
+function handleDragEvent(this: any, evt: any) {
   const deltaX = evt.coordinate[0] - this.coordinate_[0];
   const deltaY = evt.coordinate[1] - this.coordinate_[1];
 
@@ -83,7 +89,7 @@ function handleDragEvent(evt: any) {
   longitude.value = c[0];
 }
 
-function handleMoveEvent(evt: any) {
+function handleMoveEvent(this: any, evt: any) {
   if (this.cursor_) {
     const map = evt.map;
     const feature = map.forEachFeatureAtPixel(evt.pixel, (feature: unknown) => feature);
@@ -104,7 +110,7 @@ const currentCoordinates = (): [number, number] => {
   return [Number(longitude.value) || 0, Number(latitude.value) || 0];
 }
 
-function handleUpEvent() {
+function handleUpEvent(this: any) {
   this.coordinate_ = null;
   this.feature_ = null;
   dragging.value = false;
@@ -118,7 +124,7 @@ onMounted(() => {
     zoom: 5,
   });
   const pointFeature = new Feature(point.value);
-  const map = new Map({
+  map.value = new Map({
     interactions: defaultInteractions().extend([new Drag()]),
     layers: [
       new TileLayer({

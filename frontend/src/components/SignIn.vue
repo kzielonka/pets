@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue';
 import type { Ref } from 'vue';
-import type { SignInApi, SetAccessToken } from './ApiProvider.vue';
-import type { SessionSignIn } from './SessionProvider';
+import type { SignInApi } from './ApiProvider.vue';
+import type { SessionSignIn } from './SessionProvider.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
 export interface Api {
-  setAccessToken: SetAccessToken;
   callSignIn: SignInApi;
 };
 
@@ -19,6 +18,9 @@ if (!api) {
 }
 
 const sessionSignIn = inject<SessionSignIn>('sessionSignIn');
+if (!sessionSignIn) {
+  throw new Error('sessionSignIn must be provided');
+}
 
 const email: Ref<string> = ref('');
 const password = ref('');

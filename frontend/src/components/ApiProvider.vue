@@ -73,8 +73,6 @@
   export interface Api {
     callSignIn: SignInApi;
     callSignUp: SignUpApi;
-    setAccessToken: SetAccessToken;
-    resetAccessToken: VoidFunction;
     loadCurrentUserAnnouncements: LoadCurrentUserAnnouncementsApi; 
     loadCurrentUserAnnouncement: LoadCurrentUserAnnouncementApi;
     patchAnnouncement: PatchAnnouncementApi;
@@ -136,16 +134,6 @@
     }
     return 'error';
   }
-
-  const setAccessToken = (newAccessToken: string) => {
-    accessTokenSet.value = true;
-    accessToken.value = newAccessToken;
-  };
-
-  const resetAccessToken = () => {
-    accessTokenSet.value = false;
-    accessToken.value = '';
-  };
 
   const normaliseLocation = (location: unknown): { latitude: number, longitude: number } => {
     if (!isObject(location)) {
@@ -272,8 +260,6 @@
   const api: Api = {
     callSignIn,
     callSignUp,
-    setAccessToken, 
-    resetAccessToken,
     loadCurrentUserAnnouncements,
     loadCurrentUserAnnouncement,
     callNewAnnouncement,

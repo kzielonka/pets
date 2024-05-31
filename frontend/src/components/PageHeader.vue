@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { inject, type Ref } from 'vue';
 import { useRouter, RouterLink } from 'vue-router';
-import type { CurrentUser } from './CurrentUserProvider';
-import type { ResetSession } from './SessionProvider';
+import type { CurrentUser } from './CurrentUserProvider.vue';
+import type { ResetSession } from './SessionProvider.vue';
 
 const currentUser = inject<Ref<CurrentUser>>('currentUser');
 if (!currentUser) {
@@ -30,7 +30,6 @@ const signOut = () => {
     </div>
     <div class="menu">
       <RouterLink to="/" class="link">Home</RouterLink>
-      <RouterLink to="/about" class="link">About</RouterLink>
       <RouterLink to="/sign-up" v-if="currentUser.guest" class="link">Sign up</RouterLink>
       <RouterLink to="/sign-in" v-if="currentUser.guest" class="link">Sign in</RouterLink>
       <RouterLink to="/my-announcements" v-if="currentUser.signedIn" class="link">My announcements</RouterLink>

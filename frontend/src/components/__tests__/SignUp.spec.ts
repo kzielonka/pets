@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { mount, flushPromises } from '@vue/test-utils'
 import SignUp from '../SignUp.vue'
+import PrimeVue from 'primevue/config';
 import type { Api } from '../SignUp.vue'
 import type { SignUpApi } from '../ApiProvider.vue'
 
@@ -18,13 +19,22 @@ describe('SignUp', () => {
   const callSignUp: SignUpApi = () => Promise.resolve('success');
   const api: Api = { callSignUp };
 
+  const mountSignUp = (api: Api) => {
+    return mount(SignUp, {
+      global: {
+        provide: { api },
+        plugins: [PrimeVue],
+      }
+    });
+  }
+
   it('renders properly', () => {
-    const wrapper = mount(SignUp, { global: { provide: { api }}});
+    const wrapper = mountSignUp(api);
     expect(wrapper.text()).toContain('Sign up');
   });
 
   it('renders invalid email error after submit is clicked and email is invalid', async () => {
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     expect(wrapper.find(invalidEmailErrorSelector).exists()).toBe(false);
 
@@ -45,7 +55,7 @@ describe('SignUp', () => {
     const email = 'test@example.com';
     const password = 'PAssword1234$';
 
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     await wrapper.find(emailInputSelector).setValue(email);
     await wrapper.find(passwordInputSelector).setValue(password);
@@ -59,7 +69,7 @@ describe('SignUp', () => {
   });
 
   it('renders invalid password error after submit is clicked and password is too short', async () => {
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     expect(wrapper.find(invalidPasswordErrorSelector).exists()).toBe(false);
 
@@ -75,7 +85,7 @@ describe('SignUp', () => {
   });
 
   it('renders invalid password confirmation error when is different than password', async () => {
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     expect(wrapper.find(invalidPasswordConfirmationErrorSelector).exists()).toBe(false);
 
@@ -105,7 +115,7 @@ describe('SignUp', () => {
     const email = 'test@example.com';
     const password = 'PAssword1234$';
 
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     await wrapper.find(emailInputSelector).setValue(email);
     await wrapper.find(passwordInputSelector).setValue(password);
@@ -123,7 +133,7 @@ describe('SignUp', () => {
     const email = 'test@example.com';
     const password = 'PAssword1234$';
 
-    const wrapper = mount(SignUp, { global: { provide: { api } }});
+    const wrapper = mountSignUp(api);
 
     await wrapper.find(emailInputSelector).setValue(email);
     await wrapper.find(passwordInputSelector).setValue(password);
