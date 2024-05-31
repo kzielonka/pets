@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { provide, ref, inject, watch} from 'vue';
+  import { provide, ref, inject, watch } from 'vue';
   import type { Ref } from 'vue';
+  import type { Session } from './SessionProvider.vue';
 
   interface SignedInUser {
     signedIn: true;
@@ -15,18 +16,19 @@
 
   export type CurrentUser = SignedInUser | GuestUser;
 
-  const accessTokenSet = inject<Ref<boolean>>('accessTokenSet');
-  if (accessTokenSet === undefined) {
-    throw new Error('accessTokenSet not provided');
-  }
-
   const currentUser = ref<CurrentUser>({
     signedIn: false,
     guest: true,
   });
 
-  watch(accessTokenSet, (newAccessTokenSet) => {
-    if (newAccessTokenSet) {
+  const session = inject<Ref<Session>>('session');
+  if (!session) {
+    throw new Error('session not provided');
+  }
+  console.log(session);
+
+  watch(session, (session) => {
+    if (session.signedIn) {
       currentUser.value = {
         signedIn: true,
         guest: false,

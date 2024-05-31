@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import ApiProvider from './components/ApiProvider.vue';
 import CurrentUserProvider from './components/CurrentUserProvider.vue';
+import SessionProvider from './components/SessionProvider.vue';
 import PageLayout from './components/PageLayout.vue';
 </script>
 
 <template>
-  <ApiProvider class="full-size">
-    <CurrentUserProvider class="full-size"> 
-      <PageLayout />
-    </CurrentUserProvider>
-  </ApiProvider>
+  <SessionProvider class="full-size">
+    <ApiProvider class="full-size">
+      <CurrentUserProvider class="full-size"> 
+        <PageLayout />
+      </CurrentUserProvider>
+    </ApiProvider>
+  </SessionProvider>
 </template>
 
 <style scoped>

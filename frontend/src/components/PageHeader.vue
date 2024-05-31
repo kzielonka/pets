@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, type Ref } from 'vue';
 import { useRouter, RouterLink } from 'vue-router';
 import type { CurrentUser } from './CurrentUserProvider';
-import type { Api } from './Api';
+import type { ResetSession } from './SessionProvider';
 
-const currentUser = inject<CurrentUser>('currentUser');
-const api = inject<Api>('api');
+const currentUser = inject<Ref<CurrentUser>>('currentUser');
+if (!currentUser) {
+  throw new Error('no current user set');
+}
+
+const resetSession = inject<ResetSession>('resetSession');
+if (!resetSession) {
+  throw new Error('reset session not provided');
+}
 
 const router = useRouter();
 
 const signOut = () => {
-  console.log('RESET access token');
-  api.resetAccessToken();
+  resetSession();
   router.push('/');
 }
 
@@ -27,9 +33,8 @@ const signOut = () => {
       <RouterLink to="/about" class="link">About</RouterLink>
       <RouterLink to="/sign-up" v-if="currentUser.guest" class="link">Sign up</RouterLink>
       <RouterLink to="/sign-in" v-if="currentUser.guest" class="link">Sign in</RouterLink>
-      <a href="#" v-if="currentUser.signedIn" @click="signOut" class="link">Sign out</a>
-
       <RouterLink to="/my-announcements" v-if="currentUser.signedIn" class="link">My announcements</RouterLink>
+      <a href="#" v-if="currentUser.signedIn" @click="signOut" class="link">Sign out</a>
     </div>
   </div>
 </template>

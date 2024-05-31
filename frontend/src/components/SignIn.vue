@@ -2,6 +2,7 @@
 import { ref, inject } from 'vue';
 import type { Ref } from 'vue';
 import type { SignInApi, SetAccessToken } from './ApiProvider.vue';
+import type { SessionSignIn } from './SessionProvider';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
@@ -17,6 +18,8 @@ if (!api) {
   throw new Error('Api must be provided');
 }
 
+const sessionSignIn = inject<SessionSignIn>('sessionSignIn');
+
 const email: Ref<string> = ref('');
 const password = ref('');
 
@@ -26,7 +29,7 @@ const submit = async () => {
   const result = await api.callSignIn(email.value, password.value);
   if (result.success) {
     showError.value = false;
-    api.setAccessToken(result.accessToken);
+    sessionSignIn(result.accessToken);
     emit('signedIn');
   } else {
     showError.value = true;

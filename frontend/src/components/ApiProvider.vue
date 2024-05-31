@@ -1,9 +1,24 @@
 <script setup lang="ts">
-  import { provide, ref } from 'vue';
+  import { provide, inject } from 'vue';
   import { isArray, isObject, isString } from 'lodash';
+  import type { Ref } from 'vue';
+  import type { Session } from './SessionProvider.vue';
 
-  const accessTokenSet = ref(false);
-  const accessToken = ref('');
+  const session = inject<Ref<Session>>('session');
+  if (!session) {
+    throw new Error('session not provided');
+  }
+
+  const isAccessTokenSet = (): boolean => {
+    return session.value.signedIn;
+  }
+
+  const getAccessToken = (): string => {
+    if (session.value.signedIn) {
+      return session.value.accessToken;
+    }
+    return '';
+  }
 
   export type SetAccessToken = (accessToken: string) => void;
 
@@ -80,10 +95,10 @@
   }
 
   const extendHeadersWithAccessToken = (headers: Record<string, string>) => {
-    if (!accessTokenSet.value) {
+    if (!isAccessTokenSet()) {
       return headers;
     }
-    return { ...headers, 'Authorization': 'Bearer ' + accessToken.value };
+    return { ...headers, 'Authorization': 'Bearer ' + getAccessToken() };
   }
   
   const callSignIn = async (email: string, password: string): Promise<SignInApiResult> => {
@@ -265,7 +280,6 @@
     patchAnnouncement
   };
 
-  provide('accessTokenSet', accessTokenSet);
   provide('api', api);
 </script>
 
