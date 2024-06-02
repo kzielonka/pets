@@ -3,13 +3,16 @@ import ApiProvider from './components/ApiProvider.vue';
 import CurrentUserProvider from './components/CurrentUserProvider.vue';
 import SessionProvider from './components/SessionProvider.vue';
 import PageLayout from './components/PageLayout.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
   <SessionProvider class="full-size">
     <ApiProvider class="full-size">
       <CurrentUserProvider class="full-size"> 
-        <PageLayout />
+        <PageLayout>
+          <RouterView />
+        </PageLayout>
       </CurrentUserProvider>
     </ApiProvider>
   </SessionProvider>

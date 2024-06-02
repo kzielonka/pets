@@ -135,7 +135,7 @@ onMounted(() => {
           features: [pointFeature],
         }),
         style: {
-          'icon-src': pin, //'https://as2.ftcdn.net/v2/jpg/03/29/26/39/1000_F_329263903_Oax03LQARwf34pbJn4rdcmQ2dgJMzo1D.jpg',
+          'icon-src': pin, 
           'icon-opacity': 0.95,
           'icon-anchor': [0.2, 70],
           'icon-anchor-x-units': 'fraction',

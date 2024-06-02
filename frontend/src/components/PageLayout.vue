@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
 import PageHeader from './PageHeader.vue';
 import PageFooter from './PageFooter.vue';
 </script>
@@ -10,7 +9,7 @@ import PageFooter from './PageFooter.vue';
       <PageHeader />
     </div>
     <div class="content">
-      <RouterView />
+      <slot />
     </div>
     <div class="footer">
       <PageFooter />
@@ -30,7 +29,7 @@ import PageFooter from './PageFooter.vue';
   height: 100%;
   min-height: 100vh;
   grid-template-rows: 150px 1fr 50px;
-  grid-template-columns: 1fr 1024px 1fr;
+  grid-template-columns: 1fr minmax(1024px, 2024px) 1fr;
 }
 
 .header {
