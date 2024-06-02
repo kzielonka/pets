@@ -4,7 +4,7 @@ import { mount, flushPromises } from '@vue/test-utils'
 import SignUp from '../SignUp.vue'
 import PrimeVue from 'primevue/config';
 import type { Api } from '../SignUp.vue'
-import type { SignUpApi } from '../ApiProvider.vue'
+import type { SignUpApi } from '../ApiProvider'
 
 describe('SignUp', () => {
   const emailInputSelector = '[data-testid=email-input]';

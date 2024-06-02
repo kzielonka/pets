@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import MyAnnouncements from '../MyAnnouncements.vue'
 import type { Api } from '../MyAnnouncements.vue'
-import type { CurrentUserAnnouncement } from '../ApiProvider.vue';
+import type { CurrentUserAnnouncement } from '../ApiProvider';
 
 describe('MyAnnouncements', () => {
   const loadingSelector = '[data-testid=loading]';

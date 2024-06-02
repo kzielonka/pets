@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, onMounted } from 'vue';
-import type { NewAnnouncementApi, LoadCurrentUserAnnouncementsApi, CurrentUserAnnouncement } from './ApiProvider.vue';
+import type { NewAnnouncementApi, LoadCurrentUserAnnouncementsApi, CurrentUserAnnouncement } from './ApiProvider';
 import { RouterLink } from 'vue-router';
 
 export interface Api {

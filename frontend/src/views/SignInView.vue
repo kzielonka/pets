@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, type Ref } from 'vue';
 import { useRouter } from 'vue-router';
-import SignIn from '../components/SignIn.vue'
-import type { Session } from './SessionProvider.vue';
+import SignIn from '@/components/SignIn.vue'
+import type { Session } from '@/components/SessionProvider.vue';
 
 const router = useRouter();
 
-const session = inject<Session>('session');
+const session = inject<Ref<Session>>('session');
 if (!session) {
   throw new Error('reset session not provided');
 }

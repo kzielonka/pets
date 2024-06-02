@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue';
 import type { Ref } from 'vue';
-import type { SignInApi } from './ApiProvider.vue';
+import type { SignInApi } from './ApiProvider';
 import type { SessionSignIn } from './SessionProvider.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';

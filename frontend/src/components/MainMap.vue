@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import pin from '@/assets/pin.png';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';

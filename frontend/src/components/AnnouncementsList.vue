@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import MainMap from '@/components/MainMap.vue';
 import AnnouncementItem from '@/components/AnnouncementItem.vue'; 
 </script>
 

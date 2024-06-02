@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, inject } from 'vue';
 import type { Ref } from 'vue';
-import type { SignUpApi } from './ApiProvider.vue';
+import type { SignUpApi } from './ApiProvider';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 

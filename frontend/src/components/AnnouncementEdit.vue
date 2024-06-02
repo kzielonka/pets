@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, inject, onMounted } from 'vue';
 import type { Ref } from 'vue';
-import type { LoadCurrentUserAnnouncementApi, PatchAnnouncementApi } from './ApiProvider.vue';
+import type { LoadCurrentUserAnnouncementApi, PatchAnnouncementApi } from './ApiProvider';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';

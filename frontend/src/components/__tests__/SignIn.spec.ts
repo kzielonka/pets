@@ -4,7 +4,7 @@ import { mount, flushPromises } from '@vue/test-utils';
 import SignIn from '../SignIn.vue';
 import PrimeVue from 'primevue/config';
 import type { Api } from '../SignIn.vue';
-import type { SignInApi } from '../ApiProvider.vue';
+import type { SignInApi } from '../ApiProvider';
 import type { SessionSignIn } from '../SessionProvider.vue';
 
 describe('SignIn', () => {
