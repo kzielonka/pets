@@ -1,6 +1,25 @@
 <script setup lang="ts">
 import AnnouncementsList from '@/components/AnnouncementsList.vue';
 import MainMap from '@/components/MainMap.vue';
+import { ref, inject, watch } from 'vue';
+import type { AnnouncementSearchItem, SearchAnnouncementsApi } from './ApiProvider';
+
+export interface Api {
+  searchAnnouncements: SearchAnnouncementsApi;
+}
+
+const mapCenter= ref<{ x: number, y: number }>({ x: 0, y: 0 });
+
+const handlePositionChanged = (p: any) => {
+  mapCenter.value = { x: p.centerX, y: p.centerY };
+}
+
+const api = inject<Api>('api');
+
+watch(mapCenter, async (newPosition: { x: number, y: number }) => {
+  const announcements = await api.searchAnnouncements(newPosition.y, newPosition.x);
+  console.log(announcements);
+});
 </script>
 
 <template>
@@ -11,7 +30,7 @@ import MainMap from '@/components/MainMap.vue';
       </div>
     </div>
     <div class="map">
-      <MainMap />
+      <MainMap @positionChanged="handlePositionChanged"/>
     </div>
   </main>
 </template>

@@ -1,6 +1,8 @@
 class PublicAnnouncementsController < ApplicationController
 
   def index
+    p "="*40
+    p params
     announcements = announcements_search.search(location).map { |a| AnnouncementJson.new(a) }
     render status: 200, json: { announcements: announcements.map { |a| a.json } }
   rescue SearchLocation::ValidationError
@@ -58,7 +60,7 @@ class PublicAnnouncementsController < ApplicationController
     end
     
     def number?(number)
-      /^\d+(\.\d+)?$/.match number
+      /^-?\d+(\.\d+)?$/.match number
     end
 
     ValidationError = Class.new(RuntimeError)

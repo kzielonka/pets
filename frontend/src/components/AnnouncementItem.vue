@@ -1,11 +1,12 @@
 <script setup lang="ts">
+const props = defineProps(['name', 'description']);
 </script>
 
 <template>
   <div class="grid">
     <img src="@/assets/dog.jpg" width="100" height="100" class="photo" /> 
-    <div class="name">Henry (dog)</div>
-    <div class="description">Please help me to find my missing dog</div>
+    <div class="name">{{ props.name }} (dog)</div>
+    <div class="description">{{ props.description }}</div>
     <div class="date1">Lost at: 2010-01-01</div>
     <div class="date2">Last seen at: Wroclaw, Poland</div>
   </div>

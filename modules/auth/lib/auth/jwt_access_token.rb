@@ -15,6 +15,8 @@ class Auth
       payload["exp"] > now.to_i && payload["nbf"] <= now.to_i
     rescue JWT::VerificationError 
       return false
+    rescue JWT::DecodeError
+      return false
     end
 
     def user_id

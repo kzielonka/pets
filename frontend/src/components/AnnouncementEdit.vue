@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, inject, onMounted } from 'vue';
 import type { Ref } from 'vue';
-import type { LoadCurrentUserAnnouncementApi, PatchAnnouncementApi } from './ApiProvider';
+import type { LoadCurrentUserAnnouncementApi, PatchAnnouncementApi, PublishAnnouncementApi } from './ApiProvider';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -12,6 +12,8 @@ const props = defineProps(['id']);
 export interface Api {
   loadCurrentUserAnnouncement: LoadCurrentUserAnnouncementApi;
   patchAnnouncement: PatchAnnouncementApi;
+  publishAnnouncement: PublishAnnouncementApi;
+  unpublishAnnouncement: PublishAnnouncementApi;
 };
 
 const api = inject<Api>('api');
@@ -20,6 +22,8 @@ if (!api) {
 }
 
 const saveButtonClicked = ref(false);
+
+const published = ref(false);
 
 const title: Ref<string> = ref('');
 const titleIsTooShort = ref(false);
@@ -37,19 +41,32 @@ const longitudeIsInvalid = ref(false);
 
 const saving = ref(false);
 
-onMounted(async () => {
+const fetchAnnouncement = async () => {
   const announcement = await api.loadCurrentUserAnnouncement(props.id);
-  console.log(announcement);
+  published.value = announcement.published;
   title.value = announcement.title;
   content.value = announcement.content;
   latitude.value = String(announcement.location.latitude);
   longitude.value = String(announcement.location.longitude);
+}
+
+onMounted(async () => {
+  await fetchAnnouncement();
 });
+
+const isEverythingValid = (): boolean => {
+  return !titleIsTooShort.value &&
+    !titleIsTooLong.value &&
+    !contentIsTooShort.value &&
+    !contentIsTooLong.value &&
+    !latitudeIsInvalid.value &&
+    !longitudeIsInvalid.value;
+}
 
 const submit = async () => {
   saveButtonClicked.value = true;
   saving.value = true;
-  if (titleIsTooLong.value || titleIsTooShort.value) {
+  if (!isEverythingValid()) {
     await new Promise((resolve) => setTimeout(resolve, 100));
     saving.value = false;
     return;
@@ -64,6 +81,21 @@ const submit = async () => {
   });
   await new Promise((resolve) => setTimeout(resolve, 1000));
   saving.value = false;
+};
+
+const publish = async () => {
+  submit();
+  saving.value = true;
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await api.publishAnnouncement(props.id);
+  await fetchAnnouncement();
+  saving.value = false;
+};
+
+const unpublish = async () => {
+  await api.unpublishAnnouncement(props.id);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await fetchAnnouncement();
 };
 
 watch(title, (value: string) => {
@@ -130,7 +162,7 @@ const isLongitudeInputInvalid = () => {
 }
 
 const isDisabled = () => {
-  return saving.value;
+  return saving.value || published.value;
 }
 
 </script>
@@ -167,8 +199,12 @@ const isDisabled = () => {
     <div>
       <MapInput v-model:latitude="latitude" v-model:longitude="longitude" />
     </div>
-    <div class="button-container">
-      <Button @click="submit" :disabled="isDisabled()" data-testid="submit">Submit</Button>
+    <div class="button-container" v-if="published">
+      <Button @click="unpublish" :disabled="false" data-testid="unpublish">Unpublish</Button>
+    </div>
+    <div class="button-container" v-if="!published">
+      <Button @click="submit" :disabled="isDisabled()" data-testid="submit">Save</Button>
+      <Button @click="publish" :disabled="isDisabled()" data-testid="publish">Save & Publish</Button>
     </div>
   </div>
 </template>

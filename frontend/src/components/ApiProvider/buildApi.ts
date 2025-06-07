@@ -1,5 +1,5 @@
 import { isArray, isObject, isString } from 'lodash';
-import type { Api, AnnouncementPatchData, CurrentUserAnnouncement, CurrentUserAnnouncementDetails, SignInApiResult } from './Api';
+import type { Api, AnnouncementPatchData, CurrentUserAnnouncement, CurrentUserAnnouncementDetails, SignInApiResult, AnnouncementSearchItem } from './Api';
 
 const errorType = (parsedBody: unknown): string => {
   if (!isObject(parsedBody)) {
@@ -125,6 +125,42 @@ const buildApi = (isAccessTokenSet: () => boolean, getAccessToken: () => string)
     return json.map(normaliseCurrentUserAnnouncement);
   }
 
+  const parseAnnouncementSearchItemJson = (json: unknown): AnnouncementSearchItem => {
+    if (!isObject(json)) {
+      throw new Error('object expected');
+    }
+    if (!('id' in json)) {
+      throw new Error('id expected');
+    }
+    if (!isString(json.id)) {
+      throw new Error('id is not a string');
+    }
+    if (!('title' in json)) {
+      throw new Error('title expeceted');
+    }
+    if (!isString(json.title)) {
+      throw new Error('title is not a string');
+    }
+    return {
+      id: json.id,
+      title: json.title,
+      content: 'content',
+    }
+  }
+
+  const parseSearchAnnouncementsJson = (json: unknown): AnnouncementSearchItem[] => {
+    if (!isObject(json)) {
+      throw new Error('object expected');
+    }
+    if (!('announcements' in json)) {
+      throw new Error('announcements is missing');
+    }
+    if (!isArray(json.announcements)) {
+      throw new Error('announcements should be an array');
+    }
+    return json.announcements.map(parseAnnouncementSearchItemJson);
+  }
+
   const loadCurrentUserAnnouncements = async (): Promise<CurrentUserAnnouncement[]> => {
     const response = await fetch('http://localhost:3000/users/me/announcements', {
       method: 'GET',
@@ -180,13 +216,47 @@ const buildApi = (isAccessTokenSet: () => boolean, getAccessToken: () => string)
     }
   }
 
+  const publishAnnouncement = async (id: string): Promise<void> => {
+    const response = await fetch('http://localhost:3000/users/me/announcements/' + id + '/publish', {
+      method: 'POST',
+      headers: extendHeadersWithAccessToken({}),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+  }
+
+  const unpublishAnnouncement = async (id: string): Promise<void> => {
+    const response = await fetch('http://localhost:3000/users/me/announcements/' + id + '/unpublish', {
+      method: 'POST',
+      headers: extendHeadersWithAccessToken({}),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+  }
+
+  const searchAnnouncements = async (latitude: number, longitude: number): Promise<AnnouncementSearchItem[]> => {
+    const response = await fetch(`http://localhost:3000/announcements?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`, {
+      method: 'GET',
+      headers: extendHeadersWithAccessToken({}),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+    return parseSearchAnnouncementsJson(await response.json());
+  }
+
   const api: Api = {
     callSignIn,
     callSignUp,
     loadCurrentUserAnnouncements,
     loadCurrentUserAnnouncement,
     callNewAnnouncement,
-    patchAnnouncement
+    patchAnnouncement,
+    publishAnnouncement,
+    unpublishAnnouncement,
+    searchAnnouncements,
   };
 
   return api;

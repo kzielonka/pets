@@ -65,6 +65,10 @@ class TestAuth < Minitest::Test
     assert other_auth.authenticate(other_access_token).success?
   end
 
+  def test_invalid_token
+    assert !@auth.authenticate("INVALID").success?
+  end
+
   def test_sign_in_with_invalid_not_matching_validation_criteria
     email = "test@example.com" * 1000
     password = "password"

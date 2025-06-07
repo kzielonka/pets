@@ -40,6 +40,12 @@ export interface AnnouncementPatchData {
   };
 }
 
+export interface AnnouncementSearchItem {
+  id: string;
+  title: string;
+  content: string;
+}
+
 export type LoadCurrentUserAnnouncementsApi = () => Promise<CurrentUserAnnouncement[]>;
 
 export type LoadCurrentUserAnnouncementApi = (id: string) => Promise<CurrentUserAnnouncementDetails>;
@@ -48,6 +54,12 @@ export type PatchAnnouncementApi = (id: string, data: AnnouncementPatchData) => 
 
 export type NewAnnouncementApi = () => Promise<void>;
 
+export type PublishAnnouncementApi = (id: string) => Promise<void>;
+
+export type UnpublishAnnouncementApi = (id: string) => Promise<void>;
+
+export type SearchAnnouncementsApi = (latitude: number, longitude: number) => Promise<AnnouncementSearchItem[]>;
+
 export interface Api {
   callSignIn: SignInApi;
   callSignUp: SignUpApi;
@@ -55,4 +67,7 @@ export interface Api {
   loadCurrentUserAnnouncement: LoadCurrentUserAnnouncementApi;
   patchAnnouncement: PatchAnnouncementApi;
   callNewAnnouncement: NewAnnouncementApi;
+  publishAnnouncement: PublishAnnouncementApi;
+  unpublishAnnouncement: UnpublishAnnouncementApi;
+  searchAnnouncements: SearchAnnouncementsApi;
 };

@@ -1,5 +1,5 @@
 ARG RUBY_VERSION=3.3.0
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 
 # Install PostgreSQL dependencies
 RUN apt-get update -qq 
@@ -7,7 +7,7 @@ RUN apt-get install --no-install-recommends -y postgresql postgresql-contrib lib
 
 WORKDIR /rails
 
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get install --no-install-recommends -y build-essential git libvips pkg-config
@@ -25,7 +25,7 @@ RUN cd ./modules/announcements && bundle install
 RUN cd ./modules/announcements_search && bundle install
 RUN cd ./modules/events_bus && bundle install
 
-FROM base as workspace
+FROM base AS workspace
 
 WORKDIR /rails/rails
 

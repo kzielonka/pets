@@ -8,12 +8,39 @@ import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import View from 'ol/View';
 import { Point } from 'ol/geom';
 import { Vector as VectorSource } from 'ol/source';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
+import { getBottomLeft, getTopRight } from 'ol/extent';
+
+const emit = defineEmits(['positionChanged']);
 
 const map = ref<any>(null);
 const point = ref<any>(null);
 const view = ref<any>(null);
 const id = ref(`id-${Math.random()}`);
+
+function wrapLon(value: number): number {
+  const worlds = Math.floor((value + 180) / 360);
+  return value - worlds * 360;
+}
+
+function onMoveEnd(evt: any) {
+  const map = evt.map;
+  const extent = map.getView().calculateExtent(map.getSize());
+  const bottomLeft = toLonLat(getBottomLeft(extent));
+  const topRight = toLonLat(getTopRight(extent));
+  const left = wrapLon(bottomLeft[0]);
+  const bottom = bottomLeft[1];
+  const right = wrapLon(topRight[0]);
+  const top = topRight[1];
+  emit('positionChanged', {
+    left,
+    bottom,
+    right,
+    top,
+    centerX: left + (right - left) / 2, // TODO: fix if right < left 
+    centerY: bottom + (top - bottom) / 2,
+  });
+}
 
 onMounted(() => {
   const cords = [0, 0];
@@ -49,6 +76,8 @@ onMounted(() => {
     target: id.value,
     view: view.value,
   });
+
+  map.value.on('moveend', onMoveEnd);
 });
 </script>
 

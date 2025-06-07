@@ -1,4 +1,7 @@
+class AuthError < RuntimeError; end 
+
 class AnnouncementsController < ApplicationController
+  rescue_from AuthError, with: :handle_auth_error
 
   def create
     result = announcements.add_new_draft(user_id)
@@ -70,7 +73,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def user_id
-    auth.authenticate(String(request.headers["HTTP_AUTHORIZATION"]).split(" ").last).user_id.to_s
+    result = auth.authenticate(String(request.headers["HTTP_AUTHORIZATION"]).split(" ").last)
+    raise AuthError.new unless result.success?
+    result.user_id.to_s
   end
 
   def location
@@ -88,4 +93,7 @@ class AnnouncementsController < ApplicationController
     Rails.application.config.auth 
   end
 
+  def handle_auth_error
+    head 401
+  end
 end
