@@ -13,6 +13,9 @@ const api = inject<Api>('api');
 const items = ref<AnnouncementSearchItem[]>([]);
 
 onMounted(async () => {
+  if (!api) {
+    throw new Error('api has not bee set');
+  }
   const announcements = await api.searchAnnouncements(0, 0);
   items.value = announcements;
 })

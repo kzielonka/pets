@@ -2,7 +2,7 @@
 import AnnouncementsList from '@/components/AnnouncementsList.vue';
 import MainMap from '@/components/MainMap.vue';
 import { ref, inject, watch } from 'vue';
-import type { AnnouncementSearchItem, SearchAnnouncementsApi } from './ApiProvider';
+import type { AnnouncementSearchItem, SearchAnnouncementsApi } from '@/components/ApiProvider';
 
 export interface Api {
   searchAnnouncements: SearchAnnouncementsApi;
@@ -17,6 +17,9 @@ const handlePositionChanged = (p: any) => {
 const api = inject<Api>('api');
 
 watch(mapCenter, async (newPosition: { x: number, y: number }) => {
+  if (!api) {
+    throw new Error('api has not been set');
+  }
   const announcements = await api.searchAnnouncements(newPosition.y, newPosition.x);
   console.log(announcements);
 });
