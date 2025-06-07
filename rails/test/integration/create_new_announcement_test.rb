@@ -76,14 +76,14 @@ class CreateNewAnnouncementTest < IntegrationTest
     assert_equal({ "latitude" => 12.34, "longitude" => -43.21 }, parsed_body["location"])
   end
 
-  test "responds with 404 trying to get not existing announcement as guest" do
+  test "responds with 401 trying to get not existing announcement as guest" do
     get "/users/me/announcements/id"
-    assert_equal 404, response.status
+    assert_equal 401, response.status
   end
 
-  test "responds with 404 trying to get not existing announcement" do
+  test "responds with 401 trying to get not existing announcement when authorization token is invalid" do
     get "/users/me/announcements/id", headers: { "AUTHORIZATION" => "Bearer 1234" }
-    assert_equal 404, response.status
+    assert_equal 401, response.status
   end
 
   test "responds with 404 trying to get someone else announcement" do

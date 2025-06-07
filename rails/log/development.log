@@ -1,0 +1,2019 @@
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/sign_up" for 192.168.48.1 at 2025-05-03 14:15:31 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 394ms (Views: 0.1ms | ActiveRecord: 3.9ms | Allocations: 9305)
+
+
+Started POST "/sign_up" for 192.168.48.1 at 2025-05-03 14:15:35 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test1234@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test1234@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test1234@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.1ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "9af7bd77-1289-4554-a937-46502b78ff26"], ["email", "test1234@example.com"], ["password", "$2a$12$EUSeB2C2tK2/EG8oKvkMnu0jyvWDE24st069fBV6.HLGBS9eS5e8e"], ["created_at", "2025-05-03 14:15:35.753232"], ["updated_at", "2025-05-03 14:15:35.753232"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 414ms (ActiveRecord: 3.4ms | Allocations: 12325)
+
+
+Started POST "/sign_in" for 192.168.48.1 at 2025-05-03 14:15:44 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"test1234@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test1234@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test1234@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 401 Unauthorized in 404ms (ActiveRecord: 0.4ms | Allocations: 1706)
+
+
+Started POST "/sign_up" for 192.168.48.1 at 2025-05-03 14:16:01 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test1234@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test1234@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test1234@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 400 Bad Request in 397ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 1038)
+
+
+Started POST "/sign_up" for 192.168.48.1 at 2025-05-03 14:16:06 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"test12345@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test12345@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test12345@example.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (0.9ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["email", "test12345@example.com"], ["password", "$2a$12$oVeuI1mwssyZkw/x7NNDauslmYJOkjmBO.wFE6/C3yMi6XyXiFqLu"], ["created_at", "2025-05-03 14:16:07.077978"], ["updated_at", "2025-05-03 14:16:07.077978"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 390ms (ActiveRecord: 2.0ms | Allocations: 2146)
+
+
+Started POST "/sign_in" for 192.168.48.1 at 2025-05-03 14:16:18 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"test12345@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test12345@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test12345@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 401 Unauthorized in 399ms (ActiveRecord: 0.3ms | Allocations: 1381)
+
+
+Started POST "/sign_in" for 192.168.48.1 at 2025-05-03 14:16:24 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"test12345@example.com", "password"=>"[FILTERED]", "user"=>{"email"=>"test12345@example.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "test12345@example.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 200 OK in 201ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 1442)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:16:26 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (1.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 2.2ms | Allocations: 1561)
+
+
+Started POST "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:16:27 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#create as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:4:in `create'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.8ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", ""], ["content", ""], ["created_at", "2025-05-03 14:16:27.818700"], ["updated_at", "2025-05-03 14:16:27.818700"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:4:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/announcements_controller.rb:4:in `create'
+Completed 200 OK in 23ms (Views: 0.1ms | ActiveRecord: 4.6ms | Allocations: 10144)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:16:27 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 805)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:16:32 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 13ms (Views: 8.3ms | ActiveRecord: 0.3ms | Allocations: 1572)
+
+
+Started PATCH "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:13 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"Annoucmnet 1", "content"=>"", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}, "user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{"title"=>"Annoucmnet 1", "content"=>"", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.4ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.7ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Annoucmnet 1"], ["content", ""], ["created_at", "2025-05-03 14:17:13.896244"], ["updated_at", "2025-05-03 14:17:13.896244"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.2ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Annoucmnet 1"], ["content", ""], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.6ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Annoucmnet 1"], ["content", ""], ["created_at", "2025-05-03 14:17:13.906469"], ["updated_at", "2025-05-03 14:17:13.906469"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.6ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Annoucmnet 1"], ["content", ""], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.4ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Annoucmnet 1"], ["content", ""], ["created_at", "2025-05-03 14:17:13.913693"], ["updated_at", "2025-05-03 14:17:13.913693"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.6ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Annoucmnet 1"], ["content", ""], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+Completed 200 OK in 27ms (ActiveRecord: 10.1ms | Allocations: 11325)
+
+
+Started PATCH "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:30 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"Announcement", "content"=>"test", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}, "user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{"title"=>"Announcement", "content"=>"test", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.8ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", ""], ["created_at", "2025-05-03 14:17:30.182849"], ["updated_at", "2025-05-03 14:17:30.182849"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", ""], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.7ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:30.192298"], ["updated_at", "2025-05-03 14:17:30.192298"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.5ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.4ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:30.199434"], ["updated_at", "2025-05-03 14:17:30.199434"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.2ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+Completed 200 OK in 42ms (ActiveRecord: 22.2ms | Allocations: 11132)
+
+
+Started PATCH "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:35 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"Announcement", "content"=>"test", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}, "user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{"title"=>"Announcement", "content"=>"test", "location"=>{"latitude"=>51.84115785043235, "longitude"=>16.577167200758456}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.7ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:35.124502"], ["updated_at", "2025-05-03 14:17:35.124502"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.9ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:9:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.2ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:35.133234"], ["updated_at", "2025-05-03 14:17:35.133234"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.5ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:10:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.4ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:35.138504"], ["updated_at", "2025-05-03 14:17:35.138504"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.5ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:11:in `update'
+Completed 200 OK in 24ms (ActiveRecord: 8.3ms | Allocations: 11134)
+
+
+Started POST "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023/publish" for 192.168.48.1 at 2025-05-03 14:17:36 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#publish as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:49:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:49:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.1ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", false], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:17:36.128190"], ["updated_at", "2025-05-03 14:17:36.128190"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:49:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:49:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.5ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", false], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:49:in `publish'
+Completed 200 OK in 7ms (ActiveRecord: 2.0ms | Allocations: 3939)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:36 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 819)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:17:41 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 753)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:43 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 819)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:17:44 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 753)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:46 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 818)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:17:56 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 753)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:17:57 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 818)
+
+
+Started POST "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023/unpublish" for 192.168.48.1 at 2025-05-03 14:18:27 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#unpublish as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:58:in `unpublish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:58:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.9ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["draft", true], ["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["title", "Announcement"], ["content", "test"], ["created_at", "2025-05-03 14:18:27.293137"], ["updated_at", "2025-05-03 14:18:27.293137"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"]]
+  ↳ app/controllers/announcements_controller.rb:58:in `unpublish'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:58:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"], ["draft", true], ["title", "Announcement"], ["content", "test"], ["latitude", "51.84115785043235"], ["longitude", "16.57716720075845"], ["id", "be92b108-027d-46e0-b966-5fbc82343023"]]
+  ↳ app/controllers/announcements_controller.rb:58:in `unpublish'
+Completed 200 OK in 14ms (ActiveRecord: 3.0ms | Allocations: 3890)
+
+
+Started GET "/users/me/announcements/be92b108-027d-46e0-b966-5fbc82343023" for 192.168.48.1 at 2025-05-03 14:18:28 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"be92b108-027d-46e0-b966-5fbc82343023", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "be92b108-027d-46e0-b966-5fbc82343023"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:20:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 818)
+
+
+Started GET "/users/me/announcements" for 192.168.48.1 at 2025-05-03 14:18:31 +0000
+Cannot render console from 192.168.48.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "df83eda8-0dcb-4456-928d-caf819d2e994"]]
+  ↳ app/controllers/announcements_controller.rb:37:in `index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 753)
+
+
+Started GET "/" for 172.19.0.1 at 2025-05-31 07:55:15 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActiveRecord::NoDatabaseError (We could not find your database: pets_dev. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:74:in `rescue in new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:68:in `new_client'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:980:in `connect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:992:in `reconnect'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:685:in `block in reconnect!'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:684:in `reconnect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:788:in `verify!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:795:in `connect!'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1001:in `block in with_raw_connection'
+activesupport (7.1.3.2) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1000:in `with_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:1113:in `valid_raw_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:616:in `get_database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:374:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:70:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/schema_cache.rb:200:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract_adapter.rb:871:in `database_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/postgresql_adapter.rb:644:in `check_version'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:678:in `new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:723:in `checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:702:in `try_to_checkout_new_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:654:in `acquire_connection'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:353:in `checkout'
+activerecord (7.1.3.2) lib/active_record/connection_adapters/abstract/connection_pool.rb:182:in `connection'
+activerecord (7.1.3.2) lib/active_record/migration/pending_migration_connection.rb:8:in `establish_temporary_connection'
+activerecord (7.1.3.2) lib/active_record/migration.rb:774:in `block in pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `each'
+activerecord (7.1.3.2) lib/active_record/migration.rb:773:in `pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:752:in `check_pending_migrations'
+activerecord (7.1.3.2) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.3.2) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.3.2) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.3.2) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.2) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.2) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.10) lib/rack/method_override.rb:28:in `call'
+rack (3.0.10) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.10) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+rack-cors (2.0.2) lib/rack/cors.rb:102:in `call'
+railties (7.1.3.2) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+  [1m[35m (13.8ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
+  [1m[35m (9.7ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-05-31 07:55:28.658243', '2025-05-31 07:55:28.658245') RETURNING "key"[0m
+Migrating to AddAnnouncements (20240423085448)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "draft" boolean NOT NULL, "owner_id" character varying NOT NULL, "title" character varying, "content" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_announcements_on_owner_id" ON "announcements" ("owner_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423085448') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCredentials (20240423121101)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "credentials" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "user_id" uuid NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_user_id" ON "credentials" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_email" ON "credentials" ("email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423121101') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddLocationToAnnouncements (20240425142030)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "announcements" ADD "latitude" decimal[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "announcements" ADD "longitude" decimal[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240425142030') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPublicAnnouncements (20240506091826)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "public_announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "content" character varying NOT NULL, "location" point NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506091826') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCubeAndEarthdistanceExtension (20240506095916)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE EXTENSION cube;[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE EXTENSION earthdistance;[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506095916') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGistIndexOnPublicAnnouncementsLocation (20240506100349)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_public_announcements_on_location" ON "public_announcements" USING gist ("location")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506100349') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 172.19.0.1 at 2025-05-31 07:55:32 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | Allocations: 271)
+Completed 200 OK in 12ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 2574)
+
+
+Started GET "/" for 172.19.0.1 at 2025-05-31 07:55:33 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | Allocations: 13)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 215)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 07:56:12 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms | Allocations: 799)
+
+
+Started POST "/sign_up" for 172.19.0.1 at 2025-05-31 07:56:28 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (1.8ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "3c12daf9-81d3-4e8b-b485-4a5152215d9d"], ["email", "aknolezik@gmail.com"], ["password", "$2a$12$b42vp20gEW7/BeYW3x4fgOuszHGsxQUajbrfxRkPPYrmme6Jipilq"], ["created_at", "2025-05-31 07:56:28.755344"], ["updated_at", "2025-05-31 07:56:28.755344"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 435ms (ActiveRecord: 5.8ms | Allocations: 19580)
+
+
+Started POST "/sign_in" for 172.19.0.1 at 2025-05-31 07:56:35 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 401 Unauthorized in 208ms (ActiveRecord: 0.5ms | Allocations: 1652)
+
+
+Started POST "/sign_in" for 172.19.0.1 at 2025-05-31 07:56:37 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 401 Unauthorized in 208ms (ActiveRecord: 0.3ms | Allocations: 1355)
+
+
+Started POST "/sign_in" for 172.19.0.1 at 2025-05-31 07:56:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 200 OK in 208ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 1435)
+
+
+Started POST "/users/me/announcements/" for 172.19.0.1 at 2025-05-31 20:19:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#create as */*
+  Parameters: {"user_id"=>"me"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 837)
+
+
+Started POST "/announcements" for 172.19.0.1 at 2025-05-31 20:19:46 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [POST] "/announcements"):
+  
+Started POST "/announcements" for 172.19.0.1 at 2025-05-31 20:19:52 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  
+ActionController::RoutingError (No route matches [POST] "/announcements"):
+  
+Started GET "/announcements" for 172.19.0.1 at 2025-05-31 20:20:58 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 478)
+
+
+Started GET "/announcements" for 172.19.0.1 at 2025-05-31 20:21:08 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+Completed 400 Bad Request in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 465)
+
+
+Started GET "/announcements" for 172.19.0.1 at 2025-05-31 20:21:12 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 467)
+
+
+Started GET "/announcements?latitude=0&longitude={encodeURIComponent(0)}" for 172.19.0.1 at 2025-05-31 20:21:56 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"{encodeURIComponent(0)}"}
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 472)
+
+
+Started GET "/announcements?latitude=0&longitude={encodeURIComponent(0)}" for 172.19.0.1 at 2025-05-31 20:22:00 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"{encodeURIComponent(0)}"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:22:07 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 130)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:22:09 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 121)
+
+
+Started POST "/sign_up" for 172.19.0.1 at 2025-05-31 20:22:32 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_up as */*
+  Parameters: {"email"=>"aknolezik+2@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik+2@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Count (7.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik+2@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Create (0.8ms)[0m  [1m[32mINSERT INTO "credentials" ("user_id", "email", "password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["email", "aknolezik+2@gmail.com"], ["password", "$2a$12$BX8ufH9cfmaJz.NR0N.M8O3aa97LzLkmTE6uC1IDfiEn2etHLtGSW"], ["created_at", "2025-05-31 20:22:33.183317"], ["updated_at", "2025-05-31 20:22:33.183317"]]
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `sign_up'
+Completed 200 OK in 415ms (ActiveRecord: 11.1ms | Allocations: 4963)
+
+
+Started POST "/sign_in" for 172.19.0.1 at 2025-05-31 20:22:44 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#sign_in as */*
+  Parameters: {"email"=>"aknolezik+2@gmail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"aknolezik+2@gmail.com", "password"=>"[FILTERED]"}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAuth::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "credentials".* FROM "credentials" WHERE "credentials"."email" = $1[0m  [["email", "aknolezik+2@gmail.com"]]
+  ↳ app/controllers/users_controller.rb:13:in `sign_in'
+Completed 200 OK in 211ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 1470)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:22:44 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 121)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:22:49 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 1473)
+
+
+Started POST "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:22:50 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#create as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.3ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", ""], ["content", ""], ["created_at", "2025-05-31 20:22:50.878636"], ["updated_at", "2025-05-31 20:22:50.878636"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+Completed 200 OK in 21ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 10130)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:22:50 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 803)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:22:53 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 1568)
+
+
+Started PATCH "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:23:01 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"title", "content"=>"contente", "location"=>{"latitude"=>10, "longitude"=>20}, "user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{"title"=>"title", "content"=>"contente", "location"=>{"latitude"=>10, "longitude"=>20}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.4ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.0ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title"], ["content", ""], ["created_at", "2025-05-31 20:23:01.299309"], ["updated_at", "2025-05-31 20:23:01.299309"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title"], ["content", ""], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title"], ["content", "contente"], ["created_at", "2025-05-31 20:23:01.307588"], ["updated_at", "2025-05-31 20:23:01.307588"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title"], ["content", "contente"], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.3ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title"], ["content", "contente"], ["created_at", "2025-05-31 20:23:01.318598"], ["updated_at", "2025-05-31 20:23:01.318598"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.5ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+Completed 200 OK in 30ms (ActiveRecord: 8.6ms | Allocations: 11299)
+
+
+Started POST "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71/publish" for 172.19.0.1 at 2025-05-31 20:23:02 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#publish as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.6ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", false], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title"], ["content", "contente"], ["created_at", "2025-05-31 20:23:02.302037"], ["updated_at", "2025-05-31 20:23:02.302037"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.0ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", false], ["title", "title"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+Completed 200 OK in 14ms (ActiveRecord: 3.7ms | Allocations: 3956)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:23:02 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 0.2ms | Allocations: 817)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:23:10 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 155)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:23:11 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 143)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:23:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 752)
+
+
+Started POST "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:23:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#create as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.8ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", ""], ["content", ""], ["created_at", "2025-05-31 20:23:20.908815"], ["updated_at", "2025-05-31 20:23:20.908815"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/announcements_controller.rb:7:in `create'
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 3.1ms | Allocations: 1820)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:23:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 796)
+
+
+Started GET "/users/me/announcements/034fd704-149f-42f7-862e-970816067715" for 172.19.0.1 at 2025-05-31 20:23:22 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 814)
+
+
+Started PATCH "/users/me/announcements/034fd704-149f-42f7-862e-970816067715" for 172.19.0.1 at 2025-05-31 20:23:34 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"ttle 2", "content"=>"HEllo World!!!", "location"=>{"latitude"=>1, "longitude"=>2}, "user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715", "announcement"=>{"title"=>"ttle 2", "content"=>"HEllo World!!!", "location"=>{"latitude"=>1, "longitude"=>2}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (3.6ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", ""], ["created_at", "2025-05-31 20:23:34.520696"], ["updated_at", "2025-05-31 20:23:34.520696"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.8ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", ""], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.4ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:34.531016"], ["updated_at", "2025-05-31 20:23:34.531016"], ["latitude", "0.0"], ["longitude", "0.0"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "0.0"], ["longitude", "0.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (5.1ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:34.538195"], ["updated_at", "2025-05-31 20:23:34.538195"], ["latitude", "1.0"], ["longitude", "2.0"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.8ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "1.0"], ["longitude", "2.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+Completed 200 OK in 32ms (ActiveRecord: 14.4ms | Allocations: 11097)
+
+
+Started PATCH "/users/me/announcements/034fd704-149f-42f7-862e-970816067715" for 172.19.0.1 at 2025-05-31 20:23:37 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"ttle 2", "content"=>"HEllo World!!!", "location"=>{"latitude"=>1, "longitude"=>2}, "user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715", "announcement"=>{"title"=>"ttle 2", "content"=>"HEllo World!!!", "location"=>{"latitude"=>1, "longitude"=>2}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.7ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:37.735441"], ["updated_at", "2025-05-31 20:23:37.735441"], ["latitude", "1.0"], ["longitude", "2.0"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.1ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "1.0"], ["longitude", "2.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.4ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:37.742980"], ["updated_at", "2025-05-31 20:23:37.742980"], ["latitude", "1.0"], ["longitude", "2.0"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.8ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "1.0"], ["longitude", "2.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.0ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:37.749803"], ["updated_at", "2025-05-31 20:23:37.749803"], ["latitude", "1.0"], ["longitude", "2.0"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.3ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "1.0"], ["longitude", "2.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+Completed 200 OK in 22ms (ActiveRecord: 7.5ms | Allocations: 11107)
+
+
+Started POST "/users/me/announcements/034fd704-149f-42f7-862e-970816067715/publish" for 172.19.0.1 at 2025-05-31 20:23:38 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#publish as */*
+  Parameters: {"user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.4ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["draft", false], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["created_at", "2025-05-31 20:23:38.729989"], ["updated_at", "2025-05-31 20:23:38.729989"], ["latitude", "1.0"], ["longitude", "2.0"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.9ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", false], ["title", "ttle 2"], ["content", "HEllo World!!!"], ["latitude", "1.0"], ["longitude", "2.0"], ["id", "034fd704-149f-42f7-862e-970816067715"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+Completed 200 OK in 8ms (ActiveRecord: 2.7ms | Allocations: 3891)
+
+
+Started GET "/users/me/announcements/034fd704-149f-42f7-862e-970816067715" for 172.19.0.1 at 2025-05-31 20:23:38 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.1ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 816)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:23:44 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:12 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:21 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:26 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:31 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:34 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:25:47 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:26:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:27:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:29:04 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 166)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:29:14 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:29:16 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:29:38 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:30:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:30:23 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:30:24 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 15ms (Views: 0.1ms | ActiveRecord: 2.9ms | Allocations: 3688)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:26 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 818)
+
+
+Started POST "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71/unpublish" for 172.19.0.1 at 2025-05-31 20:30:30 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#unpublish as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.4ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title"], ["content", "contente"], ["created_at", "2025-05-31 20:30:30.275839"], ["updated_at", "2025-05-31 20:30:30.275839"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.8ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+Completed 200 OK in 14ms (ActiveRecord: 4.1ms | Allocations: 3882)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:31 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 816)
+
+
+Started PATCH "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:35 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"title 1", "content"=>"contente", "location"=>{"latitude"=>10, "longitude"=>20}, "user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{"title"=>"title 1", "content"=>"contente", "location"=>{"latitude"=>10, "longitude"=>20}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (2.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:35.745686"], ["updated_at", "2025-05-31 20:30:35.745686"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.1ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.2ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:35.754424"], ["updated_at", "2025-05-31 20:30:35.754424"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.6ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (0.9ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:35.760539"], ["updated_at", "2025-05-31 20:30:35.760539"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.4ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+Completed 200 OK in 25ms (ActiveRecord: 7.9ms | Allocations: 11107)
+
+
+Started POST "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71/publish" for 172.19.0.1 at 2025-05-31 20:30:36 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#publish as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.2ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", false], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:36.742651"], ["updated_at", "2025-05-31 20:30:36.742651"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.9ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", false], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+Completed 200 OK in 8ms (ActiveRecord: 2.5ms | Allocations: 3888)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:36 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 816)
+
+
+Started POST "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71/unpublish" for 172.19.0.1 at 2025-05-31 20:30:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#unpublish as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.5ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.9ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:41.744480"], ["updated_at", "2025-05-31 20:30:41.744480"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:61:in `unpublish'
+Completed 200 OK in 12ms (ActiveRecord: 3.6ms | Allocations: 3871)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:42 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 816)
+
+
+Started PATCH "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:53 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#update as */*
+  Parameters: {"title"=>"title 1", "content"=>"contente", "location"=>{"latitude"=>-20.21154644781228, "longitude"=>14.589791678665376}, "user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{"title"=>"title 1", "content"=>"contente", "location"=>{"latitude"=>-20.21154644781228, "longitude"=>14.589791678665376}}}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.7ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:53.242172"], ["updated_at", "2025-05-31 20:30:53.242172"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.4ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:12:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:53.251313"], ["updated_at", "2025-05-31 20:30:53.251313"], ["latitude", "10.0"], ["longitude", "20.0"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.7ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "10.0"], ["longitude", "20.0"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:13:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.1ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", true], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:53.259009"], ["updated_at", "2025-05-31 20:30:53.259009"], ["latitude", "-20.21154644781228"], ["longitude", "14.58979167866537"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (0.4ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", true], ["title", "title 1"], ["content", "contente"], ["latitude", "-20.21154644781228"], ["longitude", "14.58979167866537"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:14:in `update'
+Completed 200 OK in 27ms (ActiveRecord: 8.5ms | Allocations: 11118)
+
+
+Started POST "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71/publish" for 172.19.0.1 at 2025-05-31 20:30:54 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#publish as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"}
+HTTP Origin header (http://localhost:5173) didn't match request.base_url (http://localhost:3000)
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Create (1.5ms)[0m  [1m[32mINSERT INTO "announcements" ("id", "draft", "owner_id", "title", "content", "created_at", "updated_at", "latitude", "longitude") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["draft", false], ["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["title", "title 1"], ["content", "contente"], ["created_at", "2025-05-31 20:30:54.237241"], ["updated_at", "2025-05-31 20:30:54.237241"], ["latitude", "-20.21154644781228"], ["longitude", "14.58979167866537"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Update All (1.0ms)[0m  [1m[33mUPDATE "announcements" SET "owner_id" = $1, "draft" = $2, "title" = $3, "content" = $4, "latitude" = $5, "longitude" = $6 WHERE "announcements"."id" = $7[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"], ["draft", false], ["title", "title 1"], ["content", "contente"], ["latitude", "-20.21154644781228"], ["longitude", "14.58979167866537"], ["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"]]
+  ↳ app/controllers/announcements_controller.rb:52:in `publish'
+Completed 200 OK in 10ms (ActiveRecord: 3.0ms | Allocations: 3896)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 20:30:54 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 816)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:30:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:33:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 798)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:33:07 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 20:35:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 798)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:35:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:35:53 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:47:30 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 20:47:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 166)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:04:17 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:04:23 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:04:28 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:06:16 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:08:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:08:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:08:58 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:09:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:09:06 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:09:10 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:09:11 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:12:33 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:13:22 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=undefined&longitude=undefined" for 172.19.0.1 at 2025-05-31 21:13:22 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"undefined", "longitude"=>"undefined"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 467)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:13:25 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=undefined&longitude=undefined" for 172.19.0.1 at 2025-05-31 21:13:25 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"undefined", "longitude"=>"undefined"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 467)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:13:33 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:13:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:13:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 166)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:14:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=-1.4210854715202004e-14" for 172.19.0.1 at 2025-05-31 21:14:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"-1.4210854715202004e-14"}
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:14:07 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=0&longitude=-1.4210854715202004e-14" for 172.19.0.1 at 2025-05-31 21:14:08 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"-1.4210854715202004e-14"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=0&longitude=3.6168626718036663" for 172.19.0.1 at 2025-05-31 21:14:09 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"3.6168626718036663"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=11.612775052164187&longitude=-14.845364218286857" for 172.19.0.1 at 2025-05-31 21:14:14 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"11.612775052164187", "longitude"=>"-14.845364218286857"}
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=7.00278100005792&longitude=-26.945154876332193" for 172.19.0.1 at 2025-05-31 21:14:15 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"7.00278100005792", "longitude"=>"-26.945154876332193"}
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:17:24 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/announcements?latitude=0&longitude=-1.4210854715202004e-14" for 172.19.0.1 at 2025-05-31 21:17:24 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 523)
+
+
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"-1.4210854715202004e-14"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 522)
+
+
+Started GET "/announcements?latitude=7.00134584704523&longitude=-5.236773709385325" for 172.19.0.1 at 2025-05-31 21:17:26 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"7.00134584704523", "longitude"=>"-5.236773709385325"}
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 467)
+
+
+Started GET "/announcements?latitude=7.0013458470452266&longitude=-13.892116172527615" for 172.19.0.1 at 2025-05-31 21:17:28 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"7.0013458470452266", "longitude"=>"-13.892116172527615"}
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 467)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:17:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/announcements?latitude=0&longitude=-1.4210854715202004e-14" for 172.19.0.1 at 2025-05-31 21:17:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 280)
+
+
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"-1.4210854715202004e-14"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 526)
+
+
+Started GET "/announcements?latitude=7.815187384467286&longitude=-6.139466923359194" for 172.19.0.1 at 2025-05-31 21:17:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"7.815187384467286", "longitude"=>"-6.139466923359194"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 170)
+
+
+Started GET "/announcements?latitude=10.753759787193209&longitude=-11.216202300738516" for 172.19.0.1 at 2025-05-31 21:17:42 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"10.753759787193209", "longitude"=>"-11.216202300738516"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=11.53166666597381&longitude=-19.198493221870837" for 172.19.0.1 at 2025-05-31 21:17:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"11.53166666597381", "longitude"=>"-19.198493221870837"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=13.571658864603897&longitude=-27.520057901098127" for 172.19.0.1 at 2025-05-31 21:17:44 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"13.571658864603897", "longitude"=>"-27.520057901098127"}
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=12.379251539223185&longitude=-21.052925430681874" for 172.19.0.1 at 2025-05-31 21:18:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"12.379251539223185", "longitude"=>"-21.052925430681874"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=9.766367402918942&longitude=-4.859213863808222" for 172.19.0.1 at 2025-05-31 21:18:20 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"9.766367402918942", "longitude"=>"-4.859213863808222"}
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=3.0165049121749465&longitude=-3.308599819819861" for 172.19.0.1 at 2025-05-31 21:18:21 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"3.0165049121749465", "longitude"=>"-3.308599819819861"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=14.480093364051488&longitude=-24.4044626980742" for 172.19.0.1 at 2025-05-31 21:18:25 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"14.480093364051488", "longitude"=>"-24.4044626980742"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=14.480093364051484&longitude=-25.88115788170244" for 172.19.0.1 at 2025-05-31 21:18:27 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"14.480093364051484", "longitude"=>"-25.88115788170244"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 21:18:28 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 2.6ms | Allocations: 3748)
+
+
+Started GET "/users/me/announcements/55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71" for 172.19.0.1 at 2025-05-31 21:18:32 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "55f3cf5e-8eaf-40dd-a7c2-bf6eb0c69f71"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 822)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 21:18:36 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 798)
+
+
+Started GET "/users/me/announcements/034fd704-149f-42f7-862e-970816067715" for 172.19.0.1 at 2025-05-31 21:18:37 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#show as */*
+  Parameters: {"user_id"=>"me", "id"=>"034fd704-149f-42f7-862e-970816067715", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.2ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."id" = $1 ORDER BY "announcements"."id" ASC LIMIT $2[0m  [["id", "034fd704-149f-42f7-862e-970816067715"], ["LIMIT", 1]]
+  ↳ app/controllers/announcements_controller.rb:23:in `show'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 816)
+
+
+Started GET "/users/me/announcements" for 172.19.0.1 at 2025-05-31 21:18:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by AnnouncementsController#index as */*
+  Parameters: {"user_id"=>"me", "announcement"=>{}}
+  [1m[36mAnnouncements::Repos::ActiveRecordRepo::Record Load (0.3ms)[0m  [1m[34mSELECT "announcements".* FROM "announcements" WHERE "announcements"."owner_id" = $1[0m  [["owner_id", "de255d11-a014-478b-a30d-924ac9c0b31b"]]
+  ↳ app/controllers/announcements_controller.rb:40:in `index'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 798)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:18:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/announcements?latitude=0&longitude=-1.4210854715202004e-14" for 172.19.0.1 at 2025-05-31 21:18:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 171)
+
+
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"-1.4210854715202004e-14"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 470)
+
+
+Started GET "/announcements?latitude=1.917668528076895&longitude=-11.338926379516067" for 172.19.0.1 at 2025-05-31 21:18:46 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"1.917668528076895", "longitude"=>"-11.338926379516067"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=14.128004513705276&longitude=-26.53347741990393" for 172.19.0.1 at 2025-05-31 21:18:51 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"14.128004513705276", "longitude"=>"-26.53347741990393"}
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=4.830853903985588&longitude=-3.6640437175201015" for 172.19.0.1 at 2025-05-31 21:18:56 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"4.830853903985588", "longitude"=>"-3.6640437175201015"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=7.768814179107278&longitude=-9.364424446455814" for 172.19.0.1 at 2025-05-31 21:18:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"7.768814179107278", "longitude"=>"-9.364424446455814"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=13.72410408321484&longitude=-27.497950860131624" for 172.19.0.1 at 2025-05-31 21:18:58 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"13.72410408321484", "longitude"=>"-27.497950860131624"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started GET "/announcements?latitude=12.546211873220255&longitude=-22.3168865377776" for 172.19.0.1 at 2025-05-31 21:19:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"12.546211873220255", "longitude"=>"-22.3168865377776"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 302)
+
+
+Started GET "/announcements?latitude=5.78320461384336&longitude=11.758481881827912" for 172.19.0.1 at 2025-05-31 21:19:29 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"5.78320461384336", "longitude"=>"11.758481881827912"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=2.691547567142692&longitude=2.0769503666368365" for 172.19.0.1 at 2025-05-31 21:19:30 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"2.691547567142692", "longitude"=>"2.0769503666368365"}
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=15.432865802378059&longitude=-39.01816231765616" for 172.19.0.1 at 2025-05-31 21:19:38 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"15.432865802378059", "longitude"=>"-39.01816231765616"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=15.432865802378052&longitude=-68.88208388151519" for 172.19.0.1 at 2025-05-31 21:19:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"15.432865802378052", "longitude"=>"-68.88208388151519"}
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=13.504542559372442&longitude=-78.33038248387612" for 172.19.0.1 at 2025-05-31 21:19:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"13.504542559372442", "longitude"=>"-78.33038248387612"}
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=11.971320628278596&longitude=-81.55088847232479" for 172.19.0.1 at 2025-05-31 21:19:40 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"11.971320628278596", "longitude"=>"-81.55088847232479"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=9.425526976163365&longitude=-83.5696623510689" for 172.19.0.1 at 2025-05-31 21:19:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"9.425526976163365", "longitude"=>"-83.5696623510689"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:20:32 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 185)
+
+
+Started GET "/announcements?latitude=-1.4210854715202004e-14&longitude=0" for 172.19.0.1 at 2025-05-31 21:20:38 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-1.4210854715202004e-14", "longitude"=>"0"}
+Completed 400 Bad Request in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 492)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:20:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=-1.4210854715202004e-14&longitude=0" for 172.19.0.1 at 2025-05-31 21:20:39 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-1.4210854715202004e-14", "longitude"=>"0"}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 486)
+
+
+Started GET "/announcements?latitude=-18.264055097139178&longitude=10.297482096348373" for 172.19.0.1 at 2025-05-31 21:20:41 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-18.264055097139178", "longitude"=>"10.297482096348373"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=-35.20869038921401&longitude=12.738733239689765" for 172.19.0.1 at 2025-05-31 21:20:44 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-35.20869038921401", "longitude"=>"12.738733239689765"}
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=-23.982684175407158&longitude=12.239751866099528" for 172.19.0.1 at 2025-05-31 21:20:45 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-23.982684175407158", "longitude"=>"12.239751866099528"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=2.12067464570481&longitude=0.7788634730682205" for 172.19.0.1 at 2025-05-31 21:20:48 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"2.12067464570481", "longitude"=>"0.7788634730682205"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:21:17 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=-1.4210854715202004e-14&longitude=0" for 172.19.0.1 at 2025-05-31 21:21:17 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-1.4210854715202004e-14", "longitude"=>"0"}
+Completed 400 Bad Request in 9ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 486)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 21:21:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=-1.4210854715202004e-14&longitude=0" for 172.19.0.1 at 2025-05-31 21:21:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"-1.4210854715202004e-14", "longitude"=>"0"}
+Completed 400 Bad Request in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 486)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-05-31 23:06:05 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 185)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-01 12:03:14 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-01 18:35:52 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 185)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 12:15:42 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 12:50:37 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 14:12:34 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 14:24:40 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 14:31:28 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 14:58:21 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 185)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 15:08:43 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 15:58:29 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 15:59:57 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 16:09:58 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 16:22:48 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 18:33:19 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 185)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 18:39:14 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 18:40:59 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 20:21:35 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 20:36:18 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-02 21:28:47 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+Started GET "/announcements?latitude=0&longitude=0" for 172.19.0.1 at 2025-06-03 00:11:56 +0000
+Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by PublicAnnouncementsController#index as */*
+  Parameters: {"latitude"=>"0", "longitude"=>"0"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 184)
+
+
+  [1m[35m (13.5ms)[0m  [1m[35mCREATE DATABASE "pets_dev" ENCODING = 'utf8'[0m
+  [1m[35m (13.6ms)[0m  [1m[35mCREATE DATABASE "pets_test" ENCODING = 'utf8'[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-06-07 13:23:48.802777', '2025-06-07 13:23:48.802779') RETURNING "key"[0m
+Migrating to AddAnnouncements (20240423085448)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "draft" boolean NOT NULL, "owner_id" character varying NOT NULL, "title" character varying, "content" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_announcements_on_owner_id" ON "announcements" ("owner_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423085448') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCredentials (20240423121101)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "credentials" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "user_id" uuid NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_user_id" ON "credentials" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_credentials_on_email" ON "credentials" ("email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240423121101') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddLocationToAnnouncements (20240425142030)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "announcements" ADD "latitude" decimal[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "announcements" ADD "longitude" decimal[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240425142030') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPublicAnnouncements (20240506091826)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "public_announcements" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "content" character varying NOT NULL, "location" point NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506091826') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddCubeAndEarthdistanceExtension (20240506095916)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE EXTENSION cube;[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE EXTENSION earthdistance;[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506095916') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGistIndexOnPublicAnnouncementsLocation (20240506100349)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_public_announcements_on_location" ON "public_announcements" USING gist ("location")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240506100349') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(2321406069481842000)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
