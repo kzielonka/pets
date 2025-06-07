@@ -2,7 +2,7 @@
 import AnnouncementsList from '@/components/AnnouncementsList.vue';
 import MainMap from '@/components/MainMap.vue';
 import { ref, inject, watch } from 'vue';
-import type { AnnouncementSearchItem, SearchAnnouncementsApi } from '@/components/ApiProvider';
+import type { SearchAnnouncementsApi } from '@/components/ApiProvider';
 
 export interface Api {
   searchAnnouncements: SearchAnnouncementsApi;
