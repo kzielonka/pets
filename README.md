@@ -2,7 +2,7 @@
 
 [![Ruby](https://github.com/kzielonka/pets/actions/workflows/ruby.yml/badge.svg)](https://github.com/kzielonka/pets/actions/workflows/ruby.yml)
 
-It is web app for pet owners to help them found theirs missing animals.
+It is web app for pet owners to help found theirs missing animals.
 It allows to publish found/lost pet announcement and browse already published ones.
 
 ## How to run it locally?
