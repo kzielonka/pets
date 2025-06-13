@@ -3,4 +3,4 @@ class AddLocationToAnnouncements < ActiveRecord::Migration[7.1]
     add_column :announcements, :latitude, :decimal
     add_column :announcements, :longitude, :decimal
   end
-end
+end 
