@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_06_100349) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_07_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -36,6 +36,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_06_100349) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_credentials_on_email", unique: true
     t.index ["user_id"], name: "index_credentials_on_user_id", unique: true
+  end
+
+  create_table "pins", primary_key: "announcement_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.decimal "latitude", null: false
+    t.decimal "longitude", null: false
+    t.index ["announcement_id"], name: "index_pins_on_announcement_id"
   end
 
   create_table "public_announcements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
