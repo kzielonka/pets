@@ -3,6 +3,7 @@ class AnnouncementsMap
     def self.BoundingBox(bb)
       case bb
       when BoundingBox then return bb
+      when BoundingBoxBuilder then return bb.build
       else raise RuntimeError("it is not valid bounding box")
       end
     end

@@ -10,14 +10,18 @@ class AnnouncementsMap
     end
 
     class InMemoryRepo
+      def initialize
+        @pins = []
+      end
+
       def save(pin)
         @pins.reject! { |p| p.id == pin.id }
         @pins << pin
       end
 
       def search(bounding_box)
-        bounding_box = BoundingBox(bounding_box)
-        @pins.select(bounding_box.method(:contains?))
+        bounding_box = Types::BoundingBox(bounding_box)
+        @pins.select { |pin| bounding_box.contains?(pin.latitude, pin.longitude) }
       end
     end
   end
