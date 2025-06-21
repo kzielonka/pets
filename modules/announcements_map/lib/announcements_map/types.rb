@@ -1,5 +1,9 @@
 class AnnouncementsMap
   module Types
+    def self.BoundingBoxBuilder
+      return BoundingBoxBuilder.empty
+    end
+
     def self.BoundingBox(bb)
       case bb
       when BoundingBox then return bb
