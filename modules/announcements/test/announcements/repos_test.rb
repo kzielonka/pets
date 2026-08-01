@@ -81,7 +81,7 @@ class Announcements
       
       def setup
         test_db_url = String(ENV["TEST_DATABASE_URL"])
-        raise "Please set TEST_DATABASE_URL env" if test_db_url == ""
+        skip "Please set TEST_DATABASE_URL env" if test_db_url == ""
         ActiveRecord::Base.establish_connection(
           adapter: "postgresql",
           url: test_db_url
