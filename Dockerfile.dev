@@ -31,4 +31,6 @@ WORKDIR /rails/rails
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 
+# Configure the main process to run via the entrypoint script
+ENTRYPOINT ["./bin/docker-entrypoint"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
