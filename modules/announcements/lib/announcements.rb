@@ -7,12 +7,22 @@ require "announcements/location"
 require "announcements/announcement"
 require "announcements/serialized_announcement"
 
+# The Announcements class serves as the public facade for the Announcements module.
+# It encapsulates managing draft creation, updates, public publishing/unpublishing, and private data retrieval.
 class Announcements
+  # Initializes the Announcements facade.
+  #
+  # @param events_bus [EventsBus] the system-wide event bus for dispatching domain events.
+  # @param repo [Symbol] the database repository strategy, either :in_memory or :active_record.
   def initialize(events_bus, repo = :in_memory)
     @repo = Repos.build(repo)
     @events_bus = events_bus
   end
 
+  # Creates a new empty announcement draft owned by the specified user.
+  #
+  # @param user [String, User] user identifier or object representing the owner.
+  # @return [NewDraft] DTO containing the auto-generated uuid of the new draft (id).
   def add_new_draft(user)
     user = Users.build(user)
     announcement = Announcement.draft_with_random_id.assign_owner(user.id)
@@ -20,6 +30,14 @@ class Announcements
     NewDraft.new(announcement.id)
   end
 
+  # Updates the title of a draft announcement.
+  #
+  # @param user [String, User] user invoking the action (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @param title [String] the new title.
+  # @raise [Announcements::Errors::AuthorizationError] if user is not authorized.
+  # @raise [Announcements::Errors::CanNotEditPublishedAnnouncementError] if the announcement is already published.
+  # @return [void]
   def update_title(user, id, title)
     user = Users.build(user)
     announcement = @repo.find(id)
@@ -27,6 +45,14 @@ class Announcements
     @repo.save(announcement)
   end
 
+  # Updates the content text of a draft announcement.
+  #
+  # @param user [String, User] user invoking the action (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @param content [String] the new content description.
+  # @raise [Announcements::Errors::AuthorizationError] if user is not authorized.
+  # @raise [Announcements::Errors::CanNotEditPublishedAnnouncementError] if the announcement is already published.
+  # @return [void]
   def update_content(user, id, content)
     user = Users.build(user)
     announcement = @repo.find(id)
@@ -34,6 +60,14 @@ class Announcements
     @repo.save(announcement)
   end
 
+  # Updates the location coordinates of a draft announcement.
+  #
+  # @param user [String, User] user invoking the action (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @param location [Hash, Location] the new coordinates e.g. { latitude: Float, longitude: Float }.
+  # @raise [Announcements::Errors::AuthorizationError] if user is not authorized.
+  # @raise [Announcements::Errors::CanNotEditPublishedAnnouncementError] if the announcement is already published.
+  # @return [void]
   def update_location(user, id, location)
     user = Users.build(user)
     location = Location.build(location)
@@ -42,6 +76,13 @@ class Announcements
     @repo.save(announcement)
   end
 
+  # Publishes a draft announcement, making it public, and broadcasts an AnnouncementPublished event.
+  #
+  # @param user [String, User] user invoking the action (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @raise [Announcements::Errors::AuthorizationError] if user is not authorized.
+  # @raise [Announcements::Errors::UnfinishedDraftError] if either title or content is empty.
+  # @return [void]
   def publish(user, id)
     user = Users.build(user)
     announcement = @repo.find(id)
@@ -50,6 +91,12 @@ class Announcements
     @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content, announcement.location))
   end
 
+  # Unpublishes a published announcement, reverting it back to a draft, and broadcasts an AnnouncementUnpublished event.
+  #
+  # @param user [String, User] user invoking the action (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @raise [Announcements::Errors::AuthorizationError] if user is not authorized.
+  # @return [void]
   def unpublish(user, id)
     user = Users.build(user)
     announcement = @repo.find(id)
@@ -58,6 +105,11 @@ class Announcements
     @events_bus.publish(Events::AnnouncementUnpublished.new(id))
   end
 
+  # Fetches details of an announcement for its owner or the system.
+  #
+  # @param user [String, User] user invoking the request (must be owner or system).
+  # @param id [String] the announcement identifier.
+  # @return [FetchResult] DTO containing not_found? (Boolean), draft? (Boolean), title (String), content (String), and location (Location).
   def fetch_private(user, id)
     user = Users.build(user)
     announcement = @repo.find(id)
@@ -68,6 +120,10 @@ class Announcements
     end
   end
 
+  # Fetches brief information for all announcements owned by a user.
+  #
+  # @param user [String, User] user identifier or object.
+  # @return [Array<AnnouncementData>] array of DTOs containing id, draft?, title, content.
   def fetch_all_for(user)
     user = Users.build(user)
     @repo.find_by_user(user).map do |announcement|

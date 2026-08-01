@@ -1,5 +1,12 @@
 class AnnouncementsMap
   module Types
+    def self.Pin(pin)
+      case pin
+      when Pin then return pin
+      else raise RuntimeError("it is not a pin")
+      end
+    end
+
     def self.BoundingBoxBuilder
       return BoundingBoxBuilder.empty
     end

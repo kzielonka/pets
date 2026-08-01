@@ -42,11 +42,28 @@ class AnnouncementsMap
       @right = Types::Longitude(right)
       @bottom = Types::Latitude(bottom)
       @left = Types::Longitude(left)
+      # TODO: validate that top >= bototm and right >= left
     rescue ArgumentError, Latitude::InvalidError, Longitude::InvalidError
       raise InvalidCoordinatesError.new("Invalid bounding box coordinates")
     end
 
     attr_reader :top, :right, :bottom, :left
+
+    def width
+      @right - @left
+    end
+
+    def height
+      @top - @bottom
+    end
+
+    def width_in_km
+      HaversineDistance.new(@top, @left, @top, @right).km
+    end
+
+    def height_in_km
+      HaversineDistance.new(@top, @left, @bottom, @left).km
+    end
 
     def contains?(latitude, longitude)
       latitude = Types::Latitude(latitude)

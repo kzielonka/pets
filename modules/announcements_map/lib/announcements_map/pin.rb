@@ -10,6 +10,12 @@ class AnnouncementsMap
 
     attr_reader :latitude, :longitude
 
+    def distance_to(pin)
+      latitude = Types::Latitude(pin.latitude)
+      longitude = Types::Longitude(pin.longitude)
+      haversine_distance(latitude, longitude)
+    end
+
     private 
 
     def initialize(announcement_id, latitude, longitude)
@@ -20,6 +26,10 @@ class AnnouncementsMap
 
     def inspect
       "Pin(#{id}, #{latitude.to_f}, #{longitude.to_f})"
+    end
+
+    def haversine_distance(lat2, lon2)
+      HaversineDistance.new(@latitude, @longitude, lat2, lon2).km
     end
   end
   private_constant :Pin

@@ -12,7 +12,15 @@ require "auth/jwt_access_token"
 require "auth/jwk_set"
 require "jwt"
 
+# The Auth class serves as the public facade for the Authentication module.
+# It encapsulates all user registration, credentials hashing, and stateless JWT token authentication.
 class Auth 
+  # Initializes the Auth facade.
+  #
+  # @param hmac_secret [String] secret key used to sign and verify JWT access tokens.
+  # @param repo [Symbol] the database repository strategy, either :in_memory or :active_record.
+  # @param time_now_proc [Proc] proc returning the current time (used for token validation).
+  # @param password_encryption [Symbol] hashing strategy to use, either :bcrypt or :fake_crypt.
   def initialize(hmac_secret, repo = :in_memory, time_now_proc = proc { Time.now }, password_encryption = :bcrypt)
     @secret = String(hmac_secret).dup.freeze
     @time_now_proc = time_now_proc
@@ -20,6 +28,13 @@ class Auth
     @repo = Repos.build(repo, @password_factory)
   end
 
+  # Registers a new user with the given email and password.
+  #
+  # @param email [String] raw email address.
+  # @param password [String] raw password.
+  # @raise [Auth::Errors::DuplicatedEmailError] if the email is already registered.
+  # @raise [Auth::Errors::ValidationError] if validation on email format or password strength fails.
+  # @return [nil]
   def sign_up(email, password)
     email = Email.from(email)
     password = @password_factory.raw_password(password).encrypted 
@@ -38,6 +53,11 @@ class Auth
     raise Errors::ValidationError.new(err.message)
   end
 
+  # Authenticates a user and generates a JWT access token if successful.
+  #
+  # @param email [String] raw email address.
+  # @param password [String] raw password.
+  # @return [SignInResult] DTO containing authenticated? (Boolean) and access_token (String).
   def sign_in(email, password)
     email = Email.from(email)
     password = @password_factory.raw_password(password)
@@ -54,6 +74,10 @@ class Auth
     SignInResult.new(false, "")
   end
 
+  # Validates the access token (JWT) and returns the associated user ID.
+  #
+  # @param access_token [String] raw JWT access token from the Authorization header.
+  # @return [AuthenticationResult] DTO containing success? (Boolean) and user_id (UserId).
   def authenticate(access_token)
     access_token = JwtAccessToken.new(access_token)
     unless access_token.valid?(@secret, @time_now_proc.call)
@@ -62,6 +86,9 @@ class Auth
     AuthenticationResult.new(true, access_token.user_id)
   end
 
+  # Wipes all credentials stored in the repository. Typically used between tests.
+  #
+  # @return [void]
   def reset!
     @repo.reset!
   end
