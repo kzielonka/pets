@@ -1,11 +1,13 @@
-require "announcements_map/latitude"
-require "announcements_map/longitude"
-require "announcements_map/pin"
-require "announcements_map/types"
-require "announcements_map/bounding_box"
-require "announcements_map/repos"
-require "announcements_map/search_results"
-require "announcements_map/haversine_distance"
+# frozen_string_literal: true
+
+require 'announcements_map/latitude'
+require 'announcements_map/longitude'
+require 'announcements_map/pin'
+require 'announcements_map/types'
+require 'announcements_map/bounding_box'
+require 'announcements_map/repos'
+require 'announcements_map/search_results'
+require 'announcements_map/haversine_distance'
 
 # The AnnouncementsMap class serves as the public facade for the Announcements Map module.
 # It handles storing pin coordinates and performing spatial bounding box searches (e.g. for map rendering/clustering).

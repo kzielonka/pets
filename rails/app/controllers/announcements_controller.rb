@@ -1,4 +1,6 @@
-class AuthError < RuntimeError; end 
+# frozen_string_literal: true
+
+class AuthError < RuntimeError; end
 
 class AnnouncementsController < ApplicationController
   rescue_from AuthError, with: :handle_auth_error
@@ -15,8 +17,8 @@ class AnnouncementsController < ApplicationController
     head :ok
   rescue Announcements::Errors::AuthorizationError
     head 403
-  rescue Announcements::Errors::CanNotEditPublishedAnnouncementError 
-    render status: 400, json: { error: "can-not-edit-published-announcement" }
+  rescue Announcements::Errors::CanNotEditPublishedAnnouncementError
+    render status: 400, json: { error: 'can-not-edit-published-announcement' }
   end
 
   def show
@@ -38,12 +40,12 @@ class AnnouncementsController < ApplicationController
 
   def index
     list = announcements.fetch_all_for(user_id)
-    render json: list.sort_by { |a, b| a.title }.map { |a|
+    render json: list.sort_by { |a, _b| a.title }.map { |a|
       {
-        "id" => a.id,
-        "draft" => a.draft?,
-        "title" => a.title,
-        "content" => a.content,
+        'id' => a.id,
+        'draft' => a.draft?,
+        'title' => a.title,
+        'content' => a.content
       }
     }
   end
@@ -53,7 +55,7 @@ class AnnouncementsController < ApplicationController
     head :ok
   rescue Announcements::Errors::AuthorizationError
     head 403
-  rescue  Announcements::Errors::UnfinishedDraftError
+  rescue Announcements::Errors::UnfinishedDraftError
     head 400
   end
 
@@ -62,7 +64,7 @@ class AnnouncementsController < ApplicationController
     head :ok
   rescue Announcements::Errors::AuthorizationError
     head 403
-  rescue  Announcements::Errors::UnfinishedDraftError
+  rescue Announcements::Errors::UnfinishedDraftError
     head 400
   end
 
@@ -73,8 +75,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def user_id
-    result = auth.authenticate(String(request.headers["HTTP_AUTHORIZATION"]).split(" ").last)
-    raise AuthError.new unless result.success?
+    result = auth.authenticate(String(request.headers['HTTP_AUTHORIZATION']).split.last)
+    raise AuthError unless result.success?
+
     result.user_id.to_s
   end
 
@@ -90,7 +93,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def auth
-    Rails.application.config.auth 
+    Rails.application.config.auth
   end
 
   def handle_auth_error

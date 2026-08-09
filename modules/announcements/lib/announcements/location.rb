@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Announcements
   class Location
     def initialize(latitude, longitude)
@@ -10,7 +12,7 @@ class Announcements
       case obj
       when Location then obj
       when Hash then Location.new(obj[:latitude], obj[:longitude])
-      else raise RuntimeError.new "can not build Location from #{obj.inspect}"
+      else raise "can not build Location from #{obj.inspect}"
       end
     end
 
@@ -25,7 +27,7 @@ class Announcements
     end
 
     def approximate_distance_to(location)
-      Math.sqrt((location.latitude - @latitude)**2 + (location.longitude - @longitude)**2)
+      Math.sqrt(((location.latitude - @latitude)**2) + ((location.longitude - @longitude)**2))
     end
   end
 end

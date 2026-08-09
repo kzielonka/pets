@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class Announcements
   class SerializedAnnouncement
-
     def initialize(id, owner_id, draft, title, content, location)
       @id = id
       @owner_id = owner_id

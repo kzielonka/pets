@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Auth
   class JwkSet
     def initialize(set)
       @set = JWT::JWK::Set.new(set)
     end
 
-    def current 
+    def current
       @set.first
     end
   end

@@ -1,11 +1,13 @@
-require "securerandom" 
+# frozen_string_literal: true
 
-require "announcements/errors"
-require "announcements/users"
-require "announcements/repos"
-require "announcements/location"
-require "announcements/announcement"
-require "announcements/serialized_announcement"
+require 'securerandom'
+
+require 'announcements/errors'
+require 'announcements/users'
+require 'announcements/repos'
+require 'announcements/location'
+require 'announcements/announcement'
+require 'announcements/serialized_announcement'
 
 # The Announcements class serves as the public facade for the Announcements module.
 # It encapsulates managing draft creation, updates, public publishing/unpublishing, and private data retrieval.
@@ -88,7 +90,8 @@ class Announcements
     announcement = @repo.find(id)
     announcement.publish(user)
     @repo.save(announcement)
-    @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content, announcement.location))
+    @events_bus.publish(Events::AnnouncementPublished.new(id, announcement.title, announcement.content,
+                                                          announcement.location))
   end
 
   # Unpublishes a published announcement, reverting it back to a draft, and broadcasts an AnnouncementUnpublished event.
@@ -116,7 +119,7 @@ class Announcements
     if announcement.can_be_viewed_by?(user)
       FetchResult.new(false, announcement.draft?, announcement.title, announcement.content, announcement.location)
     else
-      FetchResult.new(true, false, "", "", Location.zero)
+      FetchResult.new(true, false, '', '', Location.zero)
     end
   end
 
@@ -148,20 +151,20 @@ class Announcements
         @content = String(content).dup.freeze
         @location = Location.build(location)
       end
-      
+
       def type
-        "AnnouncementPublished"
+        'AnnouncementPublished'
       end
 
       def payload
         {
-          "id" => @id,
-          "title" => @title,
-          "content" => @content,
-          "location" => {
-            "latitude" => @location.latitude,
-            "longitude" => @location.longitude,
-          },
+          'id' => @id,
+          'title' => @title,
+          'content' => @content,
+          'location' => {
+            'latitude' => @location.latitude,
+            'longitude' => @location.longitude
+          }
         }
       end
     end
@@ -172,12 +175,12 @@ class Announcements
       end
 
       def type
-        "AnnouncementUnpublished"
+        'AnnouncementUnpublished'
       end
 
       def payload
         {
-          "id" => @id
+          'id' => @id
         }
       end
     end

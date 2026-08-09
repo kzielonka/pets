@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPublicAnnouncements < ActiveRecord::Migration[7.1]
   def change
     create_table :public_announcements, id: :uuid do |t|
@@ -7,4 +9,4 @@ class AddPublicAnnouncements < ActiveRecord::Migration[7.1]
       t.timestamps
     end
   end
-end 
+end

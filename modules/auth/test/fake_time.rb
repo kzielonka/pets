@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FakeTime
   def initialize
     @now = Time.new(2000, 1, 1, 0, 0, 0, 0)

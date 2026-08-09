@@ -1,15 +1,17 @@
-require "active_record" 
+# frozen_string_literal: true
 
-class Auth 
+require 'active_record'
+
+class Auth
   module Repos
     UserIdTakenError = Class.new(RuntimeError)
     EmailTakenError = Class.new(RuntimeError)
-    
+
     def self.build(obj, password_factory)
       case obj
       when :in_memory then InMemoryRepo.new(password_factory)
       when :active_record then ActiveRecordRepo.new(password_factory)
-      else raise RuntimeError.new("invalid repo #{obj.inspect}")
+      else raise "invalid repo #{obj.inspect}"
       end
     end
 
@@ -20,8 +22,9 @@ class Auth
       end
 
       def save(credentials)
-        raise UserIdTakenError.new if exists_user_id?(credentials.serialize.user_id)
-        raise EmailTakenError.new if exists_email?(credentials.serialize.email)
+        raise UserIdTakenError if exists_user_id?(credentials.serialize.user_id)
+        raise EmailTakenError if exists_email?(credentials.serialize.email)
+
         @list << credentials
       end
 
@@ -41,7 +44,7 @@ class Auth
         @list = []
       end
 
-      private 
+      private
 
       def exists_user_id?(user)
         @list.any? { |c| c.for_user?(user) }
@@ -53,7 +56,7 @@ class Auth
       def initialize(password_factory)
         @password_factory = password_factory
       end
-      
+
       def save(credentials)
         serialized_credentials = credentials.serialize
         Record.create(
@@ -61,14 +64,15 @@ class Auth
           email: serialized_credentials.email.to_s,
           password: serialized_credentials.password.to_s
         )
-      rescue ActiveRecord::RecordNotUnique => err
-        raise UserIdTakenError.new if err.message.include?("Key (user_id)")
-        raise EmailTakenError.new if err.message.include?("Key (email)")
-        raise err
+      rescue ActiveRecord::RecordNotUnique => e
+        raise UserIdTakenError if e.message.include?('Key (user_id)')
+        raise EmailTakenError if e.message.include?('Key (email)')
+
+        raise e
       end
 
       def exists_email?(email)
-        Record.where(email: email.to_s).count > 0
+        Record.where(email: email.to_s).count.positive?
       end
 
       def find_by_email(email)
@@ -88,7 +92,7 @@ class Auth
       end
 
       class Record < ActiveRecord::Base
-        self.table_name = "credentials"
+        self.table_name = 'credentials'
       end
     end
     private_constant :ActiveRecordRepo

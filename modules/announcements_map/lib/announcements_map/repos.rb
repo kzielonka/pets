@@ -1,11 +1,13 @@
-require "active_record"
+# frozen_string_literal: true
+
+require 'active_record'
 
 class AnnouncementsMap
-  module Repos 
+  module Repos
     def self.build(obj)
       case obj
       when :in_memory then InMemoryRepo.new
-      else raise RuntimeError.new("invalid repo #{obj.inspect}")
+      else raise "invalid repo #{obj.inspect}"
       end
     end
 

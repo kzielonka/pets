@@ -1,4 +1,6 @@
-require "active_record"
+# frozen_string_literal: true
+
+require 'active_record'
 
 class Announcements
   module Repos
@@ -6,7 +8,7 @@ class Announcements
       case obj
       when :in_memory then InMemoryRepo.new
       when :active_record then ActiveRecordRepo.new
-      else raise RuntimeError.new("invalid repo #{obj.inspect}")
+      else raise "invalid repo #{obj.inspect}"
       end
     end
 
@@ -76,13 +78,13 @@ class Announcements
             record.draft,
             record.title,
             record.content,
-            Location.new(record.latitude, record.longitude),
+            Location.new(record.latitude, record.longitude)
           ).deserialize
         end
       end
 
       class Record < ActiveRecord::Base
-        self.table_name = "announcements"
+        self.table_name = 'announcements'
       end
       private_constant :Record
     end

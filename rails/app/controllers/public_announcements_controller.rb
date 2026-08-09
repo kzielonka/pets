@@ -1,10 +1,11 @@
-class PublicAnnouncementsController < ApplicationController
+# frozen_string_literal: true
 
+class PublicAnnouncementsController < ApplicationController
   def index
     announcements = announcements_search.search(location).map { |a| AnnouncementJson.new(a) }
-    render status: 200, json: { announcements: announcements.map { |a| a.json } }
+    render status: 200, json: { announcements: announcements.map(&:json) }
   rescue SearchLocation::ValidationError
-    render status: 400, json: { error: "location-validation-error" }
+    render status: 400, json: { error: 'location-validation-error' }
   end
 
   private
@@ -48,15 +49,17 @@ class PublicAnnouncementsController < ApplicationController
     private
 
     def latitude
-      raise ValidationError.new("invalid latitude") unless number? @params[:latitude]
+      raise ValidationError, 'invalid latitude' unless number? @params[:latitude]
+
       @params[:latitude].to_f
     end
 
     def longitude
-      raise ValidationError.new("invalid longitude") unless number? @params[:longitude]
+      raise ValidationError, 'invalid longitude' unless number? @params[:longitude]
+
       @params[:longitude].to_f
     end
-    
+
     def number?(number)
       /^-?\d+(\.\d+)?$/.match number
     end
@@ -65,4 +68,3 @@ class PublicAnnouncementsController < ApplicationController
   end
   private_constant :SearchLocation
 end
-

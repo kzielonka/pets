@@ -1,15 +1,16 @@
-require "minitest/autorun"
-require "auth"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require 'auth'
 
 class Auth
   class TestPassword < Minitest::Test
-
     def test_password_check_with_fake_encryption
       password_factory = PasswordFactory.build(:fake)
 
-      password1 = password_factory.raw_password("password")
-      password2 = password_factory.raw_password("password")
-      password3 = password_factory.raw_password("password2")
+      password1 = password_factory.raw_password('password')
+      password2 = password_factory.raw_password('password')
+      password3 = password_factory.raw_password('password2')
 
       assert password1.encrypted.same?(password1)
       assert password1.encrypted.same?(password2)
@@ -23,11 +24,10 @@ class Auth
     def test_password_check_with_bcrypt_encryption
       password_factory = PasswordFactory.build(:bcrypt)
 
-      password1 = password_factory.raw_password("password")
-      password2 = password_factory.raw_password("password")
-      password3 = password_factory.raw_password("password2")
+      password1 = password_factory.raw_password('password')
+      password2 = password_factory.raw_password('password')
+      password3 = password_factory.raw_password('password2')
 
-      
       assert password1.encrypted.same?(password1)
       assert password1.encrypted.same?(password2)
       assert password3.encrypted.same?(password3)

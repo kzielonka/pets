@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnnouncementsSearch
   class Announcement
     def initialize(id, title, content, location)
@@ -10,7 +12,7 @@ class AnnouncementsSearch
     attr_reader :id, :title, :content, :location
 
     def self.blank(id)
-      new(id, "", "", Announcements::Location.zero)
+      new(id, '', '', Announcements::Location.zero)
     end
 
     def self.random_id
@@ -35,4 +37,3 @@ class AnnouncementsSearch
   end
   private_constant :Announcement
 end
-

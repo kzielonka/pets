@@ -1,5 +1,7 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-ruby "3.3.4"
+source 'https://rubygems.org'
+
+ruby '3.3.4'
 
 gemspec

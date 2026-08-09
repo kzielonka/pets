@@ -1,11 +1,13 @@
-require "minitest/autorun"
-require "announcements_map"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require 'announcements_map'
 
 class AnnouncementsMap
   module Repos
     module ContractTests
       def test_saves_pin
-        pin = Pin.parse("announcement_id", 10, 20)
+        pin = Pin.parse('announcement_id', 10, 20)
         @repo.save(pin)
         pins = @repo.search(BoundingBoxBuilder.empty.top(30).right(30).left(-30).bottom(-30))
         assert pins.size == 1
@@ -14,8 +16,8 @@ class AnnouncementsMap
       end
 
       def test_search_pin_by_bounding_box
-        pin1 = Pin.parse("announcement_1_id", 10, 20)
-        pin2 = Pin.parse("announcement_2_id", 20, 30)
+        pin1 = Pin.parse('announcement_1_id', 10, 20)
+        pin2 = Pin.parse('announcement_2_id', 20, 30)
 
         @repo.save(pin1)
         @repo.save(pin2)
@@ -35,7 +37,7 @@ class AnnouncementsMap
 
         assert pins1and2.size == 2
 
-        assert no_pins.size == 0
+        assert no_pins.empty?
       end
     end
 

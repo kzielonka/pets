@@ -1,8 +1,9 @@
-require "minitest/autorun"
-require "events_bus"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require 'events_bus'
 
 class TestEventsBus < Minitest::Test
-
   class SimpleSubscriber
     def initialize
       @events = []
@@ -23,17 +24,17 @@ class TestEventsBus < Minitest::Test
 
   class SampleEvent1
     def serialize
-      EventsBus::SerializedEvent.new("type1", "{ \"a\": \"b\" }")
+      EventsBus::SerializedEvent.new('type1', '{ "a": "b" }')
     end
   end
 
   class SampleEvent2
     def type
-      "type2"
+      'type2'
     end
 
     def payload
-      { "c" => "d" }
+      { 'c' => 'd' }
     end
   end
 
@@ -47,8 +48,8 @@ class TestEventsBus < Minitest::Test
     event = SampleEvent1.new
     @events_bus.publish(event)
     assert_equal 1, @simple_subscriber.number_of_received_events
-    assert_equal "type1", @simple_subscriber.last_event.type
-    assert_equal({ "a" => "b" }, @simple_subscriber.last_event.payload)
+    assert_equal 'type1', @simple_subscriber.last_event.type
+    assert_equal({ 'a' => 'b' }, @simple_subscriber.last_event.payload)
   end
 
   def test_publishes_event_with_type_and_payload_methods
@@ -57,7 +58,7 @@ class TestEventsBus < Minitest::Test
     event = SampleEvent2.new
     @events_bus.publish(event)
     assert_equal 1, @simple_subscriber.number_of_received_events
-    assert_equal "type2", @simple_subscriber.last_event.type
-    assert_equal({ "c" => "d" }, @simple_subscriber.last_event.payload)
+    assert_equal 'type2', @simple_subscriber.last_event.type
+    assert_equal({ 'c' => 'd' }, @simple_subscriber.last_event.payload)
   end
 end

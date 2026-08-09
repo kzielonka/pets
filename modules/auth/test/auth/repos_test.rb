@@ -1,12 +1,14 @@
-require "minitest/autorun"
-require "auth"
-require "active_record"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require 'auth'
+require 'active_record'
 
 class Auth
   module RepoContractTests
     def test_saves_credentials
       user_id = UserId.random
-      email = Email.from("test@example.com")
+      email = Email.from('test@example.com')
       password = PasswordFactory.build(:fake).random
       credentials = Credentials.new(user_id, email, password)
       @repo.save(credentials)
@@ -114,13 +116,13 @@ class Auth
 
   class ActiveRecordRepo < Minitest::Test
     def setup
-      test_db_url = String(ENV["TEST_DATABASE_URL"])
-      skip "Please set TEST_DATABASE_URL env" if test_db_url == ""
+      test_db_url = String(ENV.fetch('TEST_DATABASE_URL', nil))
+      skip 'Please set TEST_DATABASE_URL env' if test_db_url == ''
       ActiveRecord::Base.establish_connection(
-        adapter: "postgresql",
+        adapter: 'postgresql',
         url: test_db_url
-      ) 
-      ActiveRecord::Base.connection.execute("DELETE FROM credentials;")
+      )
+      ActiveRecord::Base.connection.execute('DELETE FROM credentials;')
       password_factory = PasswordFactory.build(:fake)
       @repo = Repos.build(:active_record, password_factory)
     end

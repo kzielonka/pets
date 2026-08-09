@@ -1,6 +1,8 @@
-require "minitest/test_task"
-require "minitest/pride"
+# frozen_string_literal: true
 
-Minitest::TestTask.create 
+require 'minitest/test_task'
+require 'minitest/pride'
 
-task :default => :test
+Minitest::TestTask.create
+
+task default: :test

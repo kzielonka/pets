@@ -1,9 +1,11 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-ruby "3.3.4"
+source 'https://rubygems.org'
 
-gem "pg"
-gem "announcements", path: "../announcements"
-gem "events_bus", path: "../events_bus"
+ruby '3.3.4'
+
+gem 'announcements', path: '../announcements'
+gem 'events_bus', path: '../events_bus'
+gem 'pg'
 
 gemspec

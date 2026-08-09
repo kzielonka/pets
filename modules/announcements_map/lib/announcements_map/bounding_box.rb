@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnnouncementsMap
   class BoundingBoxBuilder
     def self.empty
@@ -44,7 +46,7 @@ class AnnouncementsMap
       @left = Types::Longitude(left)
       # TODO: validate that top >= bototm and right >= left
     rescue ArgumentError, Latitude::InvalidError, Longitude::InvalidError
-      raise InvalidCoordinatesError.new("Invalid bounding box coordinates")
+      raise InvalidCoordinatesError, 'Invalid bounding box coordinates'
     end
 
     attr_reader :top, :right, :bottom, :left
@@ -68,8 +70,8 @@ class AnnouncementsMap
     def contains?(latitude, longitude)
       latitude = Types::Latitude(latitude)
       longitude = Types::Longitude(longitude)
-      #TODO: case when pin is on edge
-      return latitude <= @top && latitude >= @bottom && longitude <= @right && longitude >= @left
+      # TODO: case when pin is on edge
+      latitude <= @top && latitude >= @bottom && longitude <= @right && longitude >= @left
     end
   end
 end

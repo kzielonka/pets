@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Announcements
   module Errors
     AuthorizationError = Class.new(RuntimeError)

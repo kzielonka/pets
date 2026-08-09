@@ -1,6 +1,8 @@
-require "announcements"
-require "announcements_search/announcement"
-require "announcements_search/repos"
+# frozen_string_literal: true
+
+require 'announcements'
+require 'announcements_search/announcement'
+require 'announcements_search/repos'
 
 # The AnnouncementsSearch class serves as the public facade for the Announcements Search module.
 # It acts as a read model, subscribing to publication events and allowing spatial/location-based searches.
@@ -34,19 +36,19 @@ class AnnouncementsSearch
     @repo.reset!
   end
 
-  private
-
   class AnnouncementPublishedSubscriber
     def initialize(repo)
       @repo = repo
     end
 
     def handle(event)
-      return unless event.type == "AnnouncementPublished"
-      announcement = Announcement.blank(event.payload["id"])
-        .with_title(event.payload["title"])
-        .with_content(event.payload["content"])
-        .with_location(Announcements::Location.new(event.payload["location"]["latitude"], event.payload["location"]["longitude"]))
+      return unless event.type == 'AnnouncementPublished'
+
+      announcement = Announcement.blank(event.payload['id'])
+                                 .with_title(event.payload['title'])
+                                 .with_content(event.payload['content'])
+                                 .with_location(Announcements::Location.new(event.payload['location']['latitude'],
+                                                                            event.payload['location']['longitude']))
       @repo.save(announcement)
     end
   end
@@ -58,9 +60,10 @@ class AnnouncementsSearch
     end
 
     def handle(event)
-      return unless event.type == "AnnouncementUnpublished"
-      id = event.payload["id"]
-       @repo.delete(id)
+      return unless event.type == 'AnnouncementUnpublished'
+
+      id = event.payload['id']
+      @repo.delete(id)
     end
   end
   private_constant :AnnouncementUnpublishedSubscriber

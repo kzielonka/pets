@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth
   class JwtAccessToken
     def initialize(jwt)
@@ -11,23 +13,25 @@ class Auth
 
     def valid?(secret, now)
       now = now.to_time
-      payload, _ = JWT.decode(@jwt, secret, true, algorithms: "HS256", exp_leeway: 60 * 60 * 24 * 365 * 100, nbf_leeway: 60 * 60 * 24 * 365)
-      payload["exp"] > now.to_i && payload["nbf"] <= now.to_i
-    rescue JWT::VerificationError 
-      return false
+      payload, = JWT.decode(@jwt, secret, true, algorithms: 'HS256', exp_leeway: 60 * 60 * 24 * 365 * 100,
+                                                nbf_leeway: 60 * 60 * 24 * 365)
+      payload['exp'] > now.to_i && payload['nbf'] <= now.to_i
+    rescue JWT::VerificationError
+      false
     rescue JWT::DecodeError
-      return false
+      false
     end
 
     def user_id
-      UserId.from(payload["sub"])
+      UserId.from(payload['sub'])
     end
 
     private
 
-    def payload 
+    def payload
       return @payload if @payload
-      @payload, _ = JWT.decode(@jwt, nil, false)
+
+      @payload, = JWT.decode(@jwt, nil, false)
       @payload
     end
   end

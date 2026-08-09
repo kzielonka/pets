@@ -1,5 +1,7 @@
-require "bcrypt"
-require "digest"
+# frozen_string_literal: true
+
+require 'bcrypt'
+require 'digest'
 
 class Auth
   class PasswordFactory
@@ -22,7 +24,7 @@ class Auth
     def random
       raw_password(SecureRandom.uuid)
     end
-    
+
     def encrypted_password(password)
       EncryptedPassword.new(password, @bcrypt)
     end
@@ -43,7 +45,7 @@ class Auth
         FakePassword.new(password_hash)
       end
 
-      def encrypt_raw(password) 
+      def encrypt_raw(password)
         random_hex = SecureRandom.hex(10)
         digest = Digest::MD5.hexdigest "#{password}#{random_hex}"
         "#{digest}:#{random_hex}"
@@ -56,7 +58,7 @@ class Auth
 
         def ==(other)
           other = String(other)
-          splited = @password_hash.split(":")
+          splited = @password_hash.split(':')
           hashed_password = splited[0]
           random_hex = splited[1]
           Digest::MD5.hexdigest("#{other}#{random_hex}") == hashed_password

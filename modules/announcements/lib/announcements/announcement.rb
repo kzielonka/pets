@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Announcements
   class Announcement
     def initialize(id, owner_id, draft, title, content, location)
       @id = String(id).dup.freeze
       @owner_id = String(owner_id).dup.freeze
-      @draft = !!draft 
+      @draft = !draft.nil?
       @title = String(title).dup.freeze
       @content = String(content).dup.freeze
       @location = location
@@ -24,7 +26,7 @@ class Announcements
     end
 
     def self.draft(id)
-      new(id, "", true, "", "", Location.zero)
+      new(id, '', true, '', '', Location.zero)
     end
 
     def self.draft_with_random_id
@@ -42,16 +44,18 @@ class Announcements
 
     def change_title(user, title)
       user = Users.build(user)
-      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
-      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
+      raise Errors::AuthorizationError unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError unless draft?
+
       @title = String(title).dup.freeze
       self
     end
 
     def change_content(user, content)
       user = Users.build(user)
-      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
-      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
+      raise Errors::AuthorizationError unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError unless draft?
+
       @content = content
       self
     end
@@ -59,26 +63,29 @@ class Announcements
     def change_location(user, location)
       user = Users.build(user)
       location = Location.build(location)
-      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
-      raise Errors::CanNotEditPublishedAnnouncementError.new unless draft?
+      raise Errors::AuthorizationError unless can_be_managed_by?(user)
+      raise Errors::CanNotEditPublishedAnnouncementError unless draft?
+
       @location = location
       self
     end
 
     def publish(user)
       user = Users.build(user)
-      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
-      raise Errors::UnfinishedDraftError.new if @title == ""
-      raise Errors::UnfinishedDraftError.new if @content == ""
-      raise RuntimeError.new unless @draft
+      raise Errors::AuthorizationError unless can_be_managed_by?(user)
+      raise Errors::UnfinishedDraftError if @title == ''
+      raise Errors::UnfinishedDraftError if @content == ''
+      raise RuntimeError unless @draft
+
       @draft = false
       self
     end
 
     def unpublish(user)
       user = Users.build(user)
-      raise Errors::AuthorizationError.new unless can_be_managed_by?(user)
-      raise RuntimeError.new if @draft
+      raise Errors::AuthorizationError unless can_be_managed_by?(user)
+      raise RuntimeError if @draft
+
       @draft = true
       self
     end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class AnnouncementsMap
   class Pin
     def self.parse(announcement_id, latitude, longitude)
       new(announcement_id, latitude, longitude)
     end
-    
+
     def id
       @announcement_id
     end
@@ -16,7 +18,7 @@ class AnnouncementsMap
       haversine_distance(latitude, longitude)
     end
 
-    private 
+    private
 
     def initialize(announcement_id, latitude, longitude)
       @announcement_id = String(announcement_id)

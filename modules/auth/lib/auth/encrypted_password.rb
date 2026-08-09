@@ -1,4 +1,6 @@
-require "bcrypt"
+# frozen_string_literal: true
+
+require 'bcrypt'
 
 class Auth
   class EncryptedPassword
@@ -11,7 +13,7 @@ class Auth
       case obj
       when EncryptedPassword then obj
       when Password then obj.encrypted
-      else raise RuntimeError.new("can not build encrypted password")
+      else raise 'can not build encrypted password'
       end
     end
 
@@ -28,9 +30,7 @@ class Auth
     end
 
     protected
-    
-    def password_hash
-      @password_hash
-    end
+
+    attr_reader :password_hash
   end
 end

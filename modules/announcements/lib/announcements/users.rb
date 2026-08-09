@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class Announcements
   module Users
     def self.build(user)
       case user
-      when SYSTEM_USER, :system then SYSTEM_USER 
+      when SYSTEM_USER, :system then SYSTEM_USER
       when RegularUser then user
       when String then RegularUser.new(user)
-      else raise ArgumentError.new("can convert #{user.inspect} to Announcements user")
+      else raise ArgumentError, "can convert #{user.inspect} to Announcements user"
       end
     end
 
@@ -15,11 +17,11 @@ class Announcements
       end
 
       def o.id
-        "system"
+        'system'
       end
 
       def o.inspect
-        "Announcements::SYSTEM_USER"
+        'Announcements::SYSTEM_USER'
       end
     end
 

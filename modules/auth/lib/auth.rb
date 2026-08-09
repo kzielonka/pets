@@ -1,20 +1,22 @@
-require "auth/errors"
-require "auth/repos"
-require "auth/credentials"
-require "auth/serialized_credentials"
-require "auth/user_id"
-require "auth/email"
-require "auth/password"
-require "auth/encrypted_password"
-require "auth/password_factory"
-require "auth/access_token"
-require "auth/jwt_access_token"
-require "auth/jwk_set"
-require "jwt"
+# frozen_string_literal: true
+
+require 'auth/errors'
+require 'auth/repos'
+require 'auth/credentials'
+require 'auth/serialized_credentials'
+require 'auth/user_id'
+require 'auth/email'
+require 'auth/password'
+require 'auth/encrypted_password'
+require 'auth/password_factory'
+require 'auth/access_token'
+require 'auth/jwt_access_token'
+require 'auth/jwk_set'
+require 'jwt'
 
 # The Auth class serves as the public facade for the Authentication module.
 # It encapsulates all user registration, credentials hashing, and stateless JWT token authentication.
-class Auth 
+class Auth
   # Initializes the Auth facade.
   #
   # @param hmac_secret [String] secret key used to sign and verify JWT access tokens.
@@ -37,20 +39,19 @@ class Auth
   # @return [nil]
   def sign_up(email, password)
     email = Email.from(email)
-    password = @password_factory.raw_password(password).encrypted 
+    password = @password_factory.raw_password(password).encrypted
     credentials = Credentials.random(@password_factory)
-      .for_email(email)
-      .with_password(password)
-    if @repo.exists_email?(email)
-      raise Errors::DuplicatedEmailError.new
-    end
+                             .for_email(email)
+                             .with_password(password)
+    raise Errors::DuplicatedEmailError if @repo.exists_email?(email)
+
     @repo.save(credentials)
     nil
-    # TODO: add retry on index error from DB 
-  rescue Email::ValidationError => err
-    raise Errors::ValidationError.new(err.message)
-  rescue Password::ValidationError => err
-    raise Errors::ValidationError.new(err.message)
+    # TODO: add retry on index error from DB
+  rescue Email::ValidationError => e
+    raise Errors::ValidationError, e.message
+  rescue Password::ValidationError => e
+    raise Errors::ValidationError, e.message
   end
 
   # Authenticates a user and generates a JWT access token if successful.
@@ -63,15 +64,15 @@ class Auth
     password = @password_factory.raw_password(password)
     credentials = @repo.find_by_email(email)
     jwt = AccessToken
-      .blank
-      .for_user(credentials.user_id)
-      .issued_at(@time_now_proc.call)
-      .jwt(@secret)
+          .blank
+          .for_user(credentials.user_id)
+          .issued_at(@time_now_proc.call)
+          .jwt(@secret)
     SignInResult.new(credentials.matches_password?(password), jwt.to_s)
   rescue Email::ValidationError
-    SignInResult.new(false, "")
+    SignInResult.new(false, '')
   rescue Password::ValidationError
-    SignInResult.new(false, "")
+    SignInResult.new(false, '')
   end
 
   # Validates the access token (JWT) and returns the associated user ID.
@@ -80,9 +81,8 @@ class Auth
   # @return [AuthenticationResult] DTO containing success? (Boolean) and user_id (UserId).
   def authenticate(access_token)
     access_token = JwtAccessToken.new(access_token)
-    unless access_token.valid?(@secret, @time_now_proc.call)
-      return AuthenticationResult.new(false, UserId.from(""))
-    end
+    return AuthenticationResult.new(false, UserId.from('')) unless access_token.valid?(@secret, @time_now_proc.call)
+
     AuthenticationResult.new(true, access_token.user_id)
   end
 

@@ -1,4 +1,6 @@
-require "active_record"
+# frozen_string_literal: true
+
+require 'active_record'
 
 class AnnouncementsSearch
   module Repos
@@ -6,7 +8,7 @@ class AnnouncementsSearch
       case obj
       when :in_memory then InMemoryRepo.new
       when :active_record then ActiveRecordRepo.new
-      else raise RuntimeError.new("invalid repo #{obj.inspect}")
+      else raise "invalid repo #{obj.inspect}"
       end
     end
 
@@ -35,7 +37,6 @@ class AnnouncementsSearch
     private_constant :InMemoryRepo
 
     class ActiveRecordRepo
-
       def save(announcement)
         Record.create(
           id: announcement.id,
@@ -58,17 +59,17 @@ class AnnouncementsSearch
       def search(location = Announcements::Location.zero)
         Record.order(OrderByLocationSql.from(location).sql).map do |record|
           Announcement.blank(record.id)
-            .with_title(record.title)
-            .with_content(record.content)
-            .with_location(Announcements::Location.new(record.location.y, record.location.x))
+                      .with_title(record.title)
+                      .with_content(record.content)
+                      .with_location(Announcements::Location.new(record.location.y, record.location.x))
         end
       end
 
       class Record < ActiveRecord::Base
-        self.table_name = "public_announcements"
+        self.table_name = 'public_announcements'
       end
       private_constant :Record
-      
+
       class Location
         def initialize(location)
           @location = location

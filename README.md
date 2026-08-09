@@ -123,3 +123,28 @@ docker compose exec frontend npm run test:unit run  # Run unit tests
 docker compose exec frontend npm run lint            # Run linter
 docker compose exec frontend npm run type-check      # Run TypeScript compiler checks
 ```
+
+---
+
+## Code Quality & Linting
+
+### Running RuboCop (Backend)
+You can run the RuboCop code quality and style checker on the Rails app and submodules:
+
+* **Lint the Rails application**:
+  ```bash
+  docker compose exec web bundle exec rubocop
+  ```
+* **Lint a specific submodule** (e.g., `announcements_map`):
+  ```bash
+  docker compose exec web bundle exec rubocop ../modules/announcements_map
+  ```
+* **Auto-correct style offenses** (safe changes only):
+  ```bash
+  docker compose exec web bundle exec rubocop -a
+  ```
+* **Auto-correct style offenses** (all changes, including unsafe):
+  ```bash
+  docker compose exec web bundle exec rubocop -A
+  ```
+

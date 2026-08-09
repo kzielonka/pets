@@ -1,12 +1,13 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   def sign_up
     auth.sign_up(email, password)
     head 200
   rescue Auth::Errors::DuplicatedEmailError
-    render status: 400, json: { error: "duplicated-email" }
-  rescue Auth::Errors::ValidationError => err
-    render status: 400, json: { error: "validation-error", debugMessage: err.message }
+    render status: 400, json: { error: 'duplicated-email' }
+  rescue Auth::Errors::ValidationError => e
+    render status: 400, json: { error: 'validation-error', debugMessage: e.message }
   end
 
   def sign_in
@@ -24,11 +25,11 @@ class UsersController < ApplicationController
     String(params[:email])
   end
 
-  def password 
+  def password
     String(params[:password])
   end
 
   def auth
-    Rails.application.config.auth 
+    Rails.application.config.auth
   end
 end

@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class Auth
   class Password
     ValidationError = Class.new(RuntimeError)
 
     def initialize(password, bcrypt)
-      raise ValidationError.new("password is too long") if password.size > 1000
+      raise ValidationError, 'password is too long' if password.size > 1000
+
       @password = String(password).dup.freeze
       @bcrypt = bcrypt
     end
@@ -11,7 +14,7 @@ class Auth
     def self.from(password)
       case password
       when Password then password
-      else raise RuntimeError.new("invalid password")
+      else raise 'invalid password'
       end
     end
 

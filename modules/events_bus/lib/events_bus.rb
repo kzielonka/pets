@@ -1,4 +1,6 @@
-require "json"
+# frozen_string_literal: true
+
+require 'json'
 
 # The EventsBus class acts as an in-memory publish-subscribe broker to decouple modules.
 # It serializes/deserializes events to JSON boundaries to ensure network-safety for future migration to RabbitMQ/etc.
@@ -37,13 +39,14 @@ class EventsBus
       return @event.serialize if @event.respond_to?(:serialize)
       return serialize_from_type_and_payload if event_has_type_and_payload_methods
       return SerializedEvent.new(@event[:type], JSON.dump(@event[:payload])) if @event.is_a?(Hash)
-      raise RuntimeError.new("can not serialize event #{event.inspect}")
+
+      raise "can not serialize event #{event.inspect}"
     end
 
     def serialize_from_type_and_payload
       SerializedEvent.new(@event.type, JSON.dump(@event.payload))
     end
-    
+
     def event_has_type_and_payload_methods
       @event.respond_to?(:type) && @event.respond_to?(:payload)
     end

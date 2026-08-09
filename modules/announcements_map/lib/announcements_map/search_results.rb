@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnnouncementsMap
   class SearchResults
     class PinBase
@@ -25,7 +27,8 @@ class AnnouncementsMap
 
     class GroupPin < PinBase
       def initialize(number_of_pins, latitude, longitude)
-        super(number_of_pins, latitude, longitude)
+        super(latitude, longitude)
+        @number_of_pins = Integer(number_of_pins)
       end
 
       def type

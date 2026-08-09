@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth
   class AccessToken
     def initialize(user_id, issue_time, expiration_time)
@@ -25,10 +27,10 @@ class Auth
         nbf: @issue_time.to_i - 10,
         exp: @expiration_time.to_i,
         sub: @user_id,
-        iss: "pets-app",
-        aud: ["pets-app"]
+        iss: 'pets-app',
+        aud: ['pets-app']
       }
-      jwt = JWT.encode(payload, hmac_secret, "HS256")
+      jwt = JWT.encode(payload, hmac_secret, 'HS256')
       JwtAccessToken.new(jwt)
     end
   end

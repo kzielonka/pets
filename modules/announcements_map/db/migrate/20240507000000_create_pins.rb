@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePins < ActiveRecord::Migration[7.1]
   def change
     create_table :pins, id: false do |t|
@@ -6,4 +8,4 @@ class CreatePins < ActiveRecord::Migration[7.1]
       t.decimal :longitude, null: false
     end
   end
-end 
+end

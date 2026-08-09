@@ -1,9 +1,10 @@
-require "minitest/autorun"
-require "announcements"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require 'announcements'
 
 class Announcements
   class TestLocation < Minitest::Test
-
     def test_builds_from_hash
       location = Location.build({ latitude: 10.23, longitude: 43.52 })
       assert_equal 10.23, location.latitude

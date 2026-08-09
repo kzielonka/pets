@@ -1,18 +1,20 @@
-class Auth 
+# frozen_string_literal: true
+
+class Auth
   class Email
     ValidationError = Class.new(RuntimeError)
 
     def initialize(email)
       @email = String(email).strip.freeze
-      raise ValidationError.new("email is too long") if @email.size > 1000
-      raise ValidationError.new("email is too short") if @email.size < 4
+      raise ValidationError, 'email is too long' if @email.size > 1000
+      raise ValidationError, 'email is too short' if @email.size < 4
     end
 
     def self.from(email)
       case email
       when Email then email
       when String then Email.new(email)
-      else raise RuntimeError.new("invalid email")
+      else raise 'invalid email'
       end
     end
 

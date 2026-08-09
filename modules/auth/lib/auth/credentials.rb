@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth
   class Credentials
     def initialize(user_id, email, password)

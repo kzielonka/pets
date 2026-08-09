@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnnouncementsMap
   class Longitude
     include Comparable
@@ -22,6 +24,7 @@ class AnnouncementsMap
 
     def <=>(other)
       return nil unless other.is_a?(self.class)
+
       value <=> other.value
     end
 
@@ -33,8 +36,8 @@ class AnnouncementsMap
 
     def initialize(value)
       @value = value
-      raise InvalidError, "Longitude must be between -180 and 180" unless self.class.valid?(@value)
+      raise InvalidError, 'Longitude must be between -180 and 180' unless self.class.valid?(@value)
     end
   end
   private_constant :Longitude
-end 
+end

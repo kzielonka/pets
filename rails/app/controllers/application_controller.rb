@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   # API is stateless and don't need this:
   # https://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
