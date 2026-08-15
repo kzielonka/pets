@@ -12,39 +12,43 @@ The test `test_search_for_pins_in_groups` in [announcements_map_test.rb](file://
 
 ---
 
-## 2. Technical Design: Grid & Greedy Clustering (Coordinate-based)
-To keep the grid simple and encapsulated, we use a coordinate-based interface on the `Grid` class:
+## 2. Technical Design: Grid & Greedy Clustering (OOP Domain Collection)
+To keep the code clean, modular, and object-oriented, we partition the map clustering module into three decoupled objects:
 
-1. **`Grid`**: Maps raw coordinates to `[row, col]` cells within a bounding box. It holds the pins in memory and provides the following interface to `SearchAlg`:
+1. **`Grid` (Stateless Binning)**: A simple data structure that maps raw coordinates to `[col, row]` cells within a bounding box. It exposes:
    * `width` / `height` ➔ Accessors for grid dimensions.
-   * `number_of_pins_in(row, col)` ➔ Returns the pin count (weight) in that cell.
-   * `centroid_of(row, col)` ➔ Returns the average `[latitude_float, longitude_float]` of pins in that cell.
-   * `pins_in(row, col)` ➔ Returns the raw `Pin` objects in that cell.
-2. **`SearchAlg`**: Orchestrates the greedy clustering algorithm. It queries `Grid` using cell coordinates `[row, col]` to perform distance calculation and centroid merging.
+   * `number_of_pins(x, y)` ➔ Returns the pin count in that cell.
+   * `centroid_of(x, y)` ➔ Returns the average coordinate of pins in that cell (or geographic cell center if empty).
+   * `pins_in(x, y)` ➔ Returns a copy of the raw `Pin` objects in that cell.
+2. **`ClusteringGrid` (Stateful Decorator)**: Wraps a stateless `Grid` and acts as a stateful adapter for greedy clustering. It exposes:
+   * `all_assigned?` ➔ Returns true if all cells containing pins are processed.
+   * `next_highest_weight_unassigned` ➔ Returns the coordinate of the unassigned cell with the most pins.
+   * `unassigned_cells_within(center, distance_km)` ➔ Returns unassigned cells within distance $D$ of a cell's centroid.
+   * `merge_and_assign(cells)` ➔ Mutates internal state to mark cells as assigned, computes the weighted combined centroid, and returns a `Cluster` struct.
+3. **`ClusteredPins` (Domain Collection)**: A collection class representing the clustered pins of a search query. It implements Ruby's `Enumerable` module and orchestrates the clustering process.
 
 ```mermaid
 graph TD
     Pins[Raw Pins] -->|add_pin| Grid[Grid]
-    Grid -->|x/y iteration| Coords[Array of non-empty row, col coordinates]
-    Coords -->|Query grid for weight/centroid/pins| SearchAlg[SearchAlg Clustering Pass]
-    SearchAlg -->|Output| MapPins[SinglePin / GroupPin]
+    Grid -->|wrapped by| CG[ClusteringGrid Decorator]
+    CG -->|orchestrates greedy pass| CP[ClusteredPins Collection]
+    CP -->|Enumerable output| MapPins[SinglePin / GroupPin]
 ```
 
 ### Phase 1: Grid Binning (`Grid`)
-1. **Grid Partitioning**: Split the viewport bounding box `(top, right, bottom, left)` into an $M \times M$ grid.
+1. **Grid Partitioning**: Split the viewport bounding box into an $M \times M$ grid.
 2. **Cell Mapping**: Assign each pin to a cell using boundary-clamped fraction mapping:
    * `row = [((lat - bottom) / height * M).to_i, M - 1].min`
    * `col = [((lon - left) / width * M).to_i, M - 1].min`
-3. **Information Access**: Expose `number_of_pins(x, y)`, `centroid_of(x, y)`, and `pins_in(x, y)`.
+3. **Uniqueness**: Grid enforces that every added pin has a unique ID, raising an informative `ArgumentError` on duplicates.
 
-### Phase 2: Greedy Radius Clustering (`SearchAlg`)
+### Phase 2: Greedy Radius Clustering (`ClusteringGrid` & `ClusteredPins`)
 1. **Dynamic Radius**: Compute a dynamic search radius $D = (\text{top} - \text{bottom}) \times 0.08$.
-2. **Greedy Clustering Loop**: Iterate `(1..width)` and `(1..height)` to gather all non-empty cell coordinates into an `unassigned_cells` list:
-   * Pick the cell `center_cell` with the highest `grid.number_of_pins(row, col)`.
+2. **Greedy Clustering Loop**: Inside `ClusteredPins#each`, we use `ClusteringGrid`:
+   * Pick the cell `center_cell` with the highest `number_of_pins`.
    * Find all other unassigned cells within distance $D$ of `center_cell`'s centroid.
-   * Merge them: calculate a new combined centroid (using weighted average coordinates) and total weight.
-   * Remove them from the `unassigned_cells` list.
-   * Repeat until `unassigned_cells` is empty.
+   * Merge them: calculate a new combined centroid (using weighted average coordinates) and total weight, and mark them as assigned.
+   * Repeat until `all_assigned?` is true.
 3. **Output Generation**:
    * Clusters with weight = 1 ➔ Return `SearchResults::SinglePin`.
    * Clusters with weight > 1 ➔ Return `SearchResults::GroupPin`.
