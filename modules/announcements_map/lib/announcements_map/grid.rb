@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 class AnnouncementsMap
@@ -14,9 +16,7 @@ class AnnouncementsMap
     attr_reader :width, :height
 
     def add_pin(pin)
-      if @added_ids.include?(pin.id)
-        raise ArgumentError, "Pin with ID '#{pin.id}' has already been added to the grid"
-      end
+      raise ArgumentError, "Pin with ID '#{pin.id}' has already been added to the grid" if @added_ids.include?(pin.id)
 
       col = calc_col_index(pin)
       row = calc_row_index(pin)
@@ -33,15 +33,15 @@ class AnnouncementsMap
     def centroid_of(x, y)
       validate_coords!(x, y)
       pins = @grid[x - 1][y - 1]
-      
+
       if pins.empty?
         col = x - 1
         row = y - 1
         width_deg = @bounding_box.width.to_f
         height_deg = @bounding_box.height.to_f
-        
-        lon = width_deg > 0 ? @bounding_box.left.to_f + (col + 0.5) * (width_deg / @width) : @bounding_box.left.to_f
-        lat = height_deg > 0 ? @bounding_box.bottom.to_f + (row + 0.5) * (height_deg / @height) : @bounding_box.bottom.to_f
+
+        lon = width_deg.positive? ? @bounding_box.left.to_f + ((col + 0.5) * (width_deg / @width)) : @bounding_box.left.to_f
+        lat = height_deg.positive? ? @bounding_box.bottom.to_f + ((row + 0.5) * (height_deg / @height)) : @bounding_box.bottom.to_f
         [lat, lon]
       else
         avg_lat = pins.sum { |p| p.latitude.to_f } / pins.size
@@ -65,9 +65,8 @@ class AnnouncementsMap
     end
 
     def calc_col_index(pin)
-      if pin.longitude < @bounding_box.left || pin.longitude > @bounding_box.right
-        raise ArgumentError, "Longitude #{pin.longitude.to_f} is out of bounding box (left: #{@bounding_box.left.to_f}, right: #{@bounding_box.right.to_f})"
-      end
+      raise ArgumentError, "Longitude #{pin.longitude.to_f} is out of bounding box (left: #{@bounding_box.left.to_f}, right: #{@bounding_box.right.to_f})" if pin.longitude < @bounding_box.left || pin.longitude > @bounding_box.right
+
       width_deg = @bounding_box.width.to_f
       return 0 if width_deg <= 0
 
@@ -76,9 +75,8 @@ class AnnouncementsMap
     end
 
     def calc_row_index(pin)
-      if pin.latitude < @bounding_box.bottom || pin.latitude > @bounding_box.top
-        raise ArgumentError, "Latitude #{pin.latitude.to_f} is out of bounding box (bottom: #{@bounding_box.bottom.to_f}, top: #{@bounding_box.top.to_f})"
-      end
+      raise ArgumentError, "Latitude #{pin.latitude.to_f} is out of bounding box (bottom: #{@bounding_box.bottom.to_f}, top: #{@bounding_box.top.to_f})" if pin.latitude < @bounding_box.bottom || pin.latitude > @bounding_box.top
+
       height_deg = @bounding_box.height.to_f
       return 0 if height_deg <= 0
 
