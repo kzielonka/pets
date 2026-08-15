@@ -52,11 +52,11 @@ class AnnouncementsMap
     attr_reader :top, :right, :bottom, :left
 
     def width
-      @right - @left
+      @right.to_f - @left.to_f
     end
 
     def height
-      @top - @bottom
+      @top.to_f - @bottom.to_f
     end
 
     def width_in_km

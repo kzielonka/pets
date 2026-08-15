@@ -12,24 +12,40 @@ The test `test_search_for_pins_in_groups` in [announcements_map_test.rb](file://
 
 ---
 
-## 2. Technical Design: Hybrid Grid + Greedy Radius Clustering
-To balance zoom-dependent clustering and O(1) viewport performance, we designed a hybrid approach:
+## 2. Technical Design: Grid & Greedy Clustering (Coordinate-based)
+To keep the grid simple and encapsulated, we use a coordinate-based interface on the `Grid` class:
 
-### Phase 1: Grid Binning (Viewport Capping)
-1. Split the viewport bounding box `(top, right, bottom, left)` into an $M \times M$ grid (e.g. $20 \times 20 = 400$ cells).
-2. Assign each raw pin to a grid cell.
-3. For each active cell, compute:
-   * **Weight**: Total count of pins inside that cell.
-   * **Centroid**: The average latitude and longitude of the pins in the cell.
-4. This reduces $N$ pins to a maximum of 400 cell-nodes, capping execution time.
+1. **`Grid`**: Maps raw coordinates to `[row, col]` cells within a bounding box. It holds the pins in memory and provides the following interface to `SearchAlg`:
+   * `width` / `height` ➔ Accessors for grid dimensions.
+   * `number_of_pins_in(row, col)` ➔ Returns the pin count (weight) in that cell.
+   * `centroid_of(row, col)` ➔ Returns the average `[latitude_float, longitude_float]` of pins in that cell.
+   * `pins_in(row, col)` ➔ Returns the raw `Pin` objects in that cell.
+2. **`SearchAlg`**: Orchestrates the greedy clustering algorithm. It queries `Grid` using cell coordinates `[row, col]` to perform distance calculation and centroid merging.
 
-### Phase 2: Greedy Radius Clustering on Grid Centroids
-1. Calculate a dynamic search radius $D$ as a percentage of the map dimensions (e.g., $D = (\text{top} - \text{bottom}) \times 0.08$). This makes the clustering **zoom-dependent** without needing a zoom-level variable.
-2. Run a greedy clustering pass on the cell-nodes:
-   * Select the unassigned cell-node with the highest weight.
-   * Find all other unassigned cell-nodes within distance $D$ (calculated using the [HaversineDistance](file:///Users/krzysztofzielonka/Projects/pets/modules/announcements_map/lib/announcements_map/haversine_distance.rb) helper).
-   * Merge them, sum their weights, and compute the combined centroid.
-3. Output the results:
+```mermaid
+graph TD
+    Pins[Raw Pins] -->|add_pin| Grid[Grid]
+    Grid -->|x/y iteration| Coords[Array of non-empty row, col coordinates]
+    Coords -->|Query grid for weight/centroid/pins| SearchAlg[SearchAlg Clustering Pass]
+    SearchAlg -->|Output| MapPins[SinglePin / GroupPin]
+```
+
+### Phase 1: Grid Binning (`Grid`)
+1. **Grid Partitioning**: Split the viewport bounding box `(top, right, bottom, left)` into an $M \times M$ grid.
+2. **Cell Mapping**: Assign each pin to a cell using boundary-clamped fraction mapping:
+   * `row = [((lat - bottom) / height * M).to_i, M - 1].min`
+   * `col = [((lon - left) / width * M).to_i, M - 1].min`
+3. **Information Access**: Expose `number_of_pins(x, y)`, `centroid_of(x, y)`, and `pins_in(x, y)`.
+
+### Phase 2: Greedy Radius Clustering (`SearchAlg`)
+1. **Dynamic Radius**: Compute a dynamic search radius $D = (\text{top} - \text{bottom}) \times 0.08$.
+2. **Greedy Clustering Loop**: Iterate `(1..width)` and `(1..height)` to gather all non-empty cell coordinates into an `unassigned_cells` list:
+   * Pick the cell `center_cell` with the highest `grid.number_of_pins(row, col)`.
+   * Find all other unassigned cells within distance $D$ of `center_cell`'s centroid.
+   * Merge them: calculate a new combined centroid (using weighted average coordinates) and total weight.
+   * Remove them from the `unassigned_cells` list.
+   * Repeat until `unassigned_cells` is empty.
+3. **Output Generation**:
    * Clusters with weight = 1 ➔ Return `SearchResults::SinglePin`.
    * Clusters with weight > 1 ➔ Return `SearchResults::GroupPin`.
 
