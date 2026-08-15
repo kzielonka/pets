@@ -113,5 +113,17 @@ class AnnouncementsMap
 
       assert_equal 1, grid.number_of_pins(2, 2)
     end
+
+    def test_add_duplicate_pin_id_raises_error
+      bb = BoundingBoxBuilder.empty.top(10).right(20).bottom(0).left(0).build
+      grid = Grid.new(20, 10, bb)
+
+      grid.add_pin(Pin.parse("id-1", 1.0, 1.0))
+      
+      error = assert_raises(ArgumentError) do
+        grid.add_pin(Pin.parse("id-1", 2.0, 2.0))
+      end
+      assert_match(/Pin with ID 'id-1' has already been added/i, error.message)
+    end
   end
 end

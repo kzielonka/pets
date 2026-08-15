@@ -1,3 +1,5 @@
+require 'set'
+
 class AnnouncementsMap
   class Grid
     def initialize(width, height, bounding_box)
@@ -6,14 +8,20 @@ class AnnouncementsMap
       @bounding_box = Types::BoundingBox(bounding_box)
       # Outer array is width (columns / X), inner array is height (rows / Y)
       @grid = Array.new(@width) { Array.new(@height) { [] } }
+      @added_ids = Set.new
     end
 
     attr_reader :width, :height
 
     def add_pin(pin)
+      if @added_ids.include?(pin.id)
+        raise ArgumentError, "Pin with ID '#{pin.id}' has already been added to the grid"
+      end
+
       col = calc_col_index(pin)
       row = calc_row_index(pin)
       @grid[col][row].push(pin)
+      @added_ids.add(pin.id)
     end
 
     def number_of_pins(x, y)
