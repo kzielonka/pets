@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activerecord', '>= 7'
   s.add_development_dependency 'minitest', '>= 5'
+  s.add_development_dependency 'minitest-reporters', '>= 1.7'
   s.add_development_dependency 'rake', '>= 13'
   s.metadata['rubygems_mfa_required'] = 'true'
 end

@@ -1,8 +1,37 @@
 # frozen_string_literal: true
 
 require 'minitest/test_task'
-require 'minitest/pride'
 
 Minitest::TestTask.create
+
+namespace :test do
+  desc 'Run tests continuously on file changes (watch mode)'
+  task :watch do
+    puts 'Watching for file changes in lib/ and test/... (Press Ctrl+C to stop)'
+    last_mtimes = {}
+
+    loop do
+      files = Dir.glob('{lib,test}/**/*.rb')
+      changed = false
+
+      files.each do |file|
+        mtime = File.mtime(file)
+        if last_mtimes[file] != mtime
+          last_mtimes[file] = mtime
+          changed = true
+        end
+      end
+
+      if changed
+        puts "\n" + ('=' * 60)
+        puts "File change detected. Running tests at #{Time.now.strftime('%H:%M:%S')}..."
+        puts ('=' * 60)
+        system('bundle exec rake test')
+      end
+
+      sleep 0.5
+    end
+  end
+end
 
 task default: :test
