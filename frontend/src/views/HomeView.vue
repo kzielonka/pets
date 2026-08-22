@@ -1,39 +1,52 @@
 <script setup lang="ts">
 import AnnouncementsList from '@/components/AnnouncementsList.vue';
 import MainMap from '@/components/MainMap.vue';
-import { ref, inject, watch } from 'vue';
-import type { SearchAnnouncementsApi } from '@/components/ApiProvider';
-
-export interface Api {
-  searchAnnouncements: SearchAnnouncementsApi;
-}
-
-const mapCenter= ref<{ x: number, y: number }>({ x: 0, y: 0 });
-
-const handlePositionChanged = (p: any) => {
-  mapCenter.value = { x: p.centerX, y: p.centerY };
-}
+import { ref, inject } from 'vue';
+import type { Api, AnnouncementSearchItem, MapPin } from '@/components/ApiProvider';
 
 const api = inject<Api>('api');
 
-watch(mapCenter, async (newPosition: { x: number, y: number }) => {
-  if (!api) {
-    throw new Error('api has not been set');
+const pins = ref<MapPin[]>([]);
+const announcements = ref<AnnouncementSearchItem[]>([]);
+
+const handlePositionChanged = async (p: {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+  centerX: number;
+  centerY: number;
+}) => {
+  if (!api) return;
+
+  try {
+    const [fetchedPins, fetchedAnnouncements] = await Promise.all([
+      api.searchMapAnnouncements({
+        top: p.top,
+        right: p.right,
+        bottom: p.bottom,
+        left: p.left,
+      }),
+      api.searchAnnouncements(p.centerY, p.centerX),
+    ]);
+
+    pins.value = fetchedPins;
+    announcements.value = fetchedAnnouncements;
+  } catch (error) {
+    console.error('Failed to fetch announcements/pins:', error);
   }
-  const announcements = await api.searchAnnouncements(newPosition.y, newPosition.x);
-  console.log(announcements);
-});
+};
 </script>
 
 <template>
   <main>
     <div class="announcements">
       <div class="wrapper">
-        <AnnouncementsList />
+        <AnnouncementsList :items="announcements" />
       </div>
     </div>
     <div class="map">
-      <MainMap @positionChanged="handlePositionChanged"/>
+      <MainMap :pins="pins" @positionChanged="handlePositionChanged"/>
     </div>
   </main>
 </template>

@@ -4,27 +4,35 @@ import { ref, inject, onMounted } from 'vue';
 import AnnouncementItem from '@/components/AnnouncementItem.vue';
 import type { AnnouncementSearchItem, SearchAnnouncementsApi } from './ApiProvider';
 
+const props = defineProps<{
+  items?: AnnouncementSearchItem[];
+}>();
+
 export interface Api {
   searchAnnouncements: SearchAnnouncementsApi;
 }
 
 const api = inject<Api>('api');
-
-const items = ref<AnnouncementSearchItem[]>([]);
+const internalItems = ref<AnnouncementSearchItem[]>([]);
 
 onMounted(async () => {
-  if (!api) {
-    throw new Error('api has not bee set');
+  if (props.items && props.items.length > 0) {
+    return;
   }
-  const announcements = await api.searchAnnouncements(0, 0);
-  items.value = announcements;
-})
-
+  if (api) {
+    try {
+      const announcements = await api.searchAnnouncements(52.23, 21.01);
+      internalItems.value = announcements;
+    } catch {
+      // Ignored
+    }
+  }
+});
 </script>
 
 <template>
   <div class="announcements">
-    <div v-for="item in items" :key="item.id">
+    <div v-for="item in (props.items ?? internalItems)" :key="item.id">
       <AnnouncementItem :name="item.title" :description="item.content" />
     </div>
   </div>

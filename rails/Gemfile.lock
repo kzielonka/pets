@@ -1,4 +1,10 @@
 PATH
+  remote: ../modules/announcements_map
+  specs:
+    announcements_map (0.1.0)
+      activerecord (>= 7)
+
+PATH
   remote: ../modules/announcements_search
   specs:
     announcements_search (0.1.0)
@@ -340,6 +346,7 @@ PLATFORMS
 
 DEPENDENCIES
   announcements!
+  announcements_map!
   announcements_search!
   auth!
   bootsnap

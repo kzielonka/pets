@@ -60,6 +60,35 @@ export type UnpublishAnnouncementApi = (id: string) => Promise<void>;
 
 export type SearchAnnouncementsApi = (latitude: number, longitude: number) => Promise<AnnouncementSearchItem[]>;
 
+export interface SingleMapPin {
+  type: 'single_pin';
+  announcementId: string;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface GroupMapPin {
+  type: 'group_pin';
+  numberOfPins: number;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export type MapPin = SingleMapPin | GroupMapPin;
+
+export interface MapBoundingBox {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
+export type SearchMapAnnouncementsApi = (boundingBox: MapBoundingBox) => Promise<MapPin[]>;
+
 export interface Api {
   callSignIn: SignInApi;
   callSignUp: SignUpApi;
@@ -70,4 +99,5 @@ export interface Api {
   publishAnnouncement: PublishAnnouncementApi;
   unpublishAnnouncement: UnpublishAnnouncementApi;
   searchAnnouncements: SearchAnnouncementsApi;
+  searchMapAnnouncements: SearchMapAnnouncementsApi;
 };

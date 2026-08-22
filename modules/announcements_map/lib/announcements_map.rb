@@ -15,8 +15,8 @@ require 'announcements_map/haversine_distance'
 # It handles storing pin coordinates and performing spatial bounding box searches (e.g. for map rendering/clustering).
 class AnnouncementsMap
   # Initializes the AnnouncementsMap facade.
-  def initialize
-    @repo = Repos.build(:in_memory)
+  def initialize(repo = :in_memory)
+    @repo = Repos.build(repo)
   end
 
   # Searches for map pins within a geographic bounding box.
@@ -47,4 +47,59 @@ class AnnouncementsMap
     pin = Pin.parse(announcement_id, latitude, longitude)
     @repo.save(pin)
   end
+
+  # Removes an announcement pin from the map repo.
+  #
+  # @param announcement_id [String] the announcement identifier.
+  # @return [void]
+  def remove_pin(announcement_id)
+    @repo.delete(announcement_id)
+  end
+
+  # Subscribes this read-model to the event bus, registering handlers for publish/unpublish events.
+  #
+  # @param events_bus [EventsBus] the system-wide event bus to subscribe to.
+  # @return [void]
+  def subscribe(events_bus)
+    events_bus.register_subscriber(AnnouncementPublishedSubscriber.new(@repo))
+    events_bus.register_subscriber(AnnouncementUnpublishedSubscriber.new(@repo))
+  end
+
+  # Resets/wipes the read model repository. Typically used between tests.
+  #
+  # @return [void]
+  def reset!
+    @repo.reset!
+  end
+
+  class AnnouncementPublishedSubscriber
+    def initialize(repo)
+      @repo = repo
+    end
+
+    def handle(event)
+      return unless event.type == 'AnnouncementPublished'
+
+      id = event.payload['id']
+      lat = event.payload['location']['latitude']
+      lon = event.payload['location']['longitude']
+      pin = Pin.parse(id, lat, lon)
+      @repo.save(pin)
+    end
+  end
+  private_constant :AnnouncementPublishedSubscriber
+
+  class AnnouncementUnpublishedSubscriber
+    def initialize(repo)
+      @repo = repo
+    end
+
+    def handle(event)
+      return unless event.type == 'AnnouncementUnpublished'
+
+      id = event.payload['id']
+      @repo.delete(id)
+    end
+  end
+  private_constant :AnnouncementUnpublishedSubscriber
 end

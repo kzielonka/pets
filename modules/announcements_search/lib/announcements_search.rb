@@ -8,8 +8,8 @@ require 'announcements_search/repos'
 # It acts as a read model, subscribing to publication events and allowing spatial/location-based searches.
 class AnnouncementsSearch
   # Initializes the AnnouncementsSearch facade.
-  def initialize
-    @repo = Repos.build(:in_memory)
+  def initialize(repo = :in_memory)
+    @repo = Repos.build(repo)
   end
 
   # Searches for published announcements, ordered by distance to the specified location.

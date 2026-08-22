@@ -88,6 +88,16 @@ docker compose exec web rails db:migrate
 docker compose exec web rails db:migrate RAILS_ENV=test
 ```
 
+### 3. Seed Demo Data (Optional for Browser Testing)
+Seed a set of 11 realistic pet announcements across Warsaw, London, New York, and Paris, along with a demo user:
+```bash
+docker compose exec web bin/rails fake_data:seed
+```
+* **Demo user:** `demo@example.com`
+* **Demo password:** `Password123!`
+* **Frontend Web UI:** `http://localhost:5173`
+* **Rails API:** `http://localhost:3000`
+
 ---
 
 ## Test Suites

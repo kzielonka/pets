@@ -39,6 +39,56 @@ class AnnouncementsMapTests < Minitest::Test
     assert_has_group_pin(result, 4, 9.85, 9.8)
   end
 
+  def test_remove_pin
+    @announcements = AnnouncementsMap.new
+    @announcements.add_pin('id-1', 10, 10)
+    @announcements.remove_pin('id-1')
+
+    assert_empty @announcements.search(10, 10, -10, -10)
+  end
+
+  def test_reset!
+    @announcements = AnnouncementsMap.new
+    @announcements.add_pin('id-1', 10, 10)
+    @announcements.reset!
+
+    assert_empty @announcements.search(10, 10, -10, -10)
+  end
+
+  def test_subscribes_to_announcement_published_and_unpublished_events
+    events_bus = Struct.new(:subscribers) do
+      def initialize
+        @subscribers = []
+      end
+
+      def register_subscriber(sub)
+        @subscribers << sub
+      end
+
+      def publish(event)
+        @subscribers.each { |s| s.handle(event) }
+      end
+    end.new
+
+    @announcements = AnnouncementsMap.new
+    @announcements.subscribe(events_bus)
+
+    published_event = Struct.new(:type, :payload).new(
+      'AnnouncementPublished',
+      { 'id' => 'ann-1', 'location' => { 'latitude' => 5.0, 'longitude' => 6.0 } }
+    )
+    events_bus.publish(published_event)
+
+    results = @announcements.search(10, 10, 0, 0)
+    assert_equal 1, results.size
+    assert_has_single_pin(results, 'ann-1', 5.0, 6.0)
+
+    unpublished_event = Struct.new(:type, :payload).new('AnnouncementUnpublished', { 'id' => 'ann-1' })
+    events_bus.publish(unpublished_event)
+
+    assert_empty @announcements.search(10, 10, 0, 0)
+  end
+
   private
 
   def assert_has_single_pin(pins, announcement_id, latitude, longitude)

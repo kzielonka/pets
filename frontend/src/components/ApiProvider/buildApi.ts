@@ -1,5 +1,5 @@
 import { isArray, isObject, isString } from 'lodash';
-import type { Api, AnnouncementPatchData, CurrentUserAnnouncement, CurrentUserAnnouncementDetails, SignInApiResult, AnnouncementSearchItem } from './Api';
+import type { Api, AnnouncementPatchData, CurrentUserAnnouncement, CurrentUserAnnouncementDetails, SignInApiResult, AnnouncementSearchItem, MapPin, MapBoundingBox } from './Api';
 
 const errorType = (parsedBody: unknown): string => {
   if (!isObject(parsedBody)) {
@@ -247,6 +247,49 @@ const buildApi = (isAccessTokenSet: () => boolean, getAccessToken: () => string)
     return parseSearchAnnouncementsJson(await response.json());
   }
 
+  const parseMapPinsJson = (json: unknown): MapPin[] => {
+    if (!isObject(json)) {
+      throw new Error('object expected');
+    }
+    if (!('pins' in json)) {
+      throw new Error('pins expected');
+    }
+    if (!isArray(json.pins)) {
+      throw new Error('pins should be an array');
+    }
+    return json.pins.map((pin: any): MapPin => {
+      if (pin.type === 'single_pin') {
+        return {
+          type: 'single_pin',
+          announcementId: String(pin.announcement_id),
+          location: normaliseLocation(pin.location),
+        };
+      }
+      return {
+        type: 'group_pin',
+        numberOfPins: Number(pin.number_of_pins),
+        location: normaliseLocation(pin.location),
+      };
+    });
+  };
+
+  const searchMapAnnouncements = async (boundingBox: MapBoundingBox): Promise<MapPin[]> => {
+    const params = new URLSearchParams({
+      top: String(boundingBox.top),
+      right: String(boundingBox.right),
+      bottom: String(boundingBox.bottom),
+      left: String(boundingBox.left),
+    });
+    const response = await fetch(`http://localhost:3000/announcements/map?${params.toString()}`, {
+      method: 'GET',
+      headers: extendHeadersWithAccessToken({}),
+    });
+    if (response.status !== 200) {
+      throw new Error('something went wrong');
+    }
+    return parseMapPinsJson(await response.json());
+  };
+
   const api: Api = {
     callSignIn,
     callSignUp,
@@ -257,6 +300,7 @@ const buildApi = (isAccessTokenSet: () => boolean, getAccessToken: () => string)
     publishAnnouncement,
     unpublishAnnouncement,
     searchAnnouncements,
+    searchMapAnnouncements,
   };
 
   return api;

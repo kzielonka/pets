@@ -51,6 +51,7 @@ gem 'pg'
 gem 'rack-cors', '~> 2.0'
 
 gem 'announcements', path: '../modules/announcements'
+gem 'announcements_map', path: '../modules/announcements_map'
 gem 'announcements_search', path: '../modules/announcements_search'
 gem 'auth', path: '../modules/auth'
 gem 'events_bus', path: '../modules/events_bus'
