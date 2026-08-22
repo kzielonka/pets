@@ -51,11 +51,14 @@ To preserve strict separation of concerns, the modules communicate and integrate
 Modules do not expose internal models or active record objects. Instead, they expose a single public entry point (a **Facade** class) which takes primitives/DTOs and returns simple data objects (usually Ruby `Struct`s).
 * Example: `Auth#sign_in` returns `SignInResult = Struct.new(:authenticated?, :access_token)`.
 
-### 2. Infrastructure Decoupling (Repositories)
+### 2. Infrastructure Decoupling (Repositories & Shared Contract Tests)
 Every module defines a `Repos` class that compiles either an in-memory repository (for testing) or an ActiveRecord repository (for production/development):
 * `InMemoryRepo`: Keeps data in a Ruby array/hash. Used automatically in test suites to keep them fast.
-* `ActiveRecordRepo`: Talks to the database.
+* `ActiveRecordRepo`: Talks to PostgreSQL database.
 * Configured during initialization: `Announcements.new(events_bus, :active_record)` or `Announcements.new(events_bus, :in_memory)`.
+
+#### Repository Contract Testing
+To guarantee that `InMemoryRepo` and `ActiveRecordRepo` never diverge in behavior, each module implements a **Shared Contract Test Suite** (e.g. `module ContractTests` / `module RepoContractTests` in `modules/*/test/*/repos_test.rb`). The exact same test suite is included and executed against both the in-memory adapter and the ActiveRecord adapter with real database queries.
 
 ### 3. Event-Driven Communication
 Instead of modules calling each other directly, they publish events to the `EventsBus`. Decoupled submodules register as subscribers to update their own models.
