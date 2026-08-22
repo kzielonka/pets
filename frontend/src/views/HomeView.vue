@@ -39,45 +39,40 @@ const handlePositionChanged = async (p: {
 </script>
 
 <template>
-  <main>
-    <div class="announcements">
-      <div class="wrapper">
-        <AnnouncementsList :items="announcements" />
-      </div>
-    </div>
-    <div class="map">
+  <div class="home-split-view">
+    <aside class="sidebar-panel">
+      <AnnouncementsList :items="announcements" />
+    </aside>
+    <section class="map-panel">
       <MainMap :pins="pins" @positionChanged="handlePositionChanged"/>
-    </div>
-  </main>
+    </section>
+  </div>
 </template>
 
 <style scoped>
-.wrapper {
-  overflow: scroll;
-}
-
-main {
-  display: grid;
+.home-split-view {
+  display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
-  gap: 20px;
-  grid-template-areas: "list map";
-  grid-template-rows: 1fr;
-  grid-template-columns: minmax(300px, 400px) 1fr;
+  overflow: hidden;
 }
 
-.announcements {
-  grid-area: list;
+.sidebar-panel {
+  width: 420px;
+  min-width: 340px;
+  max-width: 480px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 5;
 }
 
-.map {
-  grid-area: map;
-}
-
-.wrapper {
-  position: absolute;
-  top: 170px;
-  bottom: 70px;
-  overflow: scroll;
+.map-panel {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 </style>

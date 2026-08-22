@@ -12,6 +12,7 @@ import { Style, Icon, Circle as CircleStyle, Fill, Stroke, Text } from 'ol/style
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { getBottomLeft, getTopRight } from 'ol/extent';
 import type MapEvent from 'ol/MapEvent';
+import type { MapBrowserEvent } from 'ol';
 import type { MapPin } from './ApiProvider';
 
 const props = defineProps<{
@@ -86,12 +87,12 @@ function renderPins(pinsList: MapPin[]) {
         new Style({
           image: new CircleStyle({
             radius: 20,
-            fill: new Fill({ color: '#ff5722' }),
+            fill: new Fill({ color: '#4f46e5' }),
             stroke: new Stroke({ color: '#ffffff', width: 3 }),
           }),
           text: new Text({
             text: String(pinItem.numberOfPins),
-            font: 'bold 13px sans-serif',
+            font: 'bold 12px sans-serif',
             fill: new Fill({ color: '#ffffff' }),
             textAlign: 'center',
             textBaseline: 'middle',
@@ -138,6 +139,21 @@ onMounted(() => {
 
   map.value.on('moveend', onMoveEnd);
 
+  map.value.on('click', (evt: MapBrowserEvent<UIEvent>) => {
+    if (!map.value || !view.value) return;
+    map.value.forEachFeatureAtPixel(evt.pixel, (feature) => {
+      const geom = feature.getGeometry();
+      const currentZoom = view.value?.getZoom() || 6;
+      if (geom && view.value) {
+        view.value.animate({
+          center: (geom as Point).getCoordinates(),
+          zoom: currentZoom + 2,
+          duration: 300,
+        });
+      }
+    });
+  });
+
   if (props.pins && props.pins.length > 0) {
     renderPins(props.pins);
   }
@@ -145,10 +161,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="width: 100%; height: 100%;">
-    <div :id="id" style="min-height: 500px; height: 100%; width: 100%; min-width: 500px;"/>
+  <div class="map-wrapper">
+    <div :id="id" class="map-canvas"/>
   </div>
 </template>
 
 <style scoped>
+.map-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-canvas {
+  width: 100%;
+  height: 100%;
+}
 </style>
