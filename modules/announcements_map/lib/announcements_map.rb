@@ -4,6 +4,7 @@ require 'announcements_map/latitude'
 require 'announcements_map/longitude'
 require 'announcements_map/pin'
 require 'announcements_map/grid'
+require 'announcements_map/clustering_grid'
 require 'announcements_map/types'
 require 'announcements_map/bounding_box'
 require 'announcements_map/repos'
@@ -28,7 +29,9 @@ class AnnouncementsMap
   def search(top, right, bottom, left)
     bb = Types.BoundingBoxBuilder.top(top).right(right).bottom(bottom).left(left).build
     pins = @repo.search(bb)
-    pins.map { |pin| SearchResults::SinglePin.new(pin.id, pin.latitude, pin.longitude) }
+    cg = ClusteringGrid.new(bb)
+    pins.each { |pin| cg.add_pin(pin) }
+    cg.to_a
   end
 
   # Adds a coordinates pin for an announcement to the map repo.

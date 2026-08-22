@@ -102,19 +102,19 @@ docker compose exec web rails test
 You can run tests for each individual domain Gem in isolation:
 ```bash
 # Auth module tests
-docker compose exec web /bin/bash -c "cd auth; rake test"
+docker compose exec web /bin/bash -c "cd ../modules/auth; rake test"
 
 # Announcements module tests
-docker compose exec web /bin/bash -c "cd announcements; rake test"
+docker compose exec web /bin/bash -c "cd ../modules/announcements; rake test"
 
 # Announcements Search module tests
-docker compose exec web /bin/bash -c "cd announcements_search; rake test"
+docker compose exec web /bin/bash -c "cd ../modules/announcements_search; rake test"
 
 # Announcements Map module tests
-docker compose exec web /bin/bash -c "cd announcements_map; rake test"
+docker compose exec web /bin/bash -c "cd ../modules/announcements_map; rake test"
 
 # Events Bus tests
-docker compose exec web /bin/bash -c "cd events_bus; rake test"
+docker compose exec web /bin/bash -c "cd ../modules/events_bus; rake test"
 ```
 
 ### Running Frontend Tests

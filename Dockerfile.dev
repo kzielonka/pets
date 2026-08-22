@@ -23,6 +23,7 @@ RUN cd ./rails && bundle install && \
 RUN cd ./modules/auth && bundle install
 RUN cd ./modules/announcements && bundle install
 RUN cd ./modules/announcements_search && bundle install
+RUN cd ./modules/announcements_map && bundle install
 RUN cd ./modules/events_bus && bundle install
 
 FROM base AS workspace
