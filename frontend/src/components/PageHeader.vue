@@ -43,7 +43,7 @@ const signOut = (e: Event) => {
 
       <template v-if="currentUser.signedIn">
         <RouterLink to="/my-announcements" class="nav-link" active-class="active">
-          My Announcements
+          My Reports
         </RouterLink>
         <button @click="signOut" class="btn btn-secondary">Sign Out</button>
       </template>

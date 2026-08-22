@@ -34,7 +34,7 @@ onMounted(async () => {
 <template>
   <div class="announcements-container">
     <div class="list-header">
-      <h2 class="list-title">Nearby Announcements</h2>
+      <h2 class="list-title">Nearby Reports</h2>
       <span class="count-badge">{{ displayItems.length }} reported</span>
     </div>
 
@@ -49,8 +49,8 @@ onMounted(async () => {
 
     <div v-else class="empty-state">
       <div class="empty-icon">🔍</div>
-      <h3 class="empty-title">No pets in this area</h3>
-      <p class="empty-subtitle">Move or zoom out the map to view announcements in other regions.</p>
+      <h3 class="empty-title">No reports in this area</h3>
+      <p class="empty-subtitle">Move or zoom out the map to view reports in other regions.</p>
     </div>
   </div>
 </template>

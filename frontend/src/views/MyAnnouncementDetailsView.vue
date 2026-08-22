@@ -10,7 +10,7 @@ console.log(route.params);
 
 <template>
   <main>
-    My announcement details view
+    <h2>Pet Report Details</h2>
     <AnnouncementEdit :id="announcementId" />
   </main>
 </template>

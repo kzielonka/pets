@@ -34,7 +34,7 @@ const addNew = async () => {
 <template>
   <div>
     <div v-if="loading" data-testid="loading">Loading...</div>
-    Announcements
+    <h2>My Pet Reports</h2>
     <table>
       <tr>
         <td>Title</td>
@@ -56,7 +56,7 @@ const addNew = async () => {
     <div>
     </div>
   </div>
-  <button @click="addNew" data-testid="add-new">Add new</button>
+  <button @click="addNew" data-testid="add-new">+ New Report</button>
 </template>
 
 <style scoped>

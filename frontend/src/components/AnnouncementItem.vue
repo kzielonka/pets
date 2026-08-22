@@ -30,7 +30,7 @@ const isFound = computed(() => {
       <h3 class="pet-name">{{ props.name }}</h3>
       <p class="pet-description">{{ props.description }}</p>
       <div class="card-meta">
-        <span class="meta-location">📍 Active on map</span>
+        <span class="meta-location">📍 Active report</span>
       </div>
     </div>
   </article>

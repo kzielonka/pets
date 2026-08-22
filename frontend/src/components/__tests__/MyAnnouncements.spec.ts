@@ -37,7 +37,7 @@ describe('MyAnnouncements', () => {
 
   it('renders properly', () => {
     const wrapper = mountComponent();
-    expect(wrapper.text()).toContain('Announcements');
+    expect(wrapper.text()).toContain('Reports');
   });
 
   it('shows loading while request to fetch announcements is in progress', async () => {
