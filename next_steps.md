@@ -31,7 +31,8 @@ Full-stack integration for map pin clustering and the bounding box API is comple
 
 ---
 
-## 3. Potential Next Steps
-- **Map Interaction**: Clicking a pin or cluster to highlight/filter the announcement list or zoom into the cluster extent.
-- **Reverse Geocoding / Address Search**: Adding an address lookup input to center the map on a specific city or street.
-- **Image Uploads**: Supporting pet photos via Active Storage on announcement creation.
+## 3. Future Roadmap & Upcoming Modules
+See [`PLAN.md`](file:///Users/krzysztofzielonka/Projects/pets/PLAN.md) for full architectural specifications:
+1. **`modules/media`**: Pre-signed GCS direct uploads with ephemeral staging (v1), responsive variants via `ruby-vips` (v2), self-healing reconciliation cron (v3), and client pre-compression (v4).
+2. **`modules/email`**: Frictionless email verification link publishing and instant match alerts.
+3. **`modules/matching`**: AI visual similarity matching combining spatial queries and PostgreSQL `pgvector` embeddings.
